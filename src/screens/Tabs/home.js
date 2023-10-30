@@ -31,9 +31,9 @@ function HomeScreen({ navigation }) {
           <View style={styles.back}>
             <Image source={require("../../assets/img/logo.png")} />
           </View>
-          <Pressable>
+          {/* <Pressable>
             <ProfileTab color="#fff" />
-          </Pressable>
+          </Pressable> */}
         </View>
 
         <View style={styles.bottonHeader}>
@@ -42,7 +42,7 @@ function HomeScreen({ navigation }) {
             style={{
               color: "#fff",
               fontSize: 32,
-              fontFamily: "montserrat",
+              fontFamily: "monsterat",
               fontWeight: "700",
             }}
           >
@@ -52,7 +52,7 @@ function HomeScreen({ navigation }) {
             style={{
               color: "#B44D2D",
               fontSize: 32,
-              fontFamily: "montserrat",
+              fontFamily: "monsterat",
               fontWeight: "700",
             }}
           >
@@ -111,7 +111,7 @@ function HomeScreen({ navigation }) {
               fontWeight: 700,
               paddingHorizontal: 30,
               textAlign: "center",
-              fontFamily: "montserrat",
+              fontFamily: "monsterat",
               marginBottom: 16,
               textTransform: "uppercase",
             }}
@@ -131,7 +131,7 @@ function HomeScreen({ navigation }) {
           <Text
             style={{
               fontSize: 16,
-              fontFamily: "montserrat",
+              fontFamily: "monsterat",
               marginTop: 16,
               color: "#24262B",
               textTransform: "uppercase",
@@ -153,7 +153,7 @@ function HomeScreen({ navigation }) {
           </Text>
           <OutlinedButton
             style={{ width: "50%" }}
-            buttonTextStyle={{ color: "#3A3D43", fontFamily: "montserrat" }}
+            buttonTextStyle={{ color: "#3A3D43", fontFamily: "monsterat" }}
           >
             {t("learnMore")}
           </OutlinedButton>

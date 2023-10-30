@@ -12,13 +12,14 @@ import colors from "../../constants/colors";
 import ProfileTab from "../../components/Icons/ProfileTab";
 import Facebook from "../../components/Icons/Facebook";
 import Instagram from "../../components/Icons/Instagram";
+import OutlinedButton from "../../components/shared/OutlinedButton";
 
 import { t } from "../../translation";
 import { Box } from "native-base";
 
 function HomeScreen({ navigation }) {
   return (
-    <Container>
+    <Container style={{ backgroundColor: "#fff" }}>
       <ScrollView showsVerticalScrollIndicator="false">
         <View
           style={[
@@ -94,6 +95,69 @@ function HomeScreen({ navigation }) {
             </View>
           </View>
         </View>
+
+        <View
+          style={{
+            paddingTop: 50,
+            marginHorizontal: 45,
+            alignItems: "center",
+            width: 300,
+            marginBottom: 24,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: 700,
+              paddingHorizontal: 30,
+              textAlign: "center",
+              fontFamily: "montserrat",
+              marginBottom: 16,
+              textTransform: "uppercase",
+            }}
+          >
+            {t("whatIsWinePasport")}
+          </Text>
+
+          <Box style={styles.bottomLine}>
+            <Box style={styles.buttomLineMidle} />
+          </Box>
+        </View>
+
+        <View style={styles.description}>
+          <Text style={{ fontSize: 16, color: "#B44D2D" }}>
+            {t("exclusiveOffers")}
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: "montserrat",
+              marginTop: 16,
+              color: "#24262B",
+              textTransform: "uppercase",
+              marginBottom: 14,
+              color: "#24262B",
+            }}
+          >
+            {t("wineTasting")}
+          </Text>
+          <Text
+            style={{
+              letterSpacing: 0.7,
+              lineHeight: 30,
+              color: "#3A3D43",
+              marginBottom: 30,
+            }}
+          >
+            {t("HomePageText")}
+          </Text>
+          <OutlinedButton
+            style={{ width: "50%" }}
+            buttonTextStyle={{ color: "#3A3D43", fontFamily: "montserrat" }}
+          >
+            {t("learnMore")}
+          </OutlinedButton>
+        </View>
       </ScrollView>
     </Container>
   );
@@ -123,11 +187,32 @@ const styles = StyleSheet.create({
   },
   line: {
     transform: [{ rotate: "90deg" }],
-    // marginBottom: 16,
     width: 1,
     height: 107,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.54)",
+  },
+  bottomLine: {
+    width: 282,
+    height: 1,
+    borderWidth: 1,
+    borderColor: "#B2B2B2",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttomLineMidle: {
+    width: 162,
+    height: 1.5,
+    borderWidth: 1,
+    borderColor: "#DE6D4A",
+  },
+  description: {
+    backgroundColor: colors.lightGray,
+    paddingHorizontal: 24,
+    paddingTop: 24,
+    paddingBottom: 66,
+    marginHorizontal: 16,
+    marginBottom: 50,
   },
   header: {
     display: "flex",

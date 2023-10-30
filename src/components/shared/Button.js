@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primary,
     paddingVertical: 20,
-    borderRadius: 6,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: colors.primary,
     width: "100%",
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     alignSelf: "center",
-    fontFamily: "main",
-    fontSize: 14,
+    fontFamily: "Montserrat",
+    fontSize: 16,
     lineHeight: 17,
   },
   textOutline: {

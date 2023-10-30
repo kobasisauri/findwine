@@ -90,7 +90,6 @@ function NavigationHeder({ title, textStyle, components, headerStyle }) {
       <Pressable onPress={() => navigation.goBack()} style={styles.back}>
         <ArrowLeft />
       </Pressable>
-
       <Text style={text}>{title}</Text>
     </Box>
   );

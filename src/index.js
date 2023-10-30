@@ -9,8 +9,8 @@ import Main from "./navigation/Main";
 export default function App() {
   const { isSignedIn } = useSelector((state) => state.authReducer);
   const [loaded] = useFonts({
-    main: require("./assets/fonts/MainFont.ttf"),
-    markGeo: require("./assets/fonts/MarkGEO-Regular.ttf"),
+    main: require("./assets/fonts/Lato/Lato-Regular.ttf"),
+    monsterat: require("./assets/fonts/Montserrat/Montserrat-Regular.ttf"),
   });
 
   if (!loaded) {

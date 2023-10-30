@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     height: 48,
     fontWeight: "bold",
     color: colors.gray,
-    fontFamily: "markGeo",
+    fontFamily: "monsterat",
     paddingLeft: 15,
   },
   errorText: {

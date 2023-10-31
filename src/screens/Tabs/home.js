@@ -29,7 +29,10 @@ function HomeScreen({ navigation }) {
           ]}
         >
           <View style={styles.back}>
-            <Image source={require("../../assets/img/logo.png")} />
+            <Image
+              source={require("../../assets/img/logo.png")}
+              style={{ height: 41, width: 82 }}
+            />
           </View>
           {/* <Pressable>
             <ProfileTab color="#fff" />
@@ -68,7 +71,6 @@ function HomeScreen({ navigation }) {
           <Image
             style={{
               resizeMode: "cover",
-              width: "100%",
               height: 412,
             }}
             source={require("../../assets/img/homePic.png")}

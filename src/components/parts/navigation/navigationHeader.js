@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Box, Text } from "native-base";
 import { StyleSheet, Platform, Pressable } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../../../constants/colors";
 import { ArrowLeft } from "../../Icons";
 
@@ -55,28 +53,13 @@ const styles = StyleSheet.create({
   },
 });
 
-function NavigationHeder({ title, textStyle, components, headerStyle }) {
+function NavigationHeader({ title, textStyle, components, headerStyle }) {
   const navigation = useNavigation();
   const text = [styles.headerText];
-
-  const [favourites, setFavourites] = useState(0);
-  const cartProducts = 3;
 
   if (textStyle) {
     text.push(textStyle);
   }
-
-  useEffect(() => {
-    async function getStorage() {
-      const favourites = JSON.parse(await AsyncStorage.getItem("favourites"));
-
-      if (favourites) {
-        setFavourites(favourites.length);
-      }
-    }
-
-    getStorage();
-  }, [AsyncStorage.getItem("favourites")]);
 
   return (
     <Box
@@ -95,4 +78,4 @@ function NavigationHeder({ title, textStyle, components, headerStyle }) {
   );
 }
 
-export default NavigationHeder;
+export default NavigationHeader;

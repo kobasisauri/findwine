@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import Container from "../../components/shared/Container";
 import colors from "../../constants/colors";
-import ProfileTab from "../../components/Icons/ProfileTab";
 import Facebook from "../../components/Icons/Facebook";
 import Instagram from "../../components/Icons/Instagram";
 import OutlinedButton from "../../components/shared/OutlinedButton";
@@ -154,9 +153,11 @@ function HomeScreen({ navigation }) {
           >
             {t("HomePageText")}
           </Text>
+
           <OutlinedButton
             style={{ width: "50%" }}
             buttonTextStyle={{ color: "#3A3D43", fontFamily: "monsterat" }}
+            onPress={() => navigation.navigate("wine-passport")}
           >
             {t("learnMore")}
           </OutlinedButton>

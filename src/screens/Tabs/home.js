@@ -71,6 +71,7 @@ function HomeScreen({ navigation }) {
           <Image
             style={{
               resizeMode: "cover",
+              width: "100%",
               height: 412,
             }}
             source={require("../../assets/img/homePic.png")}

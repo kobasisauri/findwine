@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Image, View, StyleSheet, ScrollView } from "react-native";
 import { t } from "../translation";
 import NavigationHeader from "../components/parts/navigation/navigationHeader";
@@ -5,8 +6,13 @@ import Container from "../components/shared/Container";
 import Title from "../components/shared/Title";
 import { BrandPocket, Cup, Glass, Map } from "../components/Icons";
 import DescriptionCards from "../components/shared/DescriptionCards";
+import { getWinePassports } from "../services/winePassports";
 
 function WinePassport() {
+  useEffect(() => {
+    getWinePassports().then((res) => console.log(res));
+  }, []);
+
   return (
     <Container>
       <NavigationHeader title="Wine Passport" />

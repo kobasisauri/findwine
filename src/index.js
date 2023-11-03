@@ -10,7 +10,11 @@ export default function App() {
   const { isSignedIn } = useSelector((state) => state.authReducer);
   const [loaded] = useFonts({
     main: require("./assets/fonts/Lato/Lato-Regular.ttf"),
+    "main-bold": require("./assets/fonts/Lato/Lato-Bold.ttf"),
+
     monsterat: require("./assets/fonts/Montserrat/Montserrat-Regular.ttf"),
+    monseratBold: require("./assets/fonts/Montserrat/Montserrat-Bold.ttf"),
+    monseratMedium: require("./assets/fonts/Montserrat/Montserrat-Medium.ttf"),
   });
 
   if (!loaded) {

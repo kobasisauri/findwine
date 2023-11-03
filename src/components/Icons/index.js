@@ -9,3 +9,4 @@ export { default as Glass } from "./Glass";
 export { default as BrandPocket } from "./BrandPocket";
 export { default as Cup } from "./Cup";
 export { default as Map } from "./Map";
+export { default as Tick } from "./Tick";

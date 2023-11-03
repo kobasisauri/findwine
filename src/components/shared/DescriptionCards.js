@@ -34,8 +34,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: "monsterat",
-    fontWeight: 700,
+    fontFamily: "monseratBold",
     color: "#2F3238",
     marginBottom: 10,
   },

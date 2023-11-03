@@ -86,7 +86,7 @@ function WinePassport() {
                     fontWeight={700}
                     style={{ fontFamily: "main-bold" }}
                   >
-                    Price
+                    {t("price")}
                   </Text>
                   <Text
                     fontSize={32}
@@ -97,7 +97,7 @@ function WinePassport() {
                   </Text>
                 </View>
                 <Text marginTop={17} marginBottom={41} style={styles.seeMore}>
-                  See Details
+                  {t("seeDetails")}
                 </Text>
               </View>
               <Pressable style={styles.button}>
@@ -106,7 +106,7 @@ function WinePassport() {
                   color="#393B40"
                   style={{ fontFamily: "main-bold" }}
                 >
-                  Buy Now
+                  {t("buyNow")}
                 </Text>
               </Pressable>
             </View>

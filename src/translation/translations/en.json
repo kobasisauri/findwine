@@ -18,5 +18,8 @@
     "moments": "Memorable Moments",
     "momentsText": "Your Wine Passport helps you create a diary of your wine-tasting adventures, preserving cherished memories and experiences to look back on."
   },
-  "selectPackage": "Select package"
+  "selectPackage": "Select package",
+  "price": "Price",
+  "buyNow": "BUY NOW",
+  "seeDetails": "See Details"
 }

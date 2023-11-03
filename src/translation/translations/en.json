@@ -6,5 +6,17 @@
   "exclusiveOffers": "Exclusive offers",
   "wineTasting": "Wine tasting done smarter",
   "HomePageText": "The PRIORITY Wine Passport is an exclusive program offering complimentary tasting experiences at top wineries, cideries, and distilleries across the province. Jam-packed with over $1,700+ in tasting value at 103 stops, let this passport be your personal guide, and explore the best of wine country like a VIP this season.",
-  "learnMore": "LEARN MORE"
+  "learnMore": "LEARN MORE",
+  "winePassBenefits": "WIne passport benefits",
+  "benefits": {
+    "count": "300 + wineries",
+    "countText": "You can visit more than 300 wineries at your fingertips",
+    "map": "All in one app",
+    "mapText": "Georgia’s finest wineries and family cellars all in one app",
+    "deals": "Best deals",
+    "dealsText": "Sip and Save: Exclusive offers at Georgia’s top wineries",
+    "moments": "Memorable Moments",
+    "momentsText": "Your Wine Passport helps you create a diary of your wine-tasting adventures, preserving cherished memories and experiences to look back on."
+  },
+  "selectPackage": "Select package"
 }

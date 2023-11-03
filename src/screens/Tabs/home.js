@@ -3,22 +3,19 @@ import {
   Image,
   View,
   StyleSheet,
-  Pressable,
   Platform,
   ScrollView,
 } from "react-native";
+import { t } from "../../translation";
 import Container from "../../components/shared/Container";
 import colors from "../../constants/colors";
-import Facebook from "../../components/Icons/Facebook";
-import Instagram from "../../components/Icons/Instagram";
+import { Facebook, Instagram } from "../../components/Icons";
 import OutlinedButton from "../../components/shared/OutlinedButton";
-
-import { t } from "../../translation";
-import { Box } from "native-base";
+import Title from "../../components/shared/Title";
 
 function HomeScreen({ navigation }) {
   return (
-    <Container style={{ backgroundColor: "#fff" }}>
+    <Container>
       <ScrollView showsVerticalScrollIndicator="false">
         <View
           style={[
@@ -33,9 +30,6 @@ function HomeScreen({ navigation }) {
               style={{ height: 41, width: 82 }}
             />
           </View>
-          {/* <Pressable>
-            <ProfileTab color="#fff" />
-          </Pressable> */}
         </View>
 
         <View style={styles.bottonHeader}>
@@ -79,7 +73,7 @@ function HomeScreen({ navigation }) {
             <View
               style={{ flexDirection: "row", gap: 54, alignItems: "center" }}
             >
-              <Box style={styles.line} />
+              <View style={styles.line} />
               <Text
                 style={{
                   color: "#fff",
@@ -98,33 +92,7 @@ function HomeScreen({ navigation }) {
           </View>
         </View>
 
-        <View
-          style={{
-            paddingTop: 50,
-            marginHorizontal: 45,
-            alignItems: "center",
-            width: 300,
-            marginBottom: 24,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 24,
-              fontWeight: 700,
-              paddingHorizontal: 30,
-              textAlign: "center",
-              fontFamily: "monsterat",
-              marginBottom: 16,
-              textTransform: "uppercase",
-            }}
-          >
-            {t("whatIsWinePasport")}
-          </Text>
-
-          <Box style={styles.bottomLine}>
-            <Box style={styles.buttomLineMidle} />
-          </Box>
-        </View>
+        <Title title={t("whatIsWinePasport")} />
 
         <View style={styles.description}>
           <Text style={{ fontSize: 16, color: "#B44D2D" }}>
@@ -195,20 +163,6 @@ const styles = StyleSheet.create({
     height: 107,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.54)",
-  },
-  bottomLine: {
-    width: 282,
-    height: 1,
-    borderWidth: 1,
-    borderColor: "#B2B2B2",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttomLineMidle: {
-    width: 162,
-    height: 1.5,
-    borderWidth: 1,
-    borderColor: "#DE6D4A",
   },
   description: {
     backgroundColor: colors.lightGray,

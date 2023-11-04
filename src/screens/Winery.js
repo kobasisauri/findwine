@@ -26,25 +26,40 @@ function Winery({ route }) {
     <Container>
       <NavigationHeader title={data ? data.company : t("wineries")} />
 
-      {loading ? (
+      {loading && !data ? (
         <Loader />
       ) : (
         <ScrollView showsVerticalScrollIndicator="false">
           <Image
             source={{
               uri: "https://staging.findwines.ge" + data?.img_path,
+              headers: { Authorization: "Basic d2luZToxNTk=" },
             }}
             alt="winerie"
-            style={{ height: 224, width: 200, marginBottom: 37 }}
+            style={{ height: 224, marginBottom: 37 }}
           />
 
           <View style={{ paddingHorizontal: 16 }}>
             {data?.description && (
               <>
-                <Text>{t("introduction")}</Text>
+                <Text style={styles.title}>{t("introduction")}</Text>
                 <Text>{data.description}</Text>
               </>
             )}
+
+            {data?.awards.length && (
+              <>
+                <Text style={styles.title}>{t("awardsWon")}</Text>
+
+                {data.awards.map((item) => (
+                  <Text marginBottom={9}>{item.award}</Text>
+                ))}
+              </>
+            )}
+
+            <Text style={styles.title}>
+              {t("otherWineriesIn")} {data?.region}
+            </Text>
           </View>
         </ScrollView>
       )}
@@ -54,4 +69,10 @@ function Winery({ route }) {
 
 export default Winery;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 22,
+    fontFamily: "monseratBold",
+    marginBottom: 8,
+  },
+});

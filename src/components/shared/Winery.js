@@ -14,9 +14,10 @@ function Winery({ item }) {
       <Image
         source={{
           uri: "https://staging.findwines.ge" + item.img_path,
+          headers: { Authorization: "Basic d2luZToxNTk=" },
         }}
         alt="winerie"
-        style={{ height: 224, width: 200 }}
+        style={{ height: 224 }}
       />
 
       <View style={styles.itemBody}>

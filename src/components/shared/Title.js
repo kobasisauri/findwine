@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     paddingHorizontal: 30,
     textAlign: "center",
-    fontFamily: "monsterat",
+    fontFamily: "monseratBold",
     marginBottom: 16,
     textTransform: "uppercase",
   },

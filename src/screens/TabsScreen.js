@@ -3,12 +3,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useSelector } from "react-redux";
 import HomeScreen from "./Tabs/home";
-import ProfileScreen from "./Tabs/profile";
+import NavgationScreen from "./Tabs/navigation";
 import WineScreen from "./Tabs/wine";
 import MapScreen from "./Tabs/map";
 import TabBar from "../components/parts/TabBar";
 import WinePassport from "./WinePassport";
 import PackageDetails from "./PackageDetails";
+import WineriesScreen from "./Wineries";
+import WinerySreen from "./Winery";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,6 +27,22 @@ const HomeNavigation = () => {
       <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name="wine-passport" component={WinePassport} />
       <Stack.Screen name="package-details" component={PackageDetails} />
+    </Stack.Navigator>
+  );
+};
+
+const ProfileNavigation = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animation: "none",
+        animationEnabled: false,
+      }}
+    >
+      <Stack.Screen name="navigation" component={NavgationScreen} />
+      <Stack.Screen name="wineries" component={WineriesScreen} />
+      <Stack.Screen name="winery" component={WinerySreen} />
     </Stack.Navigator>
   );
 };
@@ -66,8 +84,7 @@ function TabsScreen() {
       <Tab.Screen
         name="TabsProfile"
         options={{ landData, title: "" }}
-        // options={{ landData, title: t("profile") }}
-        component={ProfileScreen}
+        component={ProfileNavigation}
       />
     </Tab.Navigator>
   );

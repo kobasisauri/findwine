@@ -1,6 +1,6 @@
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { Box } from "native-base";
-import { HomeTab, MapTab, PitcherTab, ProfileTab } from "../Icons";
+import { HomeTab, MapTab, PitcherTab, Burger } from "../Icons";
 import colors from "../../constants/colors";
 
 const BottomIcon = ({ routeKey, color }) => {
@@ -14,7 +14,7 @@ const BottomIcon = ({ routeKey, color }) => {
     return <PitcherTab color={color} />;
   }
   if (routeKey === "TabsProfile") {
-    return <ProfileTab color={color} />;
+    return <Burger color={color} />;
   }
   return null;
 };

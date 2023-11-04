@@ -1,10 +1,11 @@
-import { Text } from "react-native";
 import Container from "../../components/shared/Container";
+import Title from "../../components/shared/Title";
+import { t } from "../../translation";
 
 function OrdersScreen({ navigation }) {
   return (
     <Container>
-      <Text>map</Text>
+      <Title title={t("georgianWineries")} />
     </Container>
   );
 }

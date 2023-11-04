@@ -15,3 +15,6 @@ export { default as Offer } from "./Offer";
 export { default as Phone } from "./Phone";
 export { default as Location } from "./Location";
 export { default as Close } from "./Close";
+export { default as Burger } from "./Burger";
+export { default as WineryLocation } from "./WineryLocation";
+export { default as FilledStar } from "./FilledStar";

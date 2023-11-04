@@ -34,5 +34,9 @@
   "registrationRequired": "This feature is available only for registered users",
   "signIn": "Sign in",
   "register": "Register",
-  "or": "Or"
+  "or": "Or",
+  "wineries": "Wineries",
+  "georgia": "Georgia",
+  "georgianWineries": "Georgian wineries",
+  "introduction": "An introduction"
 }

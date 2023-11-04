@@ -8,6 +8,7 @@ import WineScreen from "./Tabs/wine";
 import MapScreen from "./Tabs/map";
 import TabBar from "../components/parts/TabBar";
 import WinePassport from "./WinePassport";
+import PackageDetails from "./PackageDetails";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ const HomeNavigation = () => {
     >
       <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name="wine-passport" component={WinePassport} />
+      <Stack.Screen name="package-details" component={PackageDetails} />
     </Stack.Navigator>
   );
 };

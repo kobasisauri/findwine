@@ -21,5 +21,13 @@
   "selectPackage": "Select package",
   "price": "Price",
   "buyNow": "BUY NOW",
-  "seeDetails": "See Details"
+  "seeDetails": "See Details",
+  "passportDetails": "Passport Details",
+  "contact": "Contact",
+  "wines": "Wines",
+  "village": "Village",
+  "region": "region",
+  "offers": "offers",
+  "guests": "guests",
+  "personsAvailable": "persons available"
 }

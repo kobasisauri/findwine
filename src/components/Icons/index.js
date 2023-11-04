@@ -10,3 +10,7 @@ export { default as BrandPocket } from "./BrandPocket";
 export { default as Cup } from "./Cup";
 export { default as Map } from "./Map";
 export { default as Tick } from "./Tick";
+export { default as Grape } from "./Grape";
+export { default as Offer } from "./Offer";
+export { default as Phone } from "./Phone";
+export { default as Location } from "./Location";

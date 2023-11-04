@@ -10,8 +10,9 @@ import { getWinePassports } from "../services/winePassports";
 import Text from "../components/shared/Text";
 import { Tick } from "../components/Icons";
 
-function WinePassport() {
+function WinePassport({ navigation }) {
   const [packages, setPackages] = useState([]);
+
   useEffect(() => {
     getWinePassports().then((res) => {
       setPackages(res);
@@ -20,7 +21,7 @@ function WinePassport() {
 
   return (
     <Container>
-      <NavigationHeader title="Wine Passport" />
+      <NavigationHeader title={t("winePassport")} />
 
       <ScrollView showsVerticalScrollIndicator="false">
         <Title title={t("winePassBenefits")} />
@@ -56,62 +57,76 @@ function WinePassport() {
           icon={<BrandPocket />}
         />
 
-        <View style={{ marginTop: 50, paddingHorizontal: 16 }}>
-          <Title title={t("selectPackage")} />
-          {packages.map((item) => (
-            <View style={styles.wrapper}>
-              <View key={item.id} style={styles.packageContainer}>
-                <Text
-                  fontSize={16}
-                  color="#393B40"
-                  style={{ marginBottom: 21, fontFamily: "monseratBold" }}
-                >
-                  {item.name}
-                </Text>
+        {!!packages.length && (
+          <View style={{ marginTop: 50, paddingHorizontal: 16 }}>
+            <Title title={t("selectPackage")} />
+            {packages.map((item) => (
+              <View style={styles.wrapper} key={item.id}>
+                <View style={styles.packageContainer}>
+                  <Text
+                    fontSize={16}
+                    color="#393B40"
+                    style={{ marginBottom: 21, fontFamily: "monseratBold" }}
+                  >
+                    {item.name}
+                  </Text>
 
-                {item.passport_description.map((item) => (
-                  <View style={styles.description}>
-                    <Tick />
+                  {item.passport_description.map((item, i) => (
+                    <View style={styles.description} key={i}>
+                      <Tick />
 
-                    <Text fontSize={16} color="#393B40">
-                      {item.description}
+                      <Text fontSize={16} color="#393B40">
+                        {item.description}
+                      </Text>
+                    </View>
+                  ))}
+
+                  <View style={styles.price}>
+                    <Text
+                      fontSize={18}
+                      color={"#393B40"}
+                      fontWeight={700}
+                      style={{ fontFamily: "main-bold" }}
+                    >
+                      {t("price")}
+                    </Text>
+                    <Text
+                      fontSize={32}
+                      color={"#393B40"}
+                      style={{ fontFamily: "main-bold" }}
+                    >
+                      {item.price} GEL
                     </Text>
                   </View>
-                ))}
 
-                <View style={styles.price}>
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate("package-details", { id: item.id })
+                    }
+                  >
+                    <Text
+                      marginTop={17}
+                      marginBottom={41}
+                      style={styles.seeMore}
+                    >
+                      {t("seeDetails")}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                <Pressable style={styles.button}>
                   <Text
                     fontSize={18}
-                    color={"#393B40"}
-                    fontWeight={700}
+                    color="#393B40"
                     style={{ fontFamily: "main-bold" }}
                   >
-                    {t("price")}
+                    {t("buyNow")}
                   </Text>
-                  <Text
-                    fontSize={32}
-                    color={"#393B40"}
-                    style={{ fontFamily: "main-bold" }}
-                  >
-                    {item.price} GEL
-                  </Text>
-                </View>
-                <Text marginTop={17} marginBottom={41} style={styles.seeMore}>
-                  {t("seeDetails")}
-                </Text>
+                </Pressable>
               </View>
-              <Pressable style={styles.button}>
-                <Text
-                  fontSize={18}
-                  color="#393B40"
-                  style={{ fontFamily: "main-bold" }}
-                >
-                  {t("buyNow")}
-                </Text>
-              </Pressable>
-            </View>
-          ))}
-        </View>
+            ))}
+          </View>
+        )}
       </ScrollView>
     </Container>
   );
@@ -144,7 +159,7 @@ const styles = StyleSheet.create({
   seeMore: {
     color: "#3A3D43",
     textDecorationLine: "underline",
-    letterSpacing: "0.7",
+    letterSpacing: 0.7,
     fontFamily: "monseratMedium",
   },
   button: {

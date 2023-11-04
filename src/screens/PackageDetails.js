@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Pressable } from "react-native";
 import { t } from "../translation";
 import NavigationHeader from "../components/parts/navigation/navigationHeader";
 import Container from "../components/shared/Container";
@@ -104,6 +104,15 @@ function PackageDetails({ route }) {
                 </View>
               ))}
           </View>
+          <Pressable style={styles.button} onPress={() => setOpenModal(true)}>
+            <Text
+              fontSize={18}
+              color="#fff"
+              style={{ fontFamily: "main-bold" }}
+            >
+              {t("buyNow")}
+            </Text>
+          </Pressable>
         </ScrollView>
       ) : (
         <Loader />
@@ -120,7 +129,9 @@ const styles = StyleSheet.create({
     paddingBottom: 28,
     backgroundColor: "#fff",
     borderRadius: 8,
-    marginBottom: 30,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    // marginBottom: 30,
   },
   titleContainer: {
     borderBottomColor: "#292C3133",
@@ -135,5 +146,12 @@ const styles = StyleSheet.create({
     fontFamily: "monseratBold",
     marginBottom: 17,
     marginTop: 30,
+  },
+  button: {
+    backgroundColor: "#2F3238",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 28,
+    marginBottom: 50,
   },
 });

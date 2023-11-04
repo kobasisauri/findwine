@@ -9,9 +9,11 @@ import DescriptionCards from "../components/shared/DescriptionCards";
 import { getWinePassports } from "../services/winePassports";
 import Text from "../components/shared/Text";
 import { Tick } from "../components/Icons";
+import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
 
 function WinePassport({ navigation }) {
   const [packages, setPackages] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     getWinePassports().then((res) => {
@@ -114,7 +116,10 @@ function WinePassport({ navigation }) {
                   </Pressable>
                 </View>
 
-                <Pressable style={styles.button}>
+                <Pressable
+                  style={styles.button}
+                  onPress={() => setOpenModal(true)}
+                >
                   <Text
                     fontSize={18}
                     color="#393B40"
@@ -128,6 +133,11 @@ function WinePassport({ navigation }) {
           </View>
         )}
       </ScrollView>
+
+      <RegisterRequiredModal
+        modalVisible={openModal}
+        onClose={() => setOpenModal(false)}
+      />
     </Container>
   );
 }

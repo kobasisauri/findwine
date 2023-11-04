@@ -9,7 +9,7 @@ export default TextComp = styled.Text`
       ? "10px"
       : props.fontSize === "lg"
       ? "16px"
-      : "13px"};
+      : "14px"};
   color: ${(props) =>
     props.color ? props.color : props.light ? colors.white : colors.text};
   text-transform: ${(props) => (props.uppercase ? "uppercase" : "none")};

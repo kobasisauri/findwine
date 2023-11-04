@@ -29,5 +29,10 @@
   "region": "region",
   "offers": "offers",
   "guests": "guests",
-  "personsAvailable": "persons available"
+  "personsAvailable": "persons available",
+  "notRegistered?": "Not registered yet?",
+  "registrationRequired": "This feature is available only for registered users",
+  "signIn": "Sign in",
+  "register": "Register",
+  "or": "Or"
 }

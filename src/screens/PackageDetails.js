@@ -8,8 +8,10 @@ import { Grape, Location, Offer, Phone } from "../components/Icons";
 import { getWinePassport } from "../services/winePassports";
 import Text from "../components/shared/Text";
 import Loader from "../components/shared/Loader";
+import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
 
 function PackageDetails({ route }) {
+  const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -117,6 +119,10 @@ function PackageDetails({ route }) {
       ) : (
         <Loader />
       )}
+      <RegisterRequiredModal
+        modalVisible={openModal}
+        onClose={() => setOpenModal(false)}
+      />
     </Container>
   );
 }

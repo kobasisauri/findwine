@@ -11,14 +11,16 @@ function Winery({ item }) {
 
   return (
     <View style={styles.item}>
-      <Image
-        source={{
-          uri: "https://staging.findwines.ge" + item.img_path,
-          headers: { Authorization: "Basic d2luZToxNTk=" },
-        }}
-        alt="winerie"
-        style={{ height: 224 }}
-      />
+      {item.img_path && (
+        <Image
+          source={{
+            uri: "https://staging.findwines.ge" + item.img_path,
+            headers: { Authorization: "Basic d2luZToxNTk=" },
+          }}
+          alt="winerie"
+          style={{ height: 224 }}
+        />
+      )}
 
       <View style={styles.itemBody}>
         <Text style={styles.title}>{item.company}</Text>
@@ -36,7 +38,7 @@ function Winery({ item }) {
 
           <View style={styles.flexRow}>
             <Text marginRight={10}>{item.raiting}/5</Text>
-            <FilledStar />
+            <FilledStar filled />
           </View>
         </View>
 

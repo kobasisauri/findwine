@@ -11,6 +11,9 @@ import WinePassport from "./WinePassport";
 import PackageDetails from "./PackageDetails";
 import WineriesScreen from "./Wineries";
 import WinerySreen from "./Winery";
+import Events from "./Events";
+import Contact from "./Contact";
+import Profile from "./Profile";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -43,6 +46,9 @@ const ProfileNavigation = () => {
       <Stack.Screen name="navigation" component={NavgationScreen} />
       <Stack.Screen name="wineries" component={WineriesScreen} />
       <Stack.Screen name="winery" component={WinerySreen} />
+      <Stack.Screen name="events" component={Events} />
+      <Stack.Screen name="contact" component={Contact} />
+      <Stack.Screen name="profile" component={Profile} />
     </Stack.Navigator>
   );
 };

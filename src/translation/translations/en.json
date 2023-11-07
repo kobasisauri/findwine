@@ -1,7 +1,7 @@
 {
   "connectingWineLovers": "Connecting wine lovers",
   "headerText": "ENJOY GEORGIAN WINERIES WITH OUR HIGHWAY",
-  "winePassport": "WINE PASSPORT",
+  "winePassport": "Wine passport",
   "whatIsWinePasport": "What is wine passport?",
   "exclusiveOffers": "Exclusive offers",
   "wineTasting": "Wine tasting done smarter",
@@ -41,5 +41,7 @@
   "introduction": "An introduction",
   "awardsWon": "Awards won",
   "otherWineriesIn": "Other wineries in",
-  "ourWines": "Our wines"
+  "ourWines": "Our wines",
+  "events": "Events",
+  "profile": "Profile"
 }

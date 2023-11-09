@@ -14,6 +14,7 @@ import WinerySreen from "./Winery";
 import Events from "./Events";
 import Contact from "./Contact";
 import Profile from "./Profile";
+import EventDetails from "./EventDetails";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -47,6 +48,7 @@ const ProfileNavigation = () => {
       <Stack.Screen name="wineries" component={WineriesScreen} />
       <Stack.Screen name="winery" component={WinerySreen} />
       <Stack.Screen name="events" component={Events} />
+      <Stack.Screen name="event-details" component={EventDetails} />
       <Stack.Screen name="contact" component={Contact} />
       <Stack.Screen name="profile" component={Profile} />
     </Stack.Navigator>

@@ -1,34 +1,43 @@
 import React from "react";
 import { Checkbox, Text } from "native-base";
-import { StyleSheet, View } from "react-native";
-import colors from "../../constants/colors";
+import { Pressable, StyleSheet, View } from "react-native";
+
+import { Check } from "../Icons";
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 24,
+    flex: 1,
+    flexDirection: "row",
   },
-  labelText: {
-    color: colors.gray,
-    fontSize: 14,
+  checkbox: {
+    height: 25,
+    width: 25,
+    borderWidth: 1,
+    borderColor: "#D9D9D9",
+    marginRight: 17,
+  },
+  icon: { top: -6 },
+  label: {
+    flex: 1,
+    fontSize: 16,
+    color: "#3A3D43",
   },
 });
 
-export default function CheckboxField({ children, value, ...rest }) {
+export default function CheckboxField({
+  checked,
+  onPress,
+  label,
+  containerStyles,
+}) {
   return (
-    <View style={styles.container}>
-      <Checkbox
-        borderColor={colors.gray}
-        borderRadius={5}
-        borderWidth="1"
-        _checked={{
-          backgroundColor: colors.primary,
-          borderColor: colors.primary,
-        }}
-        value={value}
-        {...rest}
-      >
-        {children && <Text style={styles.labelText}>{children}</Text>}
-      </Checkbox>
+    <View style={[styles.container, containerStyles || {}]}>
+      <Pressable style={styles.checkbox} onPress={onPress}>
+        {checked && <Check style={styles.icon} />}
+      </Pressable>
+      <Pressable onPress={onPress}>
+        <Text style={styles.label}>{label}</Text>
+      </Pressable>
     </View>
   );
 }

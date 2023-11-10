@@ -10,10 +10,14 @@ import { getWinePassports } from "../services/winePassports";
 import Text from "../components/shared/Text";
 import { Tick } from "../components/Icons";
 import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
+import SignInModal from "../components/parts/SignInModal";
+import SignUpModal from "../components/parts/SignUpModal";
 
 function WinePassport({ navigation }) {
   const [packages, setPackages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [signInModal, setSignInModal] = useState(false);
+  const [signUpModal, setSignUpModal] = useState(false);
 
   useEffect(() => {
     getWinePassports().then((res) => {
@@ -137,6 +141,32 @@ function WinePassport({ navigation }) {
       <RegisterRequiredModal
         modalVisible={openModal}
         onClose={() => setOpenModal(false)}
+        onSignIn={() => {
+          setOpenModal(false);
+          setSignInModal(true);
+        }}
+        onSignUp={() => {
+          setOpenModal(false);
+          setSignUpModal(true);
+        }}
+      />
+
+      <SignInModal
+        modalVisible={signInModal}
+        onClose={() => setSignInModal(false)}
+        onSignUp={() => {
+          setSignInModal(false);
+          setSignUpModal(true);
+        }}
+      />
+
+      <SignUpModal
+        modalVisible={signUpModal}
+        onClose={() => setSignUpModal(false)}
+        onSignIn={() => {
+          setSignUpModal(false);
+          setSignInModal(true);
+        }}
       />
     </Container>
   );

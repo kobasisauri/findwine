@@ -60,13 +60,13 @@ function Winery({ route }) {
               </>
             )}
 
-            {data?.awards.length && (
+            {!!data?.awards.length && (
               <View marginBottom={30}>
                 <Text style={styles.title}>{t("awardsWon")}</Text>
 
-                {data.awards.map((item, i) => (
-                  <Text marginBottom={9} key={i}>
-                    {item.award}
+                {data.awards.map((item) => (
+                  <Text marginBottom={9} key={item.id}>
+                    {item.name}
                   </Text>
                 ))}
               </View>
@@ -80,21 +80,37 @@ function Winery({ route }) {
                   <View key={i} style={styles.wineContainer}>
                     <View>
                       <Image
-                        source={require("../assets/img/bottle.png")}
+                        source={{
+                          uri: "https://staging.findwines.ge" + item.img_link,
+                          headers: { Authorization: "Basic d2luZToxNTk=" },
+                        }}
                         alt="bottle"
+                        height={250}
+                        width={94}
                       />
                     </View>
                     <View>
-                      <Text>{item.name}</Text>
-                      <Text>{item.color}</Text>
-                      <Text>{item.breed}</Text>
+                      <Text style={styles.wineTitle}>{item.name}</Text>
+                      <Text color="#464645" marginBottom={13}>
+                        {item.color}
+                      </Text>
+                      <Text color="#939673" marginBottom={9}>
+                        {item.breed}
+                      </Text>
+                      <Text color="#A7A7A7" font marginBottom={18}>
+                        {item.wine_type}
+                      </Text>
+
+                      <Text style={styles.winePrice} uppercase>
+                        $19.99
+                      </Text>
                     </View>
                   </View>
                 ))}
               </>
             )}
 
-            <Text style={styles.title}>
+            <Text style={[styles.title, { marginTop: 70 }]}>
               {t("otherWineriesIn")} {data?.region}
             </Text>
           </View>
@@ -124,8 +140,19 @@ const styles = StyleSheet.create({
     borderBottomColor: "#DEDEDE",
     borderBottomWidth: 1,
     marginTop: 25,
+    paddingBottom: 40,
     width: "80%",
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  wineTitle: {
+    fontSize: 18,
+    color: "#B44D2D",
+    marginBottom: 14,
+  },
+  winePrice: {
+    fontSize: 18,
+    color: "#27242C",
+    fontFamily: "monseratBold",
   },
 });

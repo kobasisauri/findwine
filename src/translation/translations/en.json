@@ -33,6 +33,7 @@
   "notRegistered?": "Not registered yet?",
   "registrationRequired": "This feature is available only for registered users",
   "signIn": "Sign in",
+  "signUp": "Sign up",
   "register": "Register",
   "or": "Or",
   "wineries": "Wineries",
@@ -45,5 +46,15 @@
   "events": "Events",
   "profile": "Profile",
   "upcomingEvent": "UPCOMING EVENTS",
-  "moreDetails": "More details"
+  "moreDetails": "More details",
+  "registerNow": "Register now",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm password",
+  "lostYourPass?": "Lost your password?",
+  "rememberMe": "Remember me",
+  "fullName": "Full name",
+  "orSignUpWith": "Or sign up with",
+  "haveAccount": "Have account yet?",
+  "search": "Search"
 }

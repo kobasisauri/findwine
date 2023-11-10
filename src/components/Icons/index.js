@@ -18,3 +18,5 @@ export { default as Close } from "./Close";
 export { default as Burger } from "./Burger";
 export { default as WineryLocation } from "./WineryLocation";
 export { default as FilledStar } from "./FilledStar";
+export { default as Check } from "./Check";
+export { default as Search } from "./Search";

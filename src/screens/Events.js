@@ -9,104 +9,112 @@ import { getEvents } from "../services/events";
 import Text from "../components/shared/Text";
 import { Location } from "../components/Icons";
 import OutlinedButton from "../components/shared/OutlinedButton";
+import Loader from "../components/shared/Loader";
 
 function Events() {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     getEvents().then((res) => {
       setEvents(res);
+      setLoading(false);
     });
   }, []);
 
   return (
     <Container>
-      <ScrollView>
-        <NavigationHeader title={t("events")} />
-        <Title title={t("upcomingEvent")} />
+      <NavigationHeader title={t("events")} />
 
-        <View style={{ paddingHorizontal: 14 }}>
-          {!!events &&
-            events.map((item, i) => (
-              <View key={i} style={styles.eventContainer}>
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={{
-                      uri: "https://staging.findwines.ge" + item.img_path,
-                      headers: { Authorization: "Basic d2luZToxNTk=" },
-                    }}
-                    alt="events"
-                    style={{ height: 192 }}
-                  />
-                  <View style={styles.dateContainer}>
-                    <Text color="#000" fontSize={24}>
-                      May
+      {loading ? (
+        <Loader />
+      ) : (
+        <ScrollView>
+          <Title title={t("upcomingEvent")} />
+          <View style={{ paddingHorizontal: 14 }}>
+            {!!events &&
+              events.map((item, i) => (
+                <View key={i} style={styles.eventContainer}>
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={{
+                        uri: "https://staging.findwines.ge" + item.img_path,
+                        headers: { Authorization: "Basic d2luZToxNTk=" },
+                      }}
+                      alt="events"
+                      style={{ height: 192 }}
+                    />
+                    <View style={styles.dateContainer}>
+                      <Text color="#000" fontSize={24}>
+                        May
+                      </Text>
+                      <Text color="#000" fontSize={36}>
+                        {item.date.split("-")[2]}
+                      </Text>
+                      <Text color="rgba(0, 0, 0, 0.30)" fontSize={20}>
+                        {item.date.split("-")[0]}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.description}>
+                    <Text
+                      fontSize={24}
+                      color="#393B40"
+                      style={{ fontFamily: "monseratBold" }}
+                    >
+                      {item.event_name}
                     </Text>
-                    <Text color="#000" fontSize={36}>
-                      {item.date.split("-")[2]}
+                    <Text
+                      fontSize={20}
+                      color="#B44D2D"
+                      style={{ fontFamily: "monseratBold" }}
+                    >
+                      {item.company}
                     </Text>
-                    <Text color="rgba(0, 0, 0, 0.30)" fontSize={20}>
-                      {item.date.split("-")[0]}
+
+                    <Text
+                      fontSize={16}
+                      color="#515459"
+                      style={{ fontFamily: "main" }}
+                    >
+                      {item.description} ...
                     </Text>
+
+                    <Text fontSize={14} color="#515459">
+                      {item.event_start} - {item.event_end}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        gap: 6,
+                        alignItems: "center",
+                      }}
+                    >
+                      <Location width="21" height="24" />
+                      <Text color="#727477">
+                        {item.city}, {t("georgia")}
+                      </Text>
+                    </View>
+                    <OutlinedButton
+                      style={{ width: "50%" }}
+                      buttonTextStyle={{
+                        color: "#3A3D43",
+                        fontFamily: "monsterat",
+                      }}
+                      onPress={() =>
+                        navigation.navigate("event-details", { id: item.id })
+                      }
+                    >
+                      {t("moreDetails")}
+                    </OutlinedButton>
                   </View>
                 </View>
-                <View style={styles.description}>
-                  <Text
-                    fontSize={24}
-                    color="#393B40"
-                    style={{ fontFamily: "monseratBold" }}
-                  >
-                    {item.event_name}
-                  </Text>
-                  <Text
-                    fontSize={20}
-                    color="#B44D2D"
-                    style={{ fontFamily: "monseratBold" }}
-                  >
-                    {item.company}
-                  </Text>
-
-                  <Text
-                    fontSize={16}
-                    color="#515459"
-                    style={{ fontFamily: "lato" }}
-                  >
-                    {item.description} ...
-                  </Text>
-
-                  <Text fontSize={14} color="#515459">
-                    {item.event_start} - {item.event_end}
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      gap: 6,
-                      alignItems: "center",
-                    }}
-                  >
-                    <Location width="21" height="24" />
-                    <Text color="#727477">
-                      {item.city}, {t("georgia")}
-                    </Text>
-                  </View>
-                  <OutlinedButton
-                    style={{ width: "50%" }}
-                    buttonTextStyle={{
-                      color: "#3A3D43",
-                      fontFamily: "monsterat",
-                    }}
-                    onPress={() =>
-                      navigation.navigate("event-details", { id: item.id })
-                    }
-                  >
-                    {t("moreDetails")}
-                  </OutlinedButton>
-                </View>
-              </View>
-            ))}
-        </View>
-      </ScrollView>
+              ))}
+          </View>
+        </ScrollView>
+      )}
     </Container>
   );
 }

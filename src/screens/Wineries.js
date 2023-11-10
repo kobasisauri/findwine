@@ -6,6 +6,8 @@ import Container from "../components/shared/Container";
 import { getWineries } from "../services/wineries";
 import Loader from "../components/shared/Loader";
 import Winery from "../components/shared/Winery";
+import Input from "../components/shared/Input";
+import { Search } from "../components/Icons";
 
 function Wineries() {
   const [data, setData] = useState([]);
@@ -23,6 +25,17 @@ function Wineries() {
   return (
     <Container>
       <NavigationHeader title={t("wineries")} />
+
+      {/* <View style={{ paddingHorizontal: 16, marginBottom: 21, marginTop: 50 }}>
+        <Input
+          placeholder={t("search")}
+          suf={
+            <View style={{ width: 80, backgroundColor: "red" }}>
+              <Search />
+            </View>
+          }
+        />
+      </View> */}
 
       {loading ? (
         <Loader />

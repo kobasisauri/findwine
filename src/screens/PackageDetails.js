@@ -9,10 +9,14 @@ import { getWinePassport } from "../services/winePassports";
 import Text from "../components/shared/Text";
 import Loader from "../components/shared/Loader";
 import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
+import SignInModal from "../components/parts/SignInModal";
+import SignUpModal from "../components/parts/SignUpModal";
 
 function PackageDetails({ route }) {
-  const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState();
+  const [openModal, setOpenModal] = useState(false);
+  const [signInModal, setSignInModal] = useState(false);
+  const [signUpModal, setSignUpModal] = useState(false);
 
   useEffect(() => {
     if (route.params?.id) {
@@ -122,6 +126,32 @@ function PackageDetails({ route }) {
       <RegisterRequiredModal
         modalVisible={openModal}
         onClose={() => setOpenModal(false)}
+        onSignIn={() => {
+          setOpenModal(false);
+          setSignInModal(true);
+        }}
+        onSignUp={() => {
+          setOpenModal(false);
+          setSignUpModal(true);
+        }}
+      />
+
+      <SignInModal
+        modalVisible={signInModal}
+        onClose={() => setSignInModal(false)}
+        onSignUp={() => {
+          setSignInModal(false);
+          setSignUpModal(true);
+        }}
+      />
+
+      <SignUpModal
+        modalVisible={signUpModal}
+        onClose={() => setSignUpModal(false)}
+        onSignIn={() => {
+          setSignUpModal(false);
+          setSignInModal(true);
+        }}
       />
     </Container>
   );

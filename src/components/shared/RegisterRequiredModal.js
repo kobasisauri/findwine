@@ -5,7 +5,7 @@ import Button from "./Button";
 import { Close } from "../Icons";
 import { t } from "../../translation";
 
-function RegisterRequiredModal({ modalVisible, onClose }) {
+function RegisterRequiredModal({ modalVisible, onClose, onSignIn, onSignUp }) {
   return (
     <Modal isOpen={modalVisible} onClose={onClose} size="xl">
       <Modal.Content style={{ borderRadius: 4 }}>
@@ -22,7 +22,10 @@ function RegisterRequiredModal({ modalVisible, onClose }) {
             {t("registrationRequired")}
           </Text>
 
-          <Button buttonTextStyle={{ textTransform: "uppercase" }}>
+          <Button
+            buttonTextStyle={{ textTransform: "uppercase" }}
+            onPress={onSignIn}
+          >
             {t("signIn")}
           </Button>
 
@@ -41,6 +44,7 @@ function RegisterRequiredModal({ modalVisible, onClose }) {
               borderColor: "#F2F2F2",
               marginBottom: 25,
             }}
+            onPress={onSignUp}
           >
             {t("register")}
           </Button>

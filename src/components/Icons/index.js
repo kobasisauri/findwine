@@ -20,3 +20,5 @@ export { default as WineryLocation } from "./WineryLocation";
 export { default as FilledStar } from "./FilledStar";
 export { default as Check } from "./Check";
 export { default as Search } from "./Search";
+export { default as Clock } from "./Clock";
+export { default as ArrowRight } from "./arrowRight";

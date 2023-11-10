@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, Image, StyleSheet, ScrollView } from "react-native";
+import { View, Image, StyleSheet, ScrollView, Pressable } from "react-native";
 import { t } from "../translation";
 import NavigationHeader from "../components/parts/navigation/navigationHeader";
 import Container from "../components/shared/Container";
@@ -24,6 +24,8 @@ const months = {
 
 function EventDetails({ route }) {
   const [eventDetails, setEventDetails] = useState({});
+  const [seeAll, setSeeAll] = useState(false);
+
   useEffect(() => {
     if (route.params.id) {
       getEvent(route.params.id).then((res) => {
@@ -131,20 +133,50 @@ function EventDetails({ route }) {
                 {t("participantWineries")}
               </Text>
 
-              {eventDetails.support_winer.map((item, i) => (
-                <View
-                  key={i}
-                  flexDirection="row"
-                  alignItems="center"
-                  gap={13}
-                  marginBottom={16}
-                >
-                  <ArrowRight />
-                  <Text color="#3A3D43" fontSize={16}>
-                    {item.company.name}
+              {seeAll === false
+                ? eventDetails?.support_winer.slice(0, 10).map((item, i) => (
+                    <View
+                      key={i}
+                      flexDirection="row"
+                      alignItems="center"
+                      gap={13}
+                      marginBottom={16}
+                    >
+                      <ArrowRight />
+                      <Text color="#3A3D43" fontSize={16}>
+                        {item.company.name}
+                      </Text>
+                    </View>
+                  ))
+                : eventDetails?.support_winer.map((item, i) => (
+                    <View
+                      key={i}
+                      flexDirection="row"
+                      alignItems="center"
+                      gap={13}
+                      marginBottom={16}
+                    >
+                      <ArrowRight />
+                      <Text color="#3A3D43" fontSize={16}>
+                        {item.company.name}
+                      </Text>
+                    </View>
+                  ))}
+
+              {eventDetails?.support_winer.length > 10 && (
+                <Pressable onPress={() => setSeeAll(true)}>
+                  <Text
+                    fontSize={16}
+                    style={{
+                      fontFamily: "main-bold",
+                      textDecorationLine: "underline",
+                    }}
+                    marginTop={45}
+                  >
+                    {t("seeAll")}
                   </Text>
-                </View>
-              ))}
+                </Pressable>
+              )}
             </View>
           )}
         </View>

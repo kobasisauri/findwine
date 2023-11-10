@@ -10,6 +10,21 @@ import Text from "../components/shared/Text";
 import { Location } from "../components/Icons";
 import OutlinedButton from "../components/shared/OutlinedButton";
 
+const months = {
+  "01": "January",
+  "02": "February",
+  "03": "March",
+  "04": "April",
+  "05": "May",
+  "06": "June",
+  "07": "July",
+  "08": "August",
+  "09": "September",
+  10: "October",
+  11: "November",
+  12: "December",
+};
+
 function Events() {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
@@ -39,9 +54,10 @@ function Events() {
                     alt="events"
                     style={{ height: 192 }}
                   />
+
                   <View style={styles.dateContainer}>
-                    <Text color="#000" fontSize={24}>
-                      May
+                    <Text color="#000" fontSize={22}>
+                      {months[item.date.split("-")[1]]}
                     </Text>
                     <Text color="#000" fontSize={36}>
                       {item.date.split("-")[2]}
@@ -70,7 +86,7 @@ function Events() {
                   <Text
                     fontSize={16}
                     color="#515459"
-                    style={{ fontFamily: "lato" }}
+                    style={{ fontFamily: "main" }}
                   >
                     {item.description} ...
                   </Text>

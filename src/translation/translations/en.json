@@ -45,5 +45,11 @@
   "events": "Events",
   "profile": "Profile",
   "upcomingEvent": "UPCOMING EVENTS",
-  "moreDetails": "More details"
+  "moreDetails": "More details",
+  "wineFestival": "WINE FESTIVAL",
+  "aboutFestival": "ABOUT FESTIVAL",
+  "festivalSupports": "Festival Supports",
+  "festivalOrganizers": "Festival organizers",
+  "georgianWineClub": "Georgian Wine Club",
+  "participantWineries": "Participant wineries "
 }

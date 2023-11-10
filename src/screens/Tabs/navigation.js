@@ -1,4 +1,4 @@
-import { Image, View, StyleSheet, Platform, Pressable } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { t } from "../../translation";
 import Container from "../../components/shared/Container";
@@ -18,7 +18,7 @@ function ProfileScreen() {
   return (
     <Container>
       <View style={{ flex: 1, backgroundColor: colors.darkGray }}>
-        <View
+        {/* <View
           style={[
             styles.header,
             Platform.OS !== "ios" && { alignItems: "center" },
@@ -31,7 +31,7 @@ function ProfileScreen() {
               style={{ height: 41, width: 82 }}
             />
           </View>
-        </View>
+        </View> */}
 
         <View style={styles.container}>
           {navs.map((nav, i) => (
@@ -57,19 +57,19 @@ function ProfileScreen() {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingRight: 16,
-  },
-  logo: {
-    paddingTop: 9,
-    paddingBottom: 9,
-    paddingLeft: 16,
-  },
+  // header: {
+  //   display: "flex",
+  //   flexDirection: "row",
+  //   alignItems: "center",
+  //   paddingRight: 16,
+  // },
+  // logo: {
+  //   paddingTop: 9,
+  //   paddingBottom: 9,
+  //   paddingLeft: 16,
+  // },
   container: {
-    marginTop: 25,
+    marginTop: 60,
   },
   item: {
     width: "90%",

@@ -18,8 +18,11 @@ function Winery({ route }) {
     if (route?.params?.id) {
       setLoading(true);
       getWinery(route?.params?.id).then((res) => {
-        setData(res);
-        setRanking(res.raiting);
+        if (res) {
+          setData(res);
+          setRanking(res.raiting);
+        }
+
         setLoading(false);
       });
     }
@@ -53,7 +56,7 @@ function Winery({ route }) {
             {data?.description && (
               <>
                 <Text style={styles.title}>{t("introduction")}</Text>
-                <Text marginBottom={30}>{data.description}</Text>
+                <Text marginBottom={30}>{data?.description || ""}</Text>
               </>
             )}
 

@@ -6,21 +6,7 @@ import Container from "../components/shared/Container";
 import { getEvent } from "../services/events";
 import Text from "../components/shared/Text";
 import { Location, Clock, ArrowRight } from "../components/Icons";
-
-const months = {
-  "01": "January",
-  "02": "February",
-  "03": "March",
-  "04": "April",
-  "05": "May",
-  "06": "June",
-  "07": "July",
-  "08": "August",
-  "09": "September",
-  10: "October",
-  11: "November",
-  12: "December",
-};
+import { months } from "../constants/date";
 
 function EventDetails({ route }) {
   const [eventDetails, setEventDetails] = useState({});
@@ -29,11 +15,11 @@ function EventDetails({ route }) {
   useEffect(() => {
     if (route.params.id) {
       getEvent(route.params.id).then((res) => {
-        console.log(res);
         setEventDetails(res);
       });
     }
   }, []);
+
   return (
     <Container style={{ backgroundColor: "#fff" }}>
       <NavigationHeader title={t("wineFestival")} />

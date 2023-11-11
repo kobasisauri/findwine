@@ -9,40 +9,24 @@ import { getEvents } from "../services/events";
 import Text from "../components/shared/Text";
 import { Location } from "../components/Icons";
 import OutlinedButton from "../components/shared/OutlinedButton";
-import Loader from "../components/shared/Loader";
-
-const months = {
-  "01": "January",
-  "02": "February",
-  "03": "March",
-  "04": "April",
-  "05": "May",
-  "06": "June",
-  "07": "July",
-  "08": "August",
-  "09": "September",
-  10: "October",
-  11: "November",
-  12: "December",
-};
+import { months } from "../constants/date";
 
 function Events() {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     getEvents().then((res) => {
       setEvents(res);
-      setLoading(false);
     });
   }, []);
 
   return (
     <Container>
-      <NavigationHeader title={t("events")} />
       <ScrollView>
+        <NavigationHeader title={t("events")} />
+        <Title title={t("upcomingEvent")} />
+
         <View style={{ paddingHorizontal: 14 }}>
           {!!events &&
             events.map((item, i) => (
@@ -61,49 +45,12 @@ function Events() {
                     <Text color="#000" fontSize={22}>
                       {months[item.date.split("-")[1]]}
                     </Text>
-                    <Text
-                      fontSize={20}
-                      color="#B44D2D"
-                      style={{ fontFamily: "monseratBold" }}
-                    >
-                      {item.company}
+                    <Text color="#000" fontSize={36}>
+                      {item.date.split("-")[2]}
                     </Text>
-
-                    <Text
-                      fontSize={16}
-                      color="#515459"
-                      style={{ fontFamily: "main" }}
-                    >
-                      {item.description} ...
+                    <Text color="rgba(0, 0, 0, 0.30)" fontSize={20}>
+                      {item.date.split("-")[0]}
                     </Text>
-
-                    <Text fontSize={14} color="#515459">
-                      {item.event_start} - {item.event_end}
-                    </Text>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        gap: 6,
-                        alignItems: "center",
-                      }}
-                    >
-                      <Location width="21" height="24" />
-                      <Text color="#727477">
-                        {item.city}, {t("georgia")}
-                      </Text>
-                    </View>
-                    <OutlinedButton
-                      style={{ width: "50%" }}
-                      buttonTextStyle={{
-                        color: "#3A3D43",
-                        fontFamily: "monsterat",
-                      }}
-                      onPress={() =>
-                        navigation.navigate("event-details", { id: item.id })
-                      }
-                    >
-                      {t("moreDetails")}
-                    </OutlinedButton>
                   </View>
                 </View>
                 <View style={styles.description}>

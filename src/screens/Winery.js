@@ -35,7 +35,7 @@ function Winery({ route }) {
       {loading && !data ? (
         <Loader />
       ) : (
-        <ScrollView showsVerticalScrollIndicator="false">
+        <ScrollView showsVerticalScrollIndicator={false}>
           {data?.img_path && (
             <Image
               source={{

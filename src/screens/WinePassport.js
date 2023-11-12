@@ -29,7 +29,7 @@ function WinePassport({ navigation }) {
     <Container>
       <NavigationHeader title={t("winePassport")} />
 
-      <ScrollView showsVerticalScrollIndicator="false">
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Title title={t("winePassBenefits")} />
 
         <View style={styles.imageContainer}>

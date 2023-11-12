@@ -32,7 +32,7 @@ function PackageDetails({ route }) {
 
       {data ? (
         <ScrollView
-          showsVerticalScrollIndicator="false"
+          showsVerticalScrollIndicator={false}
           style={{ paddingHorizontal: 16 }}
         >
           <Title title={data ? data.name : ""} />

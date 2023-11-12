@@ -16,7 +16,7 @@ import Title from "../../components/shared/Title";
 function HomeScreen({ navigation }) {
   return (
     <Container>
-      <ScrollView showsVerticalScrollIndicator="false">
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={[
             styles.header,

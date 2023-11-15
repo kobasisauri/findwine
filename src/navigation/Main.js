@@ -1,9 +1,6 @@
 import { SafeAreaView, StyleSheet, Platform } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import TabsScreen from "../screens/TabsScreen";
-
-const Stack = createStackNavigator();
 
 const styles = StyleSheet.create({
   AndroidSafeArea: {

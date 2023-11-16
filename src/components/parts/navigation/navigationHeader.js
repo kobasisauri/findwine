@@ -4,6 +4,43 @@ import { StyleSheet, Platform, Pressable, View } from "react-native";
 import colors from "../../../constants/colors";
 import { ArrowLeft, Burger } from "../../Icons";
 
+function NavigationHeader({ title, textStyle, headerStyle, tab }) {
+  const navigation = useNavigation();
+  const text = [styles.headerText];
+
+  if (textStyle) {
+    text.push(textStyle);
+  }
+
+  return (
+    <>
+      <Box
+        style={[
+          styles.header,
+          Platform.OS !== "ios" && { alignItems: "center" },
+          headerStyle,
+        ]}
+      >
+        {!!tab ? (
+          <View style={styles.back} />
+        ) : (
+          <Pressable onPress={() => navigation.goBack()} style={styles.back}>
+            <ArrowLeft />
+          </Pressable>
+        )}
+
+        <Text style={text}>{title}</Text>
+
+        <Pressable style={styles.back}>
+          <Burger />
+        </Pressable>
+      </Box>
+    </>
+  );
+}
+
+export default NavigationHeader;
+
 const styles = StyleSheet.create({
   header: {
     display: "flex",
@@ -50,38 +87,3 @@ const styles = StyleSheet.create({
     left: 6,
   },
 });
-
-function NavigationHeader({ title, textStyle, headerStyle, tab }) {
-  const navigation = useNavigation();
-  const text = [styles.headerText];
-
-  if (textStyle) {
-    text.push(textStyle);
-  }
-
-  return (
-    <Box
-      style={[
-        styles.header,
-        Platform.OS !== "ios" && { alignItems: "center" },
-        headerStyle,
-      ]}
-    >
-      {!!tab ? (
-        <View style={styles.back} />
-      ) : (
-        <Pressable onPress={() => navigation.goBack()} style={styles.back}>
-          <ArrowLeft />
-        </Pressable>
-      )}
-
-      <Text style={text}>{title}</Text>
-
-      <Pressable style={styles.back}>
-        <Burger />
-      </Pressable>
-    </Box>
-  );
-}
-
-export default NavigationHeader;

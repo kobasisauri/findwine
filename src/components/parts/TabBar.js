@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { Box } from "native-base";
 import { HomeTab, MapTab, PitcherTab, Calendar } from "../Icons";
+import RegisterRequiredModal from "../../components/shared/RegisterRequiredModal";
+import SignInModal from "../../components/parts/SignInModal";
+import SignUpModal from "../../components/parts/SignUpModal";
 
 const BottomIcon = ({ routeKey, color }) => {
   if (routeKey === "TabsMain") {
@@ -9,7 +13,7 @@ const BottomIcon = ({ routeKey, color }) => {
   if (routeKey === "TabsMaps") {
     return <MapTab color={color} />;
   }
-  if (routeKey === "TabsWine") {
+  if (routeKey === "TabsProfile") {
     return <PitcherTab color={color} />;
   }
   if (routeKey === "TabsEvents") {
@@ -19,6 +23,10 @@ const BottomIcon = ({ routeKey, color }) => {
 };
 
 const TabBar = ({ state, descriptors, navigation }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const [signInModal, setSignInModal] = useState(false);
+  const [signUpModal, setSignUpModal] = useState(false);
+
   return (
     <View style={styles.tabBar}>
       {state.routes.map((route, index) => {
@@ -57,7 +65,15 @@ const TabBar = ({ state, descriptors, navigation }) => {
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
-            onPress={onPress}
+            onPress={
+              route.name === "TabsProfile"
+                ? onPress
+                : // () => {
+                  //     // setOpenModal(true);
+                  //     return onPress;
+                  //   }
+                  onPress
+            }
             onLongPress={onLongPress}
             style={{
               flex: 1,
@@ -73,6 +89,36 @@ const TabBar = ({ state, descriptors, navigation }) => {
           </TouchableOpacity>
         );
       })}
+      <RegisterRequiredModal
+        modalVisible={openModal}
+        onClose={() => setOpenModal(false)}
+        onSignIn={() => {
+          setOpenModal(false);
+          setSignInModal(true);
+        }}
+        onSignUp={() => {
+          setOpenModal(false);
+          setSignUpModal(true);
+        }}
+      />
+
+      <SignInModal
+        modalVisible={signInModal}
+        onClose={() => setSignInModal(false)}
+        onSignUp={() => {
+          setSignInModal(false);
+          setSignUpModal(true);
+        }}
+      />
+
+      <SignUpModal
+        modalVisible={signUpModal}
+        onClose={() => setSignUpModal(false)}
+        onSignIn={() => {
+          setSignUpModal(false);
+          setSignInModal(true);
+        }}
+      />
     </View>
   );
 };

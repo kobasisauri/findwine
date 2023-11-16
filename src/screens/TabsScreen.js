@@ -86,7 +86,7 @@ function TabsScreen() {
       />
 
       <Tab.Screen
-        name="TabsWine"
+        name="TabsProfile"
         options={{ landData, title: "" }}
         component={WineScreen}
       />

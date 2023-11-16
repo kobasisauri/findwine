@@ -1,29 +1,27 @@
 import { useNavigation } from "@react-navigation/native";
 import { Box, Text } from "native-base";
-import { StyleSheet, Platform, Pressable } from "react-native";
+import { StyleSheet, Platform, Pressable, View } from "react-native";
 import colors from "../../../constants/colors";
-import { ArrowLeft } from "../../Icons";
+import { ArrowLeft, Burger } from "../../Icons";
 
 const styles = StyleSheet.create({
   header: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    paddingRight: 16,
+    justifyContent: "space-between",
     backgroundColor: colors.darkGray,
   },
   back: {
-    paddingTop: 9,
-    paddingBottom: 9,
-    paddingLeft: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 50,
+    width: 65,
   },
   headerText: {
     color: colors.white,
     fontSize: 14,
-    marginLeft: "auto",
-    marginRight: "auto",
     textAlign: "center",
-    transform: [{ translateX: -10 }],
     textTransform: "uppercase",
   },
   components: {
@@ -53,7 +51,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function NavigationHeader({ title, textStyle, components, headerStyle }) {
+function NavigationHeader({ title, textStyle, headerStyle, tab }) {
   const navigation = useNavigation();
   const text = [styles.headerText];
 
@@ -66,14 +64,22 @@ function NavigationHeader({ title, textStyle, components, headerStyle }) {
       style={[
         styles.header,
         Platform.OS !== "ios" && { alignItems: "center" },
-        components && { justifyContent: "space-between" },
         headerStyle,
       ]}
     >
-      <Pressable onPress={() => navigation.goBack()} style={styles.back}>
-        <ArrowLeft />
-      </Pressable>
+      {!!tab ? (
+        <View style={styles.back} />
+      ) : (
+        <Pressable onPress={() => navigation.goBack()} style={styles.back}>
+          <ArrowLeft />
+        </Pressable>
+      )}
+
       <Text style={text}>{title}</Text>
+
+      <Pressable style={styles.back}>
+        <Burger />
+      </Pressable>
     </Box>
   );
 }

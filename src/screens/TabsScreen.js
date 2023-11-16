@@ -6,6 +6,8 @@ import HomeScreen from "./Tabs/home";
 import NavgationScreen from "./Tabs/navigation";
 import WineScreen from "./Tabs/wine";
 import MapScreen from "./Tabs/map";
+import EventsScreen from "./Tabs/events";
+
 import TabBar from "../components/parts/TabBar";
 import WinePassport from "./WinePassport";
 import PackageDetails from "./PackageDetails";
@@ -35,7 +37,7 @@ const HomeNavigation = () => {
   );
 };
 
-const ProfileNavigation = () => {
+const EventsNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -44,10 +46,10 @@ const ProfileNavigation = () => {
         animationEnabled: false,
       }}
     >
+      <Stack.Screen name="events" component={EventsScreen} />
       <Stack.Screen name="navigation" component={NavgationScreen} />
       <Stack.Screen name="wineries" component={WineriesScreen} />
       <Stack.Screen name="winery" component={WinerySreen} />
-      <Stack.Screen name="events" component={Events} />
       <Stack.Screen name="event-details" component={EventDetails} />
       <Stack.Screen name="contact" component={Contact} />
       <Stack.Screen name="profile" component={Profile} />
@@ -90,9 +92,9 @@ function TabsScreen() {
       />
 
       <Tab.Screen
-        name="TabsProfile"
+        name="TabsEvents"
         options={{ landData, title: "" }}
-        component={ProfileNavigation}
+        component={EventsNavigation}
       />
     </Tab.Navigator>
   );

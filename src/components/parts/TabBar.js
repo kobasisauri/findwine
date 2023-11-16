@@ -1,7 +1,6 @@
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { Box } from "native-base";
-import { HomeTab, MapTab, PitcherTab, Burger } from "../Icons";
-import colors from "../../constants/colors";
+import { HomeTab, MapTab, PitcherTab, Calendar } from "../Icons";
 
 const BottomIcon = ({ routeKey, color }) => {
   if (routeKey === "TabsMain") {
@@ -13,8 +12,8 @@ const BottomIcon = ({ routeKey, color }) => {
   if (routeKey === "TabsWine") {
     return <PitcherTab color={color} />;
   }
-  if (routeKey === "TabsProfile") {
-    return <Burger color={color} />;
+  if (routeKey === "TabsEvents") {
+    return <Calendar color={color} />;
   }
   return null;
 };

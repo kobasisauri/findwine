@@ -23,3 +23,7 @@ export { default as Search } from "./Search";
 export { default as Clock } from "./Clock";
 export { default as ArrowRight } from "./arrowRight";
 export { default as Calendar } from "./Calendar";
+export { default as Info } from "./info";
+export { default as Edit } from "./edit";
+export { default as Bonus } from "./bonus";
+export { default as Key } from "./key";

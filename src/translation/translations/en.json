@@ -48,7 +48,7 @@
   "upcomingEvent": "UPCOMING EVENTS",
   "moreDetails": "More details",
   "registerNow": "Register now",
-  "email": "Email",
+  "email": "E-mail",
   "password": "Password",
   "confirmPassword": "Confirm password",
   "lostYourPass?": "Lost your password?",
@@ -64,5 +64,15 @@
   "georgianWineClub": "Georgian Wine Club",
   "participantWineries": "Participant wineries ",
   "seeAll": "See all",
-  "map": "Map"
+  "map": "Map",
+  "personalInfo": "PERSONAL INFO",
+  "phone": "Phone",
+  "birthday": "Birthday",
+  "bonusPoints": "BONUS POINTS",
+  "howToUseBonusPoints": "How to use bonus points?",
+  "changePassword": "CHANGE PASSWORD",
+  "toChangeYourPassword": "To change your password, please input current and new password",
+  "currentPassword": "Current password",
+  "newPassword": "New password",
+  "save": "SAVE"
 }

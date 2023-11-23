@@ -6,174 +6,383 @@ import NavigationHeader from "../../components/parts/navigation/navigationHeader
 import Container from "../../components/shared/Container";
 import Text from "../../components/shared/Text";
 import { t } from "../../translation";
-import { Info, Edit, Bonus, Key } from "../../components/Icons";
+import {
+  Info,
+  Edit,
+  Bonus,
+  Key,
+  ExpiredAlert,
+  QrCode,
+} from "../../components/Icons";
 import Input from "../../components/shared/Input";
 import Button from "../../components/shared/Button";
 
-function SearchScreen({ navigation }) {
+function SearchScreen() {
   const [active, setActive] = useState(1);
   const [values, setValues] = useState({
     currentPassword: "",
     newPassword: "",
   });
+  const [auth, setAuth] = useState(1);
+
+  const visitors = [1, 2, 3];
 
   return (
     <Container style={{ backgroundColor: "#F2F2F2" }}>
       <NavigationHeader title={t("profile")} tab />
-      <View style={styles.titlecontaner}>
-        <View style={{ flexDirection: "row" }}>
-          <Pressable onPress={() => setActive(1)}>
-            <Text style={[styles.titleText, active === 1 && styles.active]}>
-              Profile
-            </Text>
-          </Pressable>
-          <Pressable onPress={() => setActive(2)}>
-            <Text style={[styles.titleText, active === 2 && styles.active]}>
-              WINE PASSPORT
-            </Text>
-          </Pressable>
-        </View>
-        <Box
-          style={[
-            styles.bottomLine,
-            active === 1 ? {} : { alignItems: "flex-end" },
-          ]}
-        >
-          <Box
-            style={[
-              styles.buttomLineMidle,
-              active === 1 && styles.activeBottomLine,
-            ]}
-          />
-          <Box
-            style={[
-              styles.buttomLineMidle,
-              active === 2 && styles.activeBottomLine2,
-            ]}
-          />
-        </Box>
-      </View>
-      {active === 1 && (
-        <ScrollView style={{ paddingHorizontal: 16, gap: 18 }}>
-          <View style={styles.infoContainer}>
-            <View style={styles.infoHeading}>
-              <View style={[{ gap: 8, flexDirection: "row" }]}>
-                <Info />
-                <Text style={{ fontFamily: "monseratBold" }}>
-                  {t("personalInfo")}
-                </Text>
-              </View>
 
-              <Edit />
-            </View>
-            <View style={{ marginTop: 20, gap: 16 }}>
-              <View style={styles.infoItem}>
-                <Text>{t("fullName")}</Text>
-                <Text style={{ fontFamily: "monseratBold" }}>Wesley Mun</Text>
-              </View>
-              <View style={styles.infoItem}>
-                <Text>{t("email")}</Text>
-                <Text style={{ fontFamily: "monseratBold" }}>
-                  Wesleymun@gmail.com
+      {auth === 1 ? (
+        <>
+          <View style={styles.titlecontaner}>
+            <View style={{ flexDirection: "row" }}>
+              <Pressable onPress={() => setActive(1)}>
+                <Text style={[styles.titleText, active === 1 && styles.active]}>
+                  {t("profile")}
                 </Text>
-              </View>
-              <View style={styles.infoItem}>
-                <Text>{t("phone")}</Text>
-                <Text style={{ fontFamily: "monseratBold" }}>
-                  +995599777777
+              </Pressable>
+              <Pressable onPress={() => setActive(2)}>
+                <Text style={[styles.titleText, active === 2 && styles.active]}>
+                  {t("winePassport")}
                 </Text>
-              </View>
-              <View style={styles.infoItem}>
-                <Text>{t("birthday")}</Text>
-                <Text style={{ fontFamily: "monseratBold" }}>01/01/1990</Text>
-              </View>
+              </Pressable>
             </View>
-          </View>
-
-          <View style={styles.bonusContainer}>
-            <View
-              style={{
-                paddingHorizontal: 28,
-                paddingVertical: 20,
-              }}
+            <Box
+              style={[
+                styles.bottomLine,
+                active === 1 ? {} : { alignItems: "flex-end" },
+              ]}
             >
-              <View style={styles.infoHeading}>
-                <View style={[{ gap: 8, flexDirection: "row" }]}>
-                  <Bonus />
-                  <Text style={{ fontFamily: "monseratBold" }}>
-                    {t("bonusPoints")}
-                  </Text>
-                </View>
-              </View>
-              <View style={{ marginTop: 25 }}>
-                <View style={styles.bonusItem}>
-                  <Text>You have</Text>
-                  <Text style={styles.bonusNumber}>200</Text>
-                  <Text
-                    style={{
-                      fontFamily: "monseratBold",
-                      textTransform: "lowercase",
-                    }}
-                  >
-                    {t("bonusPoints")}
-                  </Text>
-                </View>
-                <View>
-                  <Text color="#B44D2D" fontSize={16} marginTop={15}>
-                    {t("howToUseBonusPoints")}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.bonusImage}>
-              <Image
-                source={require("../../assets/img/profile-bonus.png")}
-                style={{
-                  height: 141,
-                  width: "100%",
-                  borderBottomLeftRadius: 8,
-                }}
+              <Box
+                style={[
+                  styles.buttomLineMidle,
+                  active === 1 && styles.activeBottomLine,
+                ]}
               />
-              <View style={styles.line} />
-            </View>
+              <Box
+                style={[
+                  styles.buttomLineMidle,
+                  active === 2 && styles.activeBottomLine2,
+                ]}
+              />
+            </Box>
           </View>
+          {active === 1 && (
+            <ScrollView style={{ paddingHorizontal: 16, gap: 18 }}>
+              <View style={styles.infoContainer}>
+                <View style={styles.infoHeading}>
+                  <View style={[{ gap: 8, flexDirection: "row" }]}>
+                    <Info />
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      {t("personalInfo")}
+                    </Text>
+                  </View>
 
-          <View style={styles.infoContainer}>
-            <View style={styles.infoHeading}>
-              <View style={[{ gap: 8, flexDirection: "row" }]}>
-                <Key />
-                <Text style={{ fontFamily: "monseratBold" }}>
-                  {t("changePassword")}
-                </Text>
+                  <Edit />
+                </View>
+                <View style={{ marginTop: 20, gap: 16 }}>
+                  <View style={styles.infoItem}>
+                    <Text>{t("fullName")}</Text>
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      Wesley Mun
+                    </Text>
+                  </View>
+                  <View style={styles.infoItem}>
+                    <Text>{t("email")}</Text>
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      Wesleymun@gmail.com
+                    </Text>
+                  </View>
+                  <View style={styles.infoItem}>
+                    <Text>{t("phone")}</Text>
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      +995599777777
+                    </Text>
+                  </View>
+                  <View style={styles.infoItem}>
+                    <Text>{t("birthday")}</Text>
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      01/01/1990
+                    </Text>
+                  </View>
+                </View>
               </View>
+
+              <View style={styles.bonusContainer}>
+                <View
+                  style={{
+                    paddingHorizontal: 28,
+                    paddingVertical: 20,
+                  }}
+                >
+                  <View style={styles.infoHeading}>
+                    <View style={[{ gap: 8, flexDirection: "row" }]}>
+                      <Bonus />
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        {t("bonusPoints")}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{ marginTop: 25 }}>
+                    <View style={styles.bonusItem}>
+                      <Text>You have</Text>
+                      <Text style={styles.bonusNumber}>200</Text>
+                      <Text
+                        style={{
+                          fontFamily: "monseratBold",
+                          textTransform: "lowercase",
+                        }}
+                      >
+                        {t("bonusPoints")}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text color="#B44D2D" fontSize={16} marginTop={15}>
+                        {t("howToUseBonusPoints")}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.bonusImage}>
+                  <Image
+                    source={require("../../assets/img/profile-bonus.png")}
+                    style={{
+                      height: 141,
+                      width: "100%",
+                      borderBottomLeftRadius: 8,
+                    }}
+                  />
+                  <View style={styles.line} />
+                </View>
+              </View>
+
+              <View style={styles.infoContainer}>
+                <View style={styles.infoHeading}>
+                  <View style={[{ gap: 8, flexDirection: "row" }]}>
+                    <Key />
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      {t("changePassword")}
+                    </Text>
+                  </View>
+                </View>
+                <View marginTop={20} paddingBottom={30}>
+                  <Text fontSize={12} marginBottom={15}>
+                    {t("toChangeYourPassword")}
+                  </Text>
+                  <Input
+                    placeholder={t("currentPassword")}
+                    value={values.currentPassword}
+                    onChangeText={(val) =>
+                      setValues((state) => ({ ...state, currentPassword: val }))
+                    }
+                  />
+                  <Input
+                    placeholder={t("newPassword")}
+                    value={values.newPassword}
+                    onChangeText={(val) =>
+                      setValues((state) => ({ ...state, newPassword: val }))
+                    }
+                  />
+                  <Button
+                    style={{ width: "55%", marginTop: 10 }}
+                    onPress={() => console.log(values)}
+                  >
+                    {t("save")}
+                  </Button>
+                </View>
+              </View>
+            </ScrollView>
+          )}
+          {active === 2 && (
+            <ScrollView style={{ paddingHorizontal: 16, gap: 18 }}>
+              <View style={styles.infoContainer}>
+                <View style={styles.infoHeading}>
+                  <View
+                    style={[
+                      { gap: 8, flexDirection: "row", alignItems: "center" },
+                    ]}
+                  >
+                    <ExpiredAlert />
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      {t("expiredPassports")}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ marginTop: 20, gap: 16 }}>
+                  <View style={styles.infoItem}>
+                    <Text>{t("fullName")}</Text>
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      Wesley Mun
+                    </Text>
+                  </View>
+                  <View style={styles.infoItem}>
+                    <Text>{t("email")}</Text>
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      Wesleymun@gmail.com
+                    </Text>
+                  </View>
+                  <View style={styles.infoItem}>
+                    <Text>{t("phone")}</Text>
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      +995599777777
+                    </Text>
+                  </View>
+                  <View style={styles.infoItem}>
+                    <Text>{t("validation")}</Text>
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      01/01/2022 - 01/01/2023
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </ScrollView>
+          )}
+        </>
+      ) : (
+        <>
+          <View style={styles.titlecontaner}>
+            <View style={{ flexDirection: "row" }}>
+              <Pressable onPress={() => setActive(1)}>
+                <Text style={[styles.titleText, active === 1 && styles.active]}>
+                  {t("profile")}
+                </Text>
+              </Pressable>
+              <Pressable onPress={() => setActive(2)}>
+                <Text style={[styles.titleText, active === 2 && styles.active]}>
+                  {t("visitors")}
+                </Text>
+              </Pressable>
             </View>
-            <View marginTop={20} paddingBottom={30}>
-              <Text fontSize={12} marginBottom={15}>
-                {t("toChangeYourPassword")}
-              </Text>
-              <Input
-                placeholder={t("currentPassword")}
-                value={values.currentPassword}
-                onChangeText={(val) =>
-                  setValues((state) => ({ ...state, currentPassword: val }))
-                }
+            <Box
+              style={[
+                styles.bottomLine,
+                active === 1 ? {} : { alignItems: "flex-end" },
+              ]}
+            >
+              <Box
+                style={[
+                  styles.buttomLineMidle,
+                  active === 1 && styles.activeBottomLine,
+                ]}
               />
-              <Input
-                placeholder={t("newPassword")}
-                value={values.newPassword}
-                onChangeText={(val) =>
-                  setValues((state) => ({ ...state, newPassword: val }))
-                }
+              <Box
+                style={[
+                  styles.buttomLineMidle,
+                  active === 2 && styles.activeBottomLine2,
+                ]}
               />
-              <Button
-                style={{ width: "55%", marginTop: 10 }}
-                onPress={() => console.log(values)}
-              >
-                {t("save")}
-              </Button>
-            </View>
+            </Box>
           </View>
-        </ScrollView>
+          {active === 1 && (
+            <ScrollView style={{ paddingHorizontal: 16, gap: 18 }}>
+              <View style={styles.infoContainer}>
+                <View style={styles.infoHeading}>
+                  <View style={[{ gap: 8, flexDirection: "row" }]}>
+                    <QrCode />
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      {t("scanQrCode")}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ marginTop: 20, gap: 16 }}>
+                  <View style={styles.infoItem}>
+                    <Text>{t("visitorsHasuniqueQrCode")}</Text>
+                  </View>
+                  <Button
+                    style={{ width: "55%", marginBottom: 30, marginTop: 10 }}
+                  >
+                    {t("scan")}
+                  </Button>
+                </View>
+              </View>
+
+              <View
+                style={[
+                  styles.bonusContainer,
+                  {
+                    paddingHorizontal: 28,
+                    paddingVertical: 20,
+                    paddingBottom: 60,
+                  },
+                ]}
+              >
+                <View style={styles.infoHeading}>
+                  <View style={[{ gap: 8, flexDirection: "row" }]}>
+                    <Bonus />
+                    <Text style={{ fontFamily: "monseratBold" }}>
+                      {t("visitors")}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ marginTop: 25 }}>
+                  <View style={styles.bonusItem}>
+                    <Text>You have</Text>
+                    <Text style={styles.bonusNumber}>20</Text>
+                    <Text
+                      style={{
+                        textTransform: "lowercase",
+                      }}
+                    >
+                      {t("visitorsThisYear")}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text marginTop={15}>{t("totalVisitors")}</Text>
+                  </View>
+                </View>
+              </View>
+            </ScrollView>
+          )}
+          {active === 2 && (
+            <ScrollView
+              style={{ paddingHorizontal: 16, gap: 18 }}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.infoContainer}>
+                {visitors.map((item, i) => (
+                  <View
+                    key={i}
+                    style={[
+                      {
+                        marginTop: 20,
+                        marginBottom: 20,
+                        gap: 16,
+                        borderBottomWidth: 1,
+                        paddingBottom: 35,
+                        borderBottomColor: "rgba(41, 44, 49, 0.20)",
+                      },
+                      i === visitors.length - 1 && {
+                        borderBottomWidth: 0,
+                      },
+                    ]}
+                  >
+                    <View style={styles.infoItem}>
+                      <Text>{t("fullName")}</Text>
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        Wesley Mun
+                      </Text>
+                    </View>
+                    <View style={styles.infoItem}>
+                      <Text>{t("email")}</Text>
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        Wesleymun@gmail.com
+                      </Text>
+                    </View>
+                    <View style={styles.infoItem}>
+                      <Text>{t("phone")}</Text>
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        +995599777777
+                      </Text>
+                    </View>
+                    <View style={styles.infoItem}>
+                      <Text>{t("country")}</Text>
+                      <Text style={{ fontFamily: "monseratBold" }}>France</Text>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+          )}
+        </>
       )}
     </Container>
   );

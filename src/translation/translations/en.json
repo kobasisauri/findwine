@@ -1,7 +1,6 @@
 {
   "connectingWineLovers": "Connecting wine lovers",
   "headerText": "ENJOY GEORGIAN WINERIES WITH OUR HIGHWAY",
-  "winePassport": "Wine passport",
   "whatIsWinePasport": "What is wine passport?",
   "exclusiveOffers": "Exclusive offers",
   "wineTasting": "Wine tasting done smarter",
@@ -45,6 +44,7 @@
   "ourWines": "Our wines",
   "events": "Events",
   "profile": "Profile",
+  "winePassport": "WINE PASSPORT",
   "upcomingEvent": "UPCOMING EVENTS",
   "moreDetails": "More details",
   "registerNow": "Register now",
@@ -74,5 +74,14 @@
   "toChangeYourPassword": "To change your password, please input current and new password",
   "currentPassword": "Current password",
   "newPassword": "New password",
-  "save": "SAVE"
+  "save": "SAVE",
+  "expiredPassports": "EXPIRED PASSPORTS",
+  "validation": "Validation",
+  "scanQrCode": "Scan QR Code",
+  "visitorsHasuniqueQrCode": "Every Wine passport visitor has an unique QR Code. For identity of the visitor you should scanner the code just pressing the button below.",
+  "scan": "SCAN",
+  "visitors": "VISITORS",
+  "visitorsThisYear": "visitors this year",
+  "totalVisitors": "Total visitors",
+  "country": "Country"
 }

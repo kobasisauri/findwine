@@ -5,33 +5,44 @@ import {
   StyleSheet,
   Platform,
   ScrollView,
+  Pressable,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import { t } from "../../translation";
 import Container from "../../components/shared/Container";
 import colors from "../../constants/colors";
-import { Facebook, Instagram } from "../../components/Icons";
+import { Burger, Facebook, Instagram } from "../../components/Icons";
 import OutlinedButton from "../../components/shared/OutlinedButton";
 import Title from "../../components/shared/Title";
 
+const showMenu = () => ({
+  type: "SHOW_MENU",
+});
+
 function HomeScreen({ navigation }) {
+  const dispatch = useDispatch();
+
   return (
     <Container>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={[
-            styles.header,
-            Platform.OS !== "ios" && { alignItems: "center" },
-            { justifyContent: "space-between" },
-          ]}
-        >
-          <View style={styles.back}>
-            <Image
-              source={require("../../assets/img/logo.png")}
-              style={{ height: 41, width: 82 }}
-            />
-          </View>
+      <View
+        style={[
+          styles.header,
+          Platform.OS !== "ios" && { alignItems: "center" },
+        ]}
+      >
+        <View style={styles.back}>
+          <Image
+            source={require("../../assets/img/logo.png")}
+            style={{ height: 41, width: 82 }}
+          />
         </View>
 
+        <Pressable style={styles.back} onPress={() => dispatch(showMenu())}>
+          <Burger />
+        </Pressable>
+      </View>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.bottonHeader}>
           <Text style={{ color: "#fff" }}>{t("connectingWineLovers")}</Text>
           <Text
@@ -173,9 +184,9 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   header: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     paddingRight: 16,
     backgroundColor: colors.darkGray,
   },

@@ -1,5 +1,6 @@
 import { SafeAreaView, StyleSheet, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Menu from "../components/parts/Menu";
 import TabsScreen from "../screens/TabsScreen";
 
 const styles = StyleSheet.create({
@@ -23,7 +24,8 @@ const RootApp = () => {
 
 export default function Main() {
   return (
-    <SafeAreaProvider style={{ flex: 1 }}>
+    <SafeAreaProvider style={{ flex: 1, position: "relative" }}>
+      <Menu />
       <RootApp />
     </SafeAreaProvider>
   );

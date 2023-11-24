@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useSelector } from "react-redux";
 import HomeScreen from "./Tabs/home";
-import NavgationScreen from "./Tabs/navigation";
 import WineScreen from "./Tabs/wine";
 import MapScreen from "./Tabs/map";
 import EventsScreen from "./Tabs/events";
@@ -15,7 +14,6 @@ import WineriesScreen from "./Wineries";
 import WinerySreen from "./Winery";
 import Events from "./Events";
 import Contact from "./Contact";
-import Profile from "./Profile";
 import EventDetails from "./EventDetails";
 
 const Tab = createBottomTabNavigator();
@@ -33,6 +31,53 @@ const HomeNavigation = () => {
       <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name="wine-passport" component={WinePassport} />
       <Stack.Screen name="package-details" component={PackageDetails} />
+      {/* to do */}
+      <Stack.Screen name="events" component={EventsScreen} />
+      <Stack.Screen name="event-details" component={EventDetails} />
+      <Stack.Screen name="wineries" component={WineriesScreen} />
+      <Stack.Screen name="winery" component={WinerySreen} />
+      <Stack.Screen name="contact" component={Contact} />
+      <Stack.Screen name="profile" component={WineScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const MapNavigation = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animation: "none",
+        animationEnabled: false,
+      }}
+    >
+      <Stack.Screen name="map" component={MapScreen} />
+      {/* to do */}
+      <Stack.Screen name="events" component={EventsScreen} />
+      <Stack.Screen name="event-details" component={EventDetails} />
+      <Stack.Screen name="wineries" component={WineriesScreen} />
+      <Stack.Screen name="winery" component={WinerySreen} />
+      <Stack.Screen name="contact" component={Contact} />
+      <Stack.Screen name="profile" component={WineScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const WineNavigation = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animation: "none",
+        animationEnabled: false,
+      }}
+    >
+      <Stack.Screen name="profile" component={WineScreen} />
+      <Stack.Screen name="events" component={EventsScreen} />
+      <Stack.Screen name="event-details" component={EventDetails} />
+      <Stack.Screen name="wineries" component={WineriesScreen} />
+      <Stack.Screen name="winery" component={WinerySreen} />
+      <Stack.Screen name="contact" component={Contact} />
     </Stack.Navigator>
   );
 };
@@ -47,12 +92,11 @@ const EventsNavigation = () => {
       }}
     >
       <Stack.Screen name="events" component={EventsScreen} />
-      <Stack.Screen name="navigation" component={NavgationScreen} />
+      <Stack.Screen name="event-details" component={EventDetails} />
       <Stack.Screen name="wineries" component={WineriesScreen} />
       <Stack.Screen name="winery" component={WinerySreen} />
-      <Stack.Screen name="event-details" component={EventDetails} />
       <Stack.Screen name="contact" component={Contact} />
-      <Stack.Screen name="profile" component={Profile} />
+      <Stack.Screen name="profile" component={WineScreen} />
     </Stack.Navigator>
   );
 };
@@ -82,13 +126,13 @@ function TabsScreen() {
       <Tab.Screen
         name="TabsMaps"
         options={{ landData, title: "" }}
-        component={MapScreen}
+        component={MapNavigation}
       />
 
       <Tab.Screen
         name="TabsProfile"
         options={{ landData, title: "" }}
-        component={WineScreen}
+        component={WineNavigation}
       />
 
       <Tab.Screen

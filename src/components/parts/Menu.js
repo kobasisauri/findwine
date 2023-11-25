@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { t } from "../../translation";
 import colors from "../../constants/colors";
 import Text from "../shared/Text";
+import { Close } from "../Icons";
 
 const navs = [
   { url: "profile", title: "winePassport" },
@@ -40,9 +41,18 @@ function Menu() {
         },
       ]}
     >
-      {/* <Pressable onPress={() => dispatch(hideMenu())}>
-        <Text color="#fff">close</Text>
-      </Pressable> */}
+      <View style={{ justifyContent: "flex-end", flexDirection: "row" }}>
+        <Pressable
+          onPress={() => dispatch(hideMenu())}
+          style={{
+            padding: 8,
+
+            marginRight: 12,
+          }}
+        >
+          <Close color="#fff" />
+        </Pressable>
+      </View>
 
       <View style={styles.container}>
         {navs.map((nav, i) => (

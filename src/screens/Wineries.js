@@ -26,16 +26,15 @@ function Wineries() {
     <Container>
       <NavigationHeader title={t("wineries")} />
 
-      {/* <View style={{ paddingHorizontal: 16, marginBottom: 21, marginTop: 50 }}>
-        <Input
-          placeholder={t("search")}
-          suf={
-            <View style={{ width: 80, backgroundColor: "red" }}>
-              <Search />
-            </View>
-          }
-        />
-      </View> */}
+      <View
+        style={{
+          flexDirection: "row",
+          paddingHorizontal: 16,
+          marginTop: 50,
+        }}
+      >
+        <Input placeholder={t("search")} suf={<Search />} />
+      </View>
 
       {loading ? (
         <Loader />

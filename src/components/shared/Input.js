@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "center",
+    // alignItems: "center",
     height: 60,
     borderRadius: 4,
     borderColor: "#292C3166",
@@ -49,17 +49,29 @@ export default function TextInput({
     >
       {pre && <Box>{pre}</Box>}
 
-      <Input
-        secureTextEntry={!!secureTextEntry}
-        isDisabled={!!disabled}
-        style={[styles.textInput, style && style]}
-        {...rest}
-        onPress={onPress}
-        onChangeText={onChangeText}
-        variant="unstyled"
-      />
+      <Box style={{ flex: 1 }}>
+        <Input
+          secureTextEntry={!!secureTextEntry}
+          isDisabled={!!disabled}
+          style={[styles.textInput, style && style]}
+          {...rest}
+          onPress={onPress}
+          onChangeText={onChangeText}
+          variant="unstyled"
+        />
+      </Box>
 
-      {suf && <Box>{suf}</Box>}
+      {suf && (
+        <Box
+          style={{
+            width: 50,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {suf}
+        </Box>
+      )}
     </Pressable>
   );
 }

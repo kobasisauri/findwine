@@ -30,7 +30,7 @@ function Wineries() {
         style={{
           flexDirection: "row",
           paddingHorizontal: 16,
-          marginTop: 50,
+          marginTop: 30,
         }}
       >
         <Input placeholder={t("search")} suf={<Search />} />
@@ -40,7 +40,11 @@ function Wineries() {
         <Loader />
       ) : (
         <View
-          style={{ paddingHorizontal: 16, marginBottom: 50, marginTop: 20 }}
+          style={{
+            paddingHorizontal: 16,
+            marginBottom: 150,
+            marginTop: 20,
+          }}
         >
           <FlatList
             data={data}

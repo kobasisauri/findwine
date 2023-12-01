@@ -41,7 +41,7 @@ function Events() {
                   <View style={styles.imageContainer}>
                     <Image
                       source={{
-                        uri: "https://staging.findwines.ge" + item.img_path,
+                        uri: "https://findwines.ge" + item.img_path,
                         headers: { Authorization: "Basic d2luZToxNTk=" },
                       }}
                       alt="events"

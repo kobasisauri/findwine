@@ -1,30 +1,58 @@
-import { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, ScrollView } from "react-native";
+import { useEffect, useState, useRef } from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  SectionList,
+  ScrollView,
+} from "react-native";
 import { Image } from "native-base";
 import { t } from "../translation";
 import NavigationHeader from "../components/parts/navigation/navigationHeader";
 import Container from "../components/shared/Container";
-import { getWinery } from "../services/wineries";
+import { getWinery, getRegionWinery } from "../services/wineries";
 import Loader from "../components/shared/Loader";
 import Text from "../components/shared/Text";
 import Ranking from "../components/shared/Ranking";
+import { default as WineryItems } from "../components/shared/Winery";
 
 function Winery({ route }) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [ranking, setRanking] = useState(0);
+  const [otherRegionData, setOtherRegionData] = useState();
+  const scrollRef = useRef();
+  const [scroll, setScroll] = useState(0);
+
+  const standardizedData = otherRegionData?.filter(
+    (item) => item.region_name === data?.region
+  );
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  }, [scroll]);
 
   useEffect(() => {
     if (route?.params?.id) {
       setLoading(true);
-      getWinery(route?.params?.id).then((res) => {
-        if (res) {
-          setData(res);
-          setRanking(res.raiting);
-        }
+      getWinery(route?.params?.id)
+        .then((res) => {
+          if (res) {
+            setData(res);
+            setRanking(res.raiting);
+          }
 
-        setLoading(false);
-      });
+          return getRegionWinery();
+        })
+        .then((res) => {
+          if (res) {
+            setOtherRegionData(res);
+          }
+          setLoading(false);
+        });
     }
   }, [route?.params?.id]);
 
@@ -35,86 +63,110 @@ function Winery({ route }) {
       {loading && !data ? (
         <Loader />
       ) : (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {data?.img_path && (
-            <Image
-              source={{
-                uri: "https://staging.findwines.ge" + data?.img_path,
-                headers: { Authorization: "Basic d2luZToxNTk=" },
-              }}
-              alt="winerie"
-              style={{ height: 224 }}
-            />
-          )}
-
-          <View style={{ paddingHorizontal: 16 }}>
-            <View style={styles.rankingWrapper}>
-              <Ranking rate={ranking || 0} setRate={(num) => setRanking(num)} />
-              <Text marginLeft={15}>({ranking || 0} out 5)</Text>
-            </View>
-
-            {data?.description && (
-              <>
-                <Text style={styles.title}>{t("introduction")}</Text>
-                <Text marginBottom={30}>{data?.description || ""}</Text>
-              </>
+        <>
+          <ScrollView showsVerticalScrollIndicator={false} ref={scrollRef}>
+            {data?.img_path && (
+              <Image
+                source={{
+                  uri: "https://findwines.ge" + data?.img_path,
+                  headers: { Authorization: "Basic d2luZToxNTk=" },
+                }}
+                alt="winerie"
+                style={{ height: 224 }}
+              />
             )}
 
-            {!!data?.awards.length && (
-              <View marginBottom={30}>
-                <Text style={styles.title}>{t("awardsWon")}</Text>
-
-                {data.awards.map((item) => (
-                  <Text marginBottom={9} key={item.id}>
-                    {item.name}
-                  </Text>
-                ))}
+            <View style={{ paddingHorizontal: 16 }}>
+              <View style={styles.rankingWrapper}>
+                <Ranking
+                  rate={ranking || 0}
+                  setRate={(num) => setRanking(num)}
+                />
+                <Text marginLeft={15}>({ranking || 0} out 5)</Text>
               </View>
-            )}
+              {data?.description && (
+                <>
+                  <Text style={styles.title}>{t("introduction")}</Text>
+                  <Text marginBottom={30}>{data?.description || ""}</Text>
+                </>
+              )}
+              {!!data?.awards.length && (
+                <View marginBottom={30}>
+                  <Text style={styles.title}>{t("awardsWon")}</Text>
 
-            {!!data?.products.length && (
-              <>
-                <Text style={styles.title}>{t("ourWines")}</Text>
+                  {data.awards.map((item) => (
+                    <Text marginBottom={9} key={item.id}>
+                      {item.name}
+                    </Text>
+                  ))}
+                </View>
+              )}
+              {!!data?.products.length && (
+                <>
+                  <Text style={styles.title}>{t("ourWines")}</Text>
 
-                {data?.products.map((item, i) => (
-                  <View key={i} style={styles.wineContainer}>
-                    <View>
-                      <Image
-                        source={{
-                          uri: "https://staging.findwines.ge" + item.img_link,
-                          headers: { Authorization: "Basic d2luZToxNTk=" },
-                        }}
-                        alt="bottle"
-                        height={250}
-                        width={94}
-                      />
+                  {data?.products.map((item, i) => (
+                    <View key={i} style={styles.wineContainer}>
+                      <View>
+                        <Image
+                          source={{
+                            uri: `https://findwines.ge${
+                              item.img_link[0] === "/"
+                                ? item.img_link
+                                : `/${item.img_link}`
+                            }`,
+                            headers: { Authorization: "Basic d2luZToxNTk=" },
+                          }}
+                          alt="bottle"
+                          height={250}
+                          width={94}
+                        />
+                      </View>
+                      <View>
+                        <Text style={styles.wineTitle}>{item.name}</Text>
+                        <Text color="#464645" marginBottom={13}>
+                          {item.color}
+                        </Text>
+                        <Text color="#939673" marginBottom={9}>
+                          {item.breed}
+                        </Text>
+                        <Text color="#A7A7A7" font marginBottom={18}>
+                          {item.wine_type}
+                        </Text>
+
+                        <Text style={styles.winePrice} uppercase>
+                          $19.99
+                        </Text>
+                      </View>
                     </View>
-                    <View>
-                      <Text style={styles.wineTitle}>{item.name}</Text>
-                      <Text color="#464645" marginBottom={13}>
-                        {item.color}
-                      </Text>
-                      <Text color="#939673" marginBottom={9}>
-                        {item.breed}
-                      </Text>
-                      <Text color="#A7A7A7" font marginBottom={18}>
-                        {item.wine_type}
-                      </Text>
+                  ))}
+                </>
+              )}
 
-                      <Text style={styles.winePrice} uppercase>
-                        $19.99
-                      </Text>
-                    </View>
-                  </View>
-                ))}
-              </>
-            )}
+              {otherRegionData?.length && (
+                <>
+                  <Text style={[styles.title, { marginTop: 70 }]}>
+                    {t("otherWineriesIn")} {data?.region}
+                  </Text>
 
-            <Text style={[styles.title, { marginTop: 70 }]}>
-              {t("otherWineriesIn")} {data?.region}
-            </Text>
-          </View>
-        </ScrollView>
+                  <FlatList
+                    data={
+                      !!standardizedData &&
+                      standardizedData[0].winners.filter(
+                        (item) => item.id !== data.id
+                      )
+                    }
+                    keyExtractor={(item) => item.id}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                      <WineryItems item={item} setScroll={setScroll} />
+                    )}
+                  />
+                </>
+              )}
+            </View>
+          </ScrollView>
+        </>
       )}
     </Container>
   );

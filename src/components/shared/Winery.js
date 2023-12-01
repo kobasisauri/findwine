@@ -6,7 +6,7 @@ import Text from "./Text";
 import OutlinedButton from "./OutlinedButton";
 import { FilledStar, WineryLocation } from "../Icons";
 
-function Winery({ item }) {
+function Winery({ item, setScroll }) {
   const navigation = useNavigation();
 
   return (
@@ -14,7 +14,7 @@ function Winery({ item }) {
       {item.img_path && (
         <Image
           source={{
-            uri: "https://staging.findwines.ge" + item.img_path,
+            uri: "https://findwines.ge" + item.img_path,
             headers: { Authorization: "Basic d2luZToxNTk=" },
           }}
           alt="winerie"
@@ -48,7 +48,10 @@ function Winery({ item }) {
             color: "#3A3D43",
             fontFamily: "monsterat",
           }}
-          onPress={() => navigation.navigate("winery", { id: item.id })}
+          onPress={() => {
+            navigation.navigate("winery", { id: item.id });
+            !!setScroll && setScroll((item) => item + 1);
+          }}
         >
           {t("learnMore")}
         </OutlinedButton>

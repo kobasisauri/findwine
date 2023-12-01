@@ -26,7 +26,7 @@ function EventDetails({ route }) {
       <ScrollView>
         <Image
           source={{
-            uri: "https://staging.findwines.ge" + eventDetails.img_path,
+            uri: "https://findwines.ge" + eventDetails.img_path,
             headers: { Authorization: "Basic d2luZToxNTk=" },
           }}
           alt="events"

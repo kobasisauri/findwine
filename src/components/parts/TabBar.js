@@ -1,12 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { Box } from "native-base";
 import { HomeTab, MapTab, PitcherTab, Calendar } from "../Icons";
 import RegisterRequiredModal from "../../components/shared/RegisterRequiredModal";
 import SignInModal from "../../components/parts/SignInModal";
 import SignUpModal from "../../components/parts/SignUpModal";
+import Text from "../../components/shared/Text";
+import { getEvents } from "../../services/events";
 
 const BottomIcon = ({ routeKey, color }) => {
+  const [eventNumber, setEventNumver] = useState([]);
+
+  useEffect(() => {
+    getEvents().then((res) => {
+      setEventNumver(() =>
+        res.filter((item) => {
+          const eventDate = new Date(item.date);
+
+          return eventDate > new Date();
+        })
+      );
+    });
+  }, []);
+
   if (routeKey === "TabsMain") {
     return <HomeTab color={color} />;
   }
@@ -17,7 +33,20 @@ const BottomIcon = ({ routeKey, color }) => {
     return <PitcherTab color={color} />;
   }
   if (routeKey === "TabsEvents") {
-    return <Calendar color={color} />;
+    return (
+      <View>
+        <View style={styles.eventNumber}>
+          <Text
+            color="#fff"
+            fontSize={12}
+            style={{ fontFamily: "monseratBold" }}
+          >
+            {eventNumber.length}
+          </Text>
+        </View>
+        <Calendar color={color} />
+      </View>
+    );
   }
   return null;
 };
@@ -140,5 +169,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 14,
     paddingBottom: 25,
+  },
+  eventNumber: {
+    width: 25,
+    height: 25,
+    position: "absolute",
+    backgroundColor: "#B44D2D",
+    zIndex: 8,
+    left: -10,
+    top: -4,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

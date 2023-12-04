@@ -83,5 +83,7 @@
   "visitors": "VISITORS",
   "visitorsThisYear": "visitors this year",
   "totalVisitors": "Total visitors",
-  "country": "Country"
+  "country": "Country",
+  "location": "Location",
+  "locationOnMap": "Location on map"
 }

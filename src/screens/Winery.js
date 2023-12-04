@@ -1,11 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  SectionList,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, FlatList, ScrollView } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { Image } from "native-base";
 import { t } from "../translation";
 import NavigationHeader from "../components/parts/navigation/navigationHeader";
@@ -15,6 +10,7 @@ import Loader from "../components/shared/Loader";
 import Text from "../components/shared/Text";
 import Ranking from "../components/shared/Ranking";
 import { default as WineryItems } from "../components/shared/Winery";
+import { MapMarkerOne } from "../components/Icons";
 
 function Winery({ route }) {
   const [data, setData] = useState();
@@ -140,6 +136,44 @@ function Winery({ route }) {
                       </View>
                     </View>
                   ))}
+                </>
+              )}
+
+              {data && data?.location && (
+                <>
+                  <Text style={[styles.title, { marginTop: 70 }]}>
+                    {t("location")}
+                  </Text>
+
+                  <View
+                    style={{
+                      height: 364,
+                      paddingVertical: 8,
+                      paddingHorizontal: 5,
+                    }}
+                  >
+                    <MapView
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      initialRegion={{
+                        latitude: 42.3154,
+                        longitude: 43.3569,
+                        latitudeDelta: 7,
+                        longitudeDelta: 7,
+                      }}
+                    >
+                      <Marker
+                        coordinate={{
+                          latitude: +data.location.lat,
+                          longitude: +data.location.lng,
+                        }}
+                      >
+                        <MapMarkerOne />
+                      </Marker>
+                    </MapView>
+                  </View>
                 </>
               )}
 

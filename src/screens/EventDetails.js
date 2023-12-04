@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { View, Image, StyleSheet, ScrollView, Pressable } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { t } from "../translation";
 import NavigationHeader from "../components/parts/navigation/navigationHeader";
 import Container from "../components/shared/Container";
 import { getEvent } from "../services/events";
 import Text from "../components/shared/Text";
-import { Location, Clock, ArrowRight } from "../components/Icons";
+import { Location, Clock, ArrowRight, MapMarkerOne } from "../components/Icons";
 import { months } from "../constants/date";
 
 function EventDetails({ route }) {
@@ -32,6 +33,7 @@ function EventDetails({ route }) {
           alt="events"
           style={{ height: 229 }}
         />
+
         <View style={styles.heading}>
           <Text
             color="#2F3238"
@@ -41,6 +43,7 @@ function EventDetails({ route }) {
             {eventDetails.event_name}
           </Text>
         </View>
+
         <View style={styles.container}>
           <View style={styles.dataWrapper}>
             <View style={styles.dateContainer}>
@@ -164,6 +167,49 @@ function EventDetails({ route }) {
                 </Pressable>
               )}
             </View>
+          )}
+
+          {eventDetails && eventDetails?.location && (
+            <>
+              <Text
+                fontSize={20}
+                marginTop={48}
+                color="#3A3D43"
+                style={{ fontFamily: "monseratBold" }}
+              >
+                {t("locationOnMap")}
+              </Text>
+
+              <View
+                style={{
+                  height: 364,
+                  paddingVertical: 8,
+                  paddingHorizontal: 5,
+                }}
+              >
+                <MapView
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  initialRegion={{
+                    latitude: 42.3154,
+                    longitude: 43.3569,
+                    latitudeDelta: 7,
+                    longitudeDelta: 7,
+                  }}
+                >
+                  <Marker
+                    coordinate={{
+                      latitude: +eventDetails.location.lat,
+                      longitude: +eventDetails.location.lng,
+                    }}
+                  >
+                    <MapMarkerOne />
+                  </Marker>
+                </MapView>
+              </View>
+            </>
           )}
         </View>
       </ScrollView>

@@ -11,6 +11,7 @@ import { Location } from "../../components/Icons";
 import OutlinedButton from "../../components/shared/OutlinedButton";
 import { months } from "../../constants/date";
 import Loader from "../../components/shared/Loader";
+import Dropdown from "../../components/shared/Dropdown";
 
 function Events() {
   const navigation = useNavigation();
@@ -35,6 +36,27 @@ function Events() {
           <Title title={t("upcomingEvent")} />
 
           <View style={{ paddingHorizontal: 14 }}>
+            <View>
+              {/* <Text>Category: </Text> */}
+              <Dropdown
+                placeholderText="All"
+                dark={true}
+                multiple={true}
+                data={[
+                  { label: "asd", value: 1 },
+                  { label: "asd2", value: 2 },
+                  { label: "asd2", value: 3 },
+                  { label: "asd2", value: 2 },
+                  { label: "asd", value: 1 },
+                  { label: "asd2", value: 2 },
+                  { label: "asd2", value: 2 },
+                  { label: "asd2", value: 3 },
+                  { label: "asd2", value: 2 },
+                  { label: "asd", value: 1 },
+                  { label: "asd2", value: 2 },
+                ]}
+              />
+            </View>
             {!!events &&
               events.map((item, i) => (
                 <View key={i} style={styles.eventContainer}>

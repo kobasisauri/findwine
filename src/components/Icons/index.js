@@ -32,3 +32,4 @@ export { default as Key } from "./key";
 export { default as ExpiredAlert } from "./ExpiredAlert";
 export { default as QrCode } from "./qrCode";
 export { default as DropdownArrow } from "./DropdownArrow";
+export { default as FilterIcon } from "./Filter";

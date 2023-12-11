@@ -85,5 +85,7 @@
   "totalVisitors": "Total visitors",
   "country": "Country",
   "location": "Location",
-  "locationOnMap": "Location on map"
+  "locationOnMap": "Location on map",
+  "findOnMap": "Find on map",
+  "organicProducer": "Organic producer"
 }

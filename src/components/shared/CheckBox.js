@@ -22,6 +22,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#3A3D43",
   },
+  darkContainer: {
+    backgroundColor: "rgba(255,255,255,0.091)",
+    borderColor: "rgba(255,255,255,0.091)",
+  },
+  lightText: {
+    color: "#fff",
+  },
 });
 
 export default function CheckboxField({
@@ -29,14 +36,20 @@ export default function CheckboxField({
   onPress,
   label,
   containerStyles,
+  dark,
 }) {
   return (
     <View style={[styles.container, containerStyles || {}]}>
-      <Pressable style={styles.checkbox} onPress={onPress}>
-        {checked && <Check style={styles.icon} />}
+      <Pressable
+        style={[styles.checkbox, dark ? styles.darkContainer : {}]}
+        onPress={onPress}
+      >
+        {checked && <Check style={styles.icon} color={dark ? "#fff" : ""} />}
       </Pressable>
       <Pressable onPress={onPress}>
-        <Text style={styles.label}>{label}</Text>
+        <Text style={[styles.label, dark ? styles.lightText : {}]}>
+          {label}
+        </Text>
       </Pressable>
     </View>
   );

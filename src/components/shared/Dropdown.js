@@ -61,7 +61,10 @@ const NewSelect = ({
           buttonStyle={[
             styles.buttonStyle,
             error ? styles.error : {},
-            dark && { backgroundColor: "rgba(41, 44, 49, 0.791)" },
+            dark && {
+              backgroundColor: "rgba(255,255,255,0.091)",
+              borderColor: "#292C31",
+            },
           ]}
           renderCustomizedButtonChild={(selectedItem) => (
             <Box style={styles.inner}>
@@ -74,7 +77,15 @@ const NewSelect = ({
                 </Text>
               ) : (
                 <Text
-                  color={value && selectedItem?.label ? "#3A3D43" : "#3A3D43"}
+                  color={[
+                    value && !dark
+                      ? "#3A3D43"
+                      : selectedItem?.label
+                      ? "#fff"
+                      : !value
+                      ? "#fff"
+                      : "#3A3D43",
+                  ]}
                 >
                   {(value && selectedItem?.label) ||
                     data.filter((item) => item.value === value)[0]?.label ||
@@ -182,7 +193,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     backgroundColor: "#fff",
-    borderRadius: 8,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: "#C3CDDD4D",
     height: 56,

@@ -9,20 +9,31 @@ import CheckboxField from "../../components/shared/CheckBox";
 import Container from "../../components/shared/Container";
 import TextInput from "../../components/shared/Input";
 import Text from "../../components/shared/Text";
+import Dropdown from "../../components/shared/Dropdown";
 import Title from "../../components/shared/Title";
 import { getRegionWiners } from "../../services/wineries";
 import { t } from "../../translation";
+import { getCities, getRegions, getWineTypes } from "../../services/dropdowns";
 
 const inputColor = "rgba(255,255,255,0.091)";
 
 function OrdersScreen() {
   const [locationData, setLocationData] = useState([]);
   const [openFiler, setOpenFiler] = useState(false);
+  const [data, setData] = useState({
+    cities: [],
+    regions: [],
+    wineTypes: [],
+  });
+  const [values, setValues] = useState({
+    cities: "",
+    regions: "",
+    wineTypes: "",
+  });
 
   useEffect(() => {
     getRegionWiners().then((res) => {
       let winners = [];
-
       res.forEach((item) => {
         if (item.winners.length) {
           item.winners.forEach((i) => {
@@ -32,6 +43,42 @@ function OrdersScreen() {
       });
       setLocationData(winners);
     });
+  }, []);
+
+  useEffect(() => {
+    getWineTypes()
+      .then((res) => {
+        const transform = res.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }));
+        setData((prevData) => ({
+          ...prevData,
+          wineTypes: transform,
+        }));
+        return getRegions();
+      })
+      .then((res) => {
+        const transform = res.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }));
+        setData((prevData) => ({
+          ...prevData,
+          regions: transform,
+        }));
+        return getCities();
+      })
+      .then((res) => {
+        const transform = res.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }));
+        setData((prevData) => ({
+          ...prevData,
+          cities: transform,
+        }));
+      });
   }, []);
 
   return (
@@ -106,6 +153,47 @@ function OrdersScreen() {
                 dark
               />
 
+              <Text style={styles.desc} color="#fff">
+                {t("byRegions")}
+              </Text>
+              <Dropdown
+                containerStyle={{ flex: 1 }}
+                placeholderText="All regions"
+                dark={true}
+                data={!!data.regions && data.regions}
+                value={values.regions}
+                onChange={(item) => {
+                  setValues((prev) => ({ ...prev, regions: item.value }));
+                }}
+              />
+
+              <Text style={styles.desc} color="#fff">
+                {t("byWineType")}
+              </Text>
+              <Dropdown
+                containerStyle={{ flex: 1 }}
+                placeholderText="All Types"
+                dark={true}
+                data={!!data.wineTypes && data.wineTypes}
+                value={values.wineTypes}
+                onChange={(item) => {
+                  setValues((prev) => ({ ...prev, wineTypes: item.value }));
+                }}
+              />
+
+              <Text style={styles.desc} color="#fff">
+                {t("byOerroirs")}
+              </Text>
+              <Dropdown
+                containerStyle={{ flex: 1 }}
+                placeholderText="All Origins"
+                dark={true}
+                data={!!data.cities && data.cities}
+                value={values.cities}
+                onChange={(item) => {
+                  setValues((prev) => ({ ...prev, cities: item.value }));
+                }}
+              />
               <View style={{ width: "50%" }}>
                 <Button>{t("search")}</Button>
               </View>
@@ -144,5 +232,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     marginBottom: 10,
+  },
+  desc: {
+    marginBottom: 12,
   },
 });

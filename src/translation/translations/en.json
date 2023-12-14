@@ -87,5 +87,8 @@
   "location": "Location",
   "locationOnMap": "Location on map",
   "findOnMap": "Find on map",
-  "organicProducer": "Organic producer"
+  "organicProducer": "Organic producer",
+  "byRegions": "By regions",
+  "byWineType": "By wine type",
+  "byOerroirs": "By origin"
 }

@@ -6,15 +6,25 @@ import Text from "../shared/Text";
 import { t } from "../../translation";
 import Button from "../shared/Button";
 import Input from "../shared/Input";
+import { signUp } from "../../services/signUp";
 
 function SignUpModal({ modalVisible, onClose, onSignIn }) {
   const [values, setValues] = useState({
-    name: "",
+    fullName: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    password_confirmation: "",
+    phone: "",
   });
 
+  const handleSubmit = () => {
+    console.log(values);
+    signUp(values).then((res) => {
+      if (res.status === "OK") {
+        onClose();
+      }
+    });
+  };
   return (
     <Modal isOpen={modalVisible} onClose={onClose} size="xl">
       <Modal.Content style={{ borderRadius: 4 }}>
@@ -29,9 +39,9 @@ function SignUpModal({ modalVisible, onClose, onSignIn }) {
 
           <Input
             placeholder={t("fullName")}
-            value={values.name}
+            value={values.fullName}
             onChangeText={(val) =>
-              setValues((state) => ({ ...state, name: val }))
+              setValues((state) => ({ ...state, fullName: val }))
             }
           />
 
@@ -42,7 +52,14 @@ function SignUpModal({ modalVisible, onClose, onSignIn }) {
               setValues((state) => ({ ...state, email: val }))
             }
           />
-
+          <Input
+            placeholder={t("phone")}
+            secureTextEntry
+            value={values.phone}
+            onChangeText={(val) =>
+              setValues((state) => ({ ...state, phone: val }))
+            }
+          />
           <Input
             placeholder={t("password")}
             secureTextEntry
@@ -55,15 +72,15 @@ function SignUpModal({ modalVisible, onClose, onSignIn }) {
           <Input
             placeholder={t("confirmPassword")}
             secureTextEntry
-            value={values.confirmPassword}
+            value={values.password_confirmation}
             onChangeText={(val) =>
-              setValues((state) => ({ ...state, confirmPassword: val }))
+              setValues((state) => ({ ...state, password_confirmation: val }))
             }
           />
 
           <Button
             buttonTextStyle={{ textTransform: "uppercase" }}
-            onPress={() => console.log("submit")}
+            onPress={() => handleSubmit()}
           >
             {t("register")}
           </Button>

@@ -82,9 +82,11 @@ const NewSelect = ({
                       ? "#3A3D43"
                       : selectedItem?.label
                       ? "#fff"
-                      : !value
+                      : dark && !selectedItem?.label
                       ? "#fff"
-                      : "#3A3D43",
+                      : !value
+                      ? "#3A3D43"
+                      : "#fff",
                   ]}
                 >
                   {(value && selectedItem?.label) ||

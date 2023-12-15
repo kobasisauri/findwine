@@ -7,6 +7,7 @@ import { t } from "../../translation";
 import Button from "../shared/Button";
 import Input from "../shared/Input";
 import CheckboxField from "../shared/CheckBox";
+import { signIn } from "../../services/signUp";
 
 function SignInModal({ modalVisible, onClose, onSignUp }) {
   const [remember, setRememmber] = useState(false);
@@ -14,6 +15,13 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
     email: "",
     password: "",
   });
+
+  handleSubmit = () => {
+    signIn(values).then((res) => {
+      console.log(res);
+      // if(res)
+    });
+  };
 
   return (
     <Modal isOpen={modalVisible} onClose={onClose} size="xl">
@@ -58,7 +66,7 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
 
           <Button
             buttonTextStyle={{ textTransform: "uppercase" }}
-            onPress={() => console.log("submit")}
+            onPress={() => handleSubmit()}
           >
             {t("signIn")}
           </Button>

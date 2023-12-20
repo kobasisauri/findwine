@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import { Modal } from "native-base";
 import { Close } from "../Icons";
@@ -7,6 +7,8 @@ import { t } from "../../translation";
 import Button from "../shared/Button";
 import Input from "../shared/Input";
 import { signUp } from "../../services/signUp";
+import { getCountries } from "../../services/dropdowns";
+import Dropdown from "../shared/Dropdown";
 
 function SignUpModal({ modalVisible, onClose, onSignIn }) {
   const [values, setValues] = useState({
@@ -15,12 +17,31 @@ function SignUpModal({ modalVisible, onClose, onSignIn }) {
     password: "",
     password_confirmation: "",
     phone: "",
+    country: "",
   });
+  const [countries, setCountries] = useState([]);
 
+  useEffect(() => {
+    getCountries().then((res) => {
+      const transform = res.map((item) => ({
+        value: item.id,
+        label: item.name,
+      }));
+      setCountries(transform);
+    });
+  }, []);
   const handleSubmit = () => {
-    console.log(values);
-    signUp(values).then((res) => {
+    signUp({ ...values }).then((res) => {
+      console.log(res);
       if (res.status === "OK") {
+        setValues({
+          fullName: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
+          phone: "",
+          country: "",
+        });
         onClose();
       }
     });
@@ -52,9 +73,18 @@ function SignUpModal({ modalVisible, onClose, onSignIn }) {
               setValues((state) => ({ ...state, email: val }))
             }
           />
+          <Dropdown
+            search={true}
+            containerStyle={{ flex: 1 }}
+            placeholderText="Country"
+            data={countries}
+            value={values.country}
+            onChange={(val) => {
+              setValues((state) => ({ ...state, country: val.value }));
+            }}
+          />
           <Input
             placeholder={t("phone")}
-            secureTextEntry
             value={values.phone}
             onChangeText={(val) =>
               setValues((state) => ({ ...state, phone: val }))

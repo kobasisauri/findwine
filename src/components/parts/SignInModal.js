@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Modal } from "native-base";
 import { Close } from "../Icons";
 import Text from "../shared/Text";
@@ -7,32 +8,63 @@ import { t } from "../../translation";
 import Button from "../shared/Button";
 import Input from "../shared/Input";
 import CheckboxField from "../shared/CheckBox";
-import { signIn } from "../../services/signUp";
+import { signIn, resetPassword } from "../../services/signUp";
+import { useNavigation } from "@react-navigation/native";
 
 function SignInModal({ modalVisible, onClose, onSignUp }) {
+  const navigation = useNavigation();
   const [remember, setRememmber] = useState(false);
+  const [reset, setReset] = useState(false);
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
 
   handleSubmit = () => {
-    signIn(values).then((res) => {
-      console.log(res);
-      // if(res)
-    });
+    if (reset) {
+      resetPassword({ email: values.email }).then((res) => {
+        console.log(res);
+      });
+    } else {
+      signIn(values).then((res) => {
+        console.log(res);
+        if (!!res.token) {
+          AsyncStorage.setItem("token", res.token);
+          // AsyncStorage.setItem("user", res.user);
+          if (res.user.role === "client") {
+            navigation.navigate("home");
+            onClose();
+          } else {
+            navigation.navigate("profile");
+            onClose();
+          }
+        }
+      });
+    }
   };
 
   return (
-    <Modal isOpen={modalVisible} onClose={onClose} size="xl">
+    <Modal
+      isOpen={modalVisible}
+      onClose={() => {
+        onClose();
+        setReset(false);
+      }}
+      size="xl"
+    >
       <Modal.Content style={{ borderRadius: 4 }}>
         <Modal.Body>
           <View style={styles.close}>
-            <Close onPress={onClose} />
+            <Close
+              onPress={() => {
+                onClose();
+                setReset(false);
+              }}
+            />
           </View>
 
           <Text textCenter style={styles.title}>
-            {t("signIn")}
+            {!reset ? t("signIn") : t("resetPassword")}
           </Text>
 
           <Input
@@ -42,33 +74,41 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
               setValues((state) => ({ ...state, email: val }))
             }
           />
-
-          <Input
-            placeholder={t("password")}
-            secureTextEntry
-            value={values.password}
-            onChangeText={(val) =>
-              setValues((state) => ({ ...state, password: val }))
-            }
-          />
-
-          <View style={{ marginTop: 16 }}>
-            <CheckboxField
-              checked={remember}
-              onPress={() => setRememmber((state) => !state)}
-              label={t("rememberMe")}
+          {!reset ? (
+            <Input
+              placeholder={t("password")}
+              secureTextEntry
+              value={values.password}
+              onChangeText={(val) =>
+                setValues((state) => ({ ...state, password: val }))
+              }
             />
-          </View>
+          ) : (
+            <></>
+          )}
+          {!reset ? (
+            <>
+              <View style={{ marginTop: 16 }}>
+                <CheckboxField
+                  checked={remember}
+                  onPress={() => setRememmber((state) => !state)}
+                  label={t("rememberMe")}
+                />
+              </View>
 
-          <Pressable style={styles.reset}>
-            <Text color="#20302D">{t("lostYourPass?")}</Text>
-          </Pressable>
+              <Pressable style={styles.reset} onPress={() => setReset(true)}>
+                <Text color="#20302D">{t("lostYourPass?")}</Text>
+              </Pressable>
+            </>
+          ) : (
+            <></>
+          )}
 
           <Button
             buttonTextStyle={{ textTransform: "uppercase" }}
             onPress={() => handleSubmit()}
           >
-            {t("signIn")}
+            {!reset ? t("signIn") : t("resetPassword")}
           </Button>
 
           <Pressable style={styles.register} onPress={onSignUp}>

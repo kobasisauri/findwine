@@ -133,7 +133,7 @@ function EventDetails({ route }) {
                     >
                       <ArrowRight />
                       <Text color="#3A3D43" fontSize={16}>
-                        {item.company.name}
+                        {item?.company?.name}
                       </Text>
                     </View>
                   ))
@@ -147,7 +147,7 @@ function EventDetails({ route }) {
                     >
                       <ArrowRight />
                       <Text color="#3A3D43" fontSize={16}>
-                        {item.company.name}
+                        {item?.company?.name}
                       </Text>
                     </View>
                   ))}

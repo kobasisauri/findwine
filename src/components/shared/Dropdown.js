@@ -20,6 +20,7 @@ const NewSelect = ({
   error,
   additionalComponents,
   dark,
+  search,
   ...rest
 }) => {
   return (
@@ -47,7 +48,7 @@ const NewSelect = ({
         )}
 
         <SelectDropdown
-          // search={true}
+          search={search}
           data={data}
           onSelect={(selectedItem) => {
             onChange(selectedItem);
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: "#C3CDDD4D",
+    borderColor: "#292C3166",
     height: 56,
   },
   error: {

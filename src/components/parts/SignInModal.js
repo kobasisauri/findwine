@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Modal } from "native-base";
@@ -23,11 +23,11 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
   handleSubmit = () => {
     if (reset) {
       resetPassword({ email: values.email }).then((res) => {
-        console.log(res);
+        // console.log(res);
       });
     } else {
       signIn(values).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (!!res.token) {
           AsyncStorage.setItem("token", res.token);
           // AsyncStorage.setItem("user", res.user);

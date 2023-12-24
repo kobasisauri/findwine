@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { View, StyleSheet, Pressable, SafeAreaView } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { t } from "../../translation";
@@ -20,8 +22,21 @@ const hideMenu = () => ({
 function Menu() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [auth, setAuth] = useState(false);
 
   const { isVisible } = useSelector((state) => state.menu);
+
+  useEffect(() => {
+    async function fetchData() {
+      const token = await AsyncStorage.getItem("token");
+
+      if (token) {
+        setAuth(auth);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <SafeAreaView
@@ -46,7 +61,6 @@ function Menu() {
           onPress={() => dispatch(hideMenu())}
           style={{
             padding: 8,
-
             marginRight: 12,
           }}
         >
@@ -59,7 +73,7 @@ function Menu() {
           <Pressable
             style={[
               styles.item,
-              i === navs.length - 1 ? styles.withoutBorder : {},
+              // i === navs.length - 1 ? styles.withoutBorder : {},
             ]}
             key={nav.url}
             onPress={() => {
@@ -72,6 +86,23 @@ function Menu() {
             </Text>
           </Pressable>
         ))}
+
+        <Pressable
+          style={[styles.item, styles.withoutBorder]}
+          onPress={() => {
+            dispatch(hideMenu());
+
+            if (auth) {
+              AsyncStorage.removeItem("token");
+            } else {
+              console.log(1);
+            }
+          }}
+        >
+          <Text style={styles.itemText} uppercase>
+            {auth ? t("signOut") : t("signIn")}
+          </Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );

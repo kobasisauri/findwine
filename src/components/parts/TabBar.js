@@ -7,6 +7,7 @@ import SignInModal from "../../components/parts/SignInModal";
 import SignUpModal from "../../components/parts/SignUpModal";
 import Text from "../../components/shared/Text";
 import { getEvents } from "../../services/events";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BottomIcon = ({ routeKey, color }) => {
   const [eventNumber, setEventNumver] = useState([]);
@@ -55,6 +56,19 @@ const TabBar = ({ state, descriptors, navigation }) => {
   const [openModal, setOpenModal] = useState(false);
   const [signInModal, setSignInModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const token = await AsyncStorage.getItem("token");
+
+      if (token) {
+        setAuth(auth);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.tabBar}>
@@ -95,13 +109,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
             onPress={
-              route.name === "TabsProfile"
-                ? onPress
-                : // () => {
-                  //     // setOpenModal(true);
-                  //     return onPress;
-                  //   }
-                  onPress
+              route.name === "TabsProfile" && !auth
+                ? () => setOpenModal(true)
+                : onPress
             }
             onLongPress={onLongPress}
             style={{

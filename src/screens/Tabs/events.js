@@ -19,7 +19,7 @@ function Events() {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [val, setVal] = useState();
+  const [val, setVal] = useState(1);
 
   useEffect(() => {
     setLoading(true);

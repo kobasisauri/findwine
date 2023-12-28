@@ -1,17 +1,20 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { put } from "redux-saga/effects";
 import axiosInstance from "../../services/axios";
-import { setUserDataAction, checkedSignedInAction } from "../ducks/authDucks";
+import { setUserDataAction } from "../ducks/authDucks";
 import notificationService from "../../services/notify";
 import { t } from "../../translation/index";
 
 export function* signInSaga(payload) {
+  console.log(payload.data);
   try {
-    const res = yield axiosInstance.post("login", payload.data);
-    yield AsyncStorage.setItem("token", res.token);
-    yield AsyncStorage.setItem("userData", JSON.stringify(res.user));
-    yield AsyncStorage.setItem("favourites", "");
-    yield put(setUserDataAction(res.user));
+    const res = yield axiosInstance.post("/auth", payload.data);
+    console.log(res);
+    yield AsyncStorage.setItem("token", res?.token);
+    yield AsyncStorage.setItem("userData", JSON.stringify(res?.user));
+    yield AsyncStorage.setItem("role", res?.user?.role);
+    yield put(setUserDataAction(res?.user));
+
     payload.callback();
   } catch (error) {
     notificationService.notify("warning", t("error"), t("incorectUser"));
@@ -49,9 +52,10 @@ export function* signUpSaga(payload) {
 
 export function* logoutSaga() {
   try {
-    axiosInstance.post("logout");
     setTimeout(() => {
       AsyncStorage.removeItem("token");
+      AsyncStorage.removeItem("role");
+      AsyncStorage.removeItem("userData");
     }, 1000);
   } catch (error) {
     yield notificationService.notify(

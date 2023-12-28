@@ -12,7 +12,6 @@ import WinePassport from "./WinePassport";
 import PackageDetails from "./PackageDetails";
 import WineriesScreen from "./Wineries";
 import WinerySreen from "./Winery";
-import Events from "./Events";
 import Contact from "./Contact";
 import EventDetails from "./EventDetails";
 
@@ -31,7 +30,6 @@ const HomeNavigation = () => {
       <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name="wine-passport" component={WinePassport} />
       <Stack.Screen name="package-details" component={PackageDetails} />
-      {/* to do */}
       <Stack.Screen name="events" component={EventsScreen} />
       <Stack.Screen name="event-details" component={EventDetails} />
       <Stack.Screen name="wineries" component={WineriesScreen} />
@@ -52,7 +50,6 @@ const MapNavigation = () => {
       }}
     >
       <Stack.Screen name="map" component={MapScreen} />
-      {/* to do */}
       <Stack.Screen name="events" component={EventsScreen} />
       <Stack.Screen name="event-details" component={EventDetails} />
       <Stack.Screen name="wineries" component={WineriesScreen} />

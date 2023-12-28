@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, StyleSheet, Pressable, Image } from "react-native";
 import { Box, ScrollView } from "native-base";
 
@@ -16,6 +16,9 @@ import {
 } from "../../components/Icons";
 import Input from "../../components/shared/Input";
 import Button from "../../components/shared/Button";
+import { changePassword, getUserData } from "../../services/signUp";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function SearchScreen() {
   const [active, setActive] = useState(1);
@@ -24,8 +27,24 @@ function SearchScreen() {
     newPassword: "",
   });
   const [auth, setAuth] = useState(1);
+  const [userData, setUserData] = useState();
 
   const visitors = [1, 2, 3];
+
+  useEffect(() => {
+    getUserData().then((res) => {
+      setUserData(res.user);
+    });
+  }, []);
+
+  const onPassChange = () => {
+    changePassword({
+      new_password: values.newPassword,
+      old_password: values.currentPassword,
+    }).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <Container style={{ backgroundColor: "#F2F2F2" }}>
@@ -66,46 +85,49 @@ function SearchScreen() {
               />
             </Box>
           </View>
+
           {active === 1 && (
             <ScrollView style={{ paddingHorizontal: 16, gap: 18 }}>
-              <View style={styles.infoContainer}>
-                <View style={styles.infoHeading}>
-                  <View style={[{ gap: 8, flexDirection: "row" }]}>
-                    <Info />
-                    <Text style={{ fontFamily: "monseratBold" }}>
-                      {t("personalInfo")}
-                    </Text>
-                  </View>
+              {!!userData && (
+                <View style={styles.infoContainer}>
+                  <View style={styles.infoHeading}>
+                    <View style={[{ gap: 8, flexDirection: "row" }]}>
+                      <Info />
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        {t("personalInfo")}
+                      </Text>
+                    </View>
 
-                  <Edit />
+                    <Edit />
+                  </View>
+                  <View style={{ marginTop: 20, gap: 16 }}>
+                    <View style={styles.infoItem}>
+                      <Text>{t("fullName")}</Text>
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        {userData?.full_name}
+                      </Text>
+                    </View>
+                    <View style={styles.infoItem}>
+                      <Text>{t("email")}</Text>
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        {userData?.email}
+                      </Text>
+                    </View>
+                    <View style={styles.infoItem}>
+                      <Text>{t("phone")}</Text>
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        {userData?.phone}
+                      </Text>
+                    </View>
+                    <View style={styles.infoItem}>
+                      <Text>{t("country")}</Text>
+                      <Text style={{ fontFamily: "monseratBold" }}>
+                        {userData?.country}
+                      </Text>
+                    </View>
+                  </View>
                 </View>
-                <View style={{ marginTop: 20, gap: 16 }}>
-                  <View style={styles.infoItem}>
-                    <Text>{t("fullName")}</Text>
-                    <Text style={{ fontFamily: "monseratBold" }}>
-                      Wesley Mun
-                    </Text>
-                  </View>
-                  <View style={styles.infoItem}>
-                    <Text>{t("email")}</Text>
-                    <Text style={{ fontFamily: "monseratBold" }}>
-                      Wesleymun@gmail.com
-                    </Text>
-                  </View>
-                  <View style={styles.infoItem}>
-                    <Text>{t("phone")}</Text>
-                    <Text style={{ fontFamily: "monseratBold" }}>
-                      +995599777777
-                    </Text>
-                  </View>
-                  <View style={styles.infoItem}>
-                    <Text>{t("birthday")}</Text>
-                    <Text style={{ fontFamily: "monseratBold" }}>
-                      01/01/1990
-                    </Text>
-                  </View>
-                </View>
-              </View>
+              )}
 
               <View style={styles.bonusContainer}>
                 <View
@@ -184,7 +206,7 @@ function SearchScreen() {
                   />
                   <Button
                     style={{ width: "55%", marginTop: 10 }}
-                    onPress={() => console.log(values)}
+                    onPress={onPassChange}
                   >
                     {t("save")}
                   </Button>

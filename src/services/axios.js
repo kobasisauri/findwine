@@ -7,13 +7,13 @@ const axiosInstance = axios.create({
   baseURL: "https://staging.findwines.ge/api",
   headers: {
     "Content-Type": "application/json",
-    Authorization: "Basic d2luZToxNTk=",
   },
 });
 
 axiosInstance.interceptors.request.use(
   async (request) => {
     const token = await AsyncStorage.getItem("token");
+
     if (token) {
       if (request.headers) {
         request.headers.Authorization = `Bearer ${token}`;

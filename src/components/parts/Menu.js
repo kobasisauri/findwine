@@ -7,6 +7,11 @@ import { t } from "../../translation";
 import colors from "../../constants/colors";
 import Text from "../shared/Text";
 import { Close } from "../Icons";
+import {
+  checkedSignedInAction,
+  logoutAction,
+  setUserDataAction,
+} from "../../store/ducks/authDucks";
 
 const navs = [
   { url: "profile", title: "winePassport" },
@@ -29,9 +34,13 @@ function Menu() {
   useEffect(() => {
     async function fetchData() {
       const token = await AsyncStorage.getItem("token");
+      const userData = JSON.parse(await AsyncStorage.getItem("userData"));
 
       if (token) {
-        setAuth(auth);
+        setAuth(true);
+
+        dispatch(checkedSignedInAction(true));
+        dispatch(setUserDataAction(userData));
       }
     }
 
@@ -93,7 +102,7 @@ function Menu() {
             dispatch(hideMenu());
 
             if (auth) {
-              AsyncStorage.removeItem("token");
+              dispatch(logoutAction());
             } else {
               console.log(1);
             }

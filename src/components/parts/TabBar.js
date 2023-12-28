@@ -8,6 +8,11 @@ import SignUpModal from "../../components/parts/SignUpModal";
 import Text from "../../components/shared/Text";
 import { getEvents } from "../../services/events";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import {
+  checkedSignedInAction,
+  setUserDataAction,
+} from "../../store/ducks/authDucks";
 
 const BottomIcon = ({ routeKey, color }) => {
   const [eventNumber, setEventNumver] = useState([]);
@@ -53,6 +58,7 @@ const BottomIcon = ({ routeKey, color }) => {
 };
 
 const TabBar = ({ state, descriptors, navigation }) => {
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [signInModal, setSignInModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
@@ -61,9 +67,17 @@ const TabBar = ({ state, descriptors, navigation }) => {
   useEffect(() => {
     async function fetchData() {
       const token = await AsyncStorage.getItem("token");
+      const role = await AsyncStorage.getItem("role");
+      const userData = JSON.parse(await AsyncStorage.getItem("userData"));
 
       if (token) {
-        setAuth(auth);
+        setAuth(true);
+        dispatch(checkedSignedInAction(true));
+        dispatch(setUserDataAction(userData));
+
+        if (role !== "client") {
+          navigation.navigate("profile");
+        }
       }
     }
 

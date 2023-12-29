@@ -8,6 +8,7 @@ import Button from "../shared/Button";
 import Input from "../shared/Input";
 import { signUp } from "../../services/signUp";
 import { getCountries } from "../../services/dropdowns";
+
 import Dropdown from "../shared/Dropdown";
 
 function SignUpModal({ modalVisible, onClose, onSignIn }) {

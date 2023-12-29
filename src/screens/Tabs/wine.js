@@ -16,16 +16,34 @@ import {
 } from "../../components/Icons";
 import Input from "../../components/shared/Input";
 import Button from "../../components/shared/Button";
-import { changePassword, getUserData } from "../../services/signUp";
-import axios from "axios";
+import Dropdown from "../../components/shared/Dropdown";
+
+import { getCountries } from "../../services/dropdowns";
+import {
+  changePassword,
+  getUserData,
+  editUserData,
+} from "../../services/signUp";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import notificationService from "../../services/notify";
 
 function SearchScreen() {
   const [active, setActive] = useState(1);
+  const [render, setRender] = useState(0);
   const [values, setValues] = useState({
     currentPassword: "",
     newPassword: "",
   });
+
+  const [countries, setCountries] = useState([]);
+
+  const [edit, setEdit] = useState(false);
+  const [editValues, setEditValues] = useState({
+    full_name: "",
+    phone: "",
+    country: "",
+  });
+
   const [auth, setAuth] = useState(1);
   const [userData, setUserData] = useState();
 
@@ -33,7 +51,24 @@ function SearchScreen() {
 
   useEffect(() => {
     getUserData().then((res) => {
-      setUserData(res.user);
+      setUserData({
+        ...res.user,
+        country: countries?.length
+          ? countries.filter((i) => +i.value === +res.user.country)[0]?.label ||
+            ""
+          : "",
+      });
+      setEditValues(res.user);
+    });
+  }, [render, countries]);
+
+  useEffect(() => {
+    getCountries().then((res) => {
+      const transform = res.map((item) => ({
+        value: item.id,
+        label: item.name,
+      }));
+      setCountries(transform);
     });
   }, []);
 
@@ -41,8 +76,33 @@ function SearchScreen() {
     changePassword({
       new_password: values.newPassword,
       old_password: values.currentPassword,
-    }).then((res) => {
-      console.log(res);
+    })
+      .then((res) => {
+        if (res.status === "OK") {
+          notificationService.notify(
+            "success",
+            "Note",
+            "Password changed sucessfully"
+          );
+          setValues({
+            currentPassword: "",
+            newPassword: "",
+          });
+        }
+      })
+      .catch(() => {
+        notificationService.notify(
+          "error",
+          "Note",
+          "Current password is incorrect"
+        );
+      });
+  };
+
+  const submitEditData = () => {
+    editUserData(editValues).then((res) => {
+      setEdit(false);
+      setRender((state) => state + 1);
     });
   };
 
@@ -98,33 +158,90 @@ function SearchScreen() {
                       </Text>
                     </View>
 
-                    <Edit />
+                    <Pressable
+                      onPress={() => {
+                        setEdit((state) => !state);
+                      }}
+                    >
+                      <Edit />
+                    </Pressable>
                   </View>
                   <View style={{ marginTop: 20, gap: 16 }}>
-                    <View style={styles.infoItem}>
-                      <Text>{t("fullName")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
-                        {userData?.full_name}
-                      </Text>
-                    </View>
-                    <View style={styles.infoItem}>
-                      <Text>{t("email")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
-                        {userData?.email}
-                      </Text>
-                    </View>
-                    <View style={styles.infoItem}>
-                      <Text>{t("phone")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
-                        {userData?.phone}
-                      </Text>
-                    </View>
-                    <View style={styles.infoItem}>
-                      <Text>{t("country")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
-                        {userData?.country}
-                      </Text>
-                    </View>
+                    {!edit ? (
+                      <>
+                        <View style={styles.infoItem}>
+                          <Text>{t("fullName")}</Text>
+                          <Text style={{ fontFamily: "monseratBold" }}>
+                            {userData?.full_name}
+                          </Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                          <Text>{t("email")}</Text>
+                          <Text style={{ fontFamily: "monseratBold" }}>
+                            {userData?.email}
+                          </Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                          <Text>{t("phone")}</Text>
+                          <Text style={{ fontFamily: "monseratBold" }}>
+                            {userData?.phone}
+                          </Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                          <Text>{t("country")}</Text>
+                          <Text style={{ fontFamily: "monseratBold" }}>
+                            {userData?.country}
+                          </Text>
+                        </View>
+                      </>
+                    ) : (
+                      <>
+                        <Input
+                          placeholder={t("fullName")}
+                          value={editValues.full_name}
+                          onChangeText={(val) =>
+                            setEditValues((state) => ({
+                              ...state,
+                              full_name: val,
+                            }))
+                          }
+                        />
+                        <Input
+                          placeholder={t("email")}
+                          value={editValues.email}
+                          onChangeText={(val) =>
+                            setEditValues((state) => ({ ...state, email: val }))
+                          }
+                          disabled={true}
+                        />
+                        <Input
+                          placeholder={t("phone")}
+                          value={editValues.phone}
+                          onChangeText={(val) =>
+                            setEditValues((state) => ({ ...state, phone: val }))
+                          }
+                        />
+                        <Dropdown
+                          search={true}
+                          containerStyle={{ flex: 1 }}
+                          placeholderText="Country"
+                          data={countries}
+                          value={+editValues.country}
+                          onChange={(val) => {
+                            setEditValues((state) => ({
+                              ...state,
+                              country: val.value,
+                            }));
+                          }}
+                        />
+                        <Button
+                          style={{ width: "55%", marginTop: 10 }}
+                          onPress={() => submitEditData()}
+                        >
+                          {t("save")}
+                        </Button>
+                      </>
+                    )}
                   </View>
                 </View>
               )}
@@ -194,7 +311,10 @@ function SearchScreen() {
                     placeholder={t("currentPassword")}
                     value={values.currentPassword}
                     onChangeText={(val) =>
-                      setValues((state) => ({ ...state, currentPassword: val }))
+                      setValues((state) => ({
+                        ...state,
+                        currentPassword: val,
+                      }))
                     }
                   />
                   <Input

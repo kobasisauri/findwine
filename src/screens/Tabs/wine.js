@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Pressable, Image } from "react-native";
 import { Box, ScrollView } from "native-base";
+import QRCode from "react-native-qrcode-svg";
 
 import NavigationHeader from "../../components/parts/navigation/navigationHeader";
 import Container from "../../components/shared/Container";
@@ -43,6 +44,7 @@ function SearchScreen() {
     phone: "",
     country: "",
   });
+  const [winePassports, setWinePassports] = useState([]);
 
   const [auth, setAuth] = useState(1);
   const [userData, setUserData] = useState();
@@ -51,6 +53,7 @@ function SearchScreen() {
 
   useEffect(() => {
     getUserData().then((res) => {
+      setWinePassports(res.passport);
       setUserData({
         ...res.user,
         country: countries?.length
@@ -334,8 +337,34 @@ function SearchScreen() {
               </View>
             </ScrollView>
           )}
+          {console.log(winePassports)}
           {active === 2 && (
             <ScrollView style={{ paddingHorizontal: 16, gap: 18 }}>
+              <View
+                style={{
+                  backgroundColor: "#fff",
+                  padding: 28,
+                  marginBottom: 50,
+                  borderRadius: 8,
+                }}
+              >
+                <View
+                  style={{
+                    borderRadius: 8,
+                    alignItems: "center",
+                    backgroundColor: "#F2F2F2",
+                    paddingBottom: 72,
+                  }}
+                >
+                  <Text
+                    style={{ fontFamily: "monseratBold", paddingVertical: 24 }}
+                  >
+                    {userData.full_name}
+                  </Text>
+                  <QRCode size={200} value={winePassports[0].hash} />
+                </View>
+              </View>
+
               <View style={styles.infoContainer}>
                 <View style={styles.infoHeading}>
                   <View
@@ -353,25 +382,25 @@ function SearchScreen() {
                   <View style={styles.infoItem}>
                     <Text>{t("fullName")}</Text>
                     <Text style={{ fontFamily: "monseratBold" }}>
-                      Wesley Mun
+                      {userData.full_name}
                     </Text>
                   </View>
                   <View style={styles.infoItem}>
-                    <Text>{t("email")}</Text>
+                    <Text>{t("passportType")}</Text>
                     <Text style={{ fontFamily: "monseratBold" }}>
-                      Wesleymun@gmail.com
+                      {winePassports[0]?.passport?.name}
                     </Text>
                   </View>
                   <View style={styles.infoItem}>
-                    <Text>{t("phone")}</Text>
+                    <Text>{t("wineries")}</Text>
                     <Text style={{ fontFamily: "monseratBold" }}>
-                      +995599777777
+                      {winePassports[0]?.passport?.company_count}
                     </Text>
                   </View>
                   <View style={styles.infoItem}>
-                    <Text>{t("validation")}</Text>
+                    <Text>{t("expires")}</Text>
                     <Text style={{ fontFamily: "monseratBold" }}>
-                      01/01/2022 - 01/01/2023
+                      {winePassports[0].expire_date.slice(0, 10)}
                     </Text>
                   </View>
                 </View>

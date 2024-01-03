@@ -94,5 +94,7 @@
   "byOerroirs": "By origin",
   "resetPassword": "Reset Password",
   "error": "error",
-  "incorectUser": "Incorect user"
+  "incorectUser": "Incorect user",
+  "passportType": "Passport Type",
+  "expires": "Expires"
 }

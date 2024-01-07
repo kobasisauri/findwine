@@ -1,6 +1,6 @@
-import { Modal } from "native-base";
+import { Box, Modal } from "native-base";
 import { useEffect, useState } from "react";
-import { StyleSheet, Pressable, ScrollView, View } from "react-native";
+import { StyleSheet, Pressable, ScrollView, Image, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { Close, FilterIcon, MapMarker, Search } from "../../components/Icons";
 import NavigationHeader from "../../components/parts/navigation/navigationHeader";
@@ -14,10 +14,13 @@ import Title from "../../components/shared/Title";
 import { getRegionWiners } from "../../services/wineries";
 import { t } from "../../translation";
 import { getCities, getRegions, getWineTypes } from "../../services/dropdowns";
+import { regions } from "../../constants/regions";
+import georgiaLight from "../../assets/img/Regions/Abk_dark.png";
 
 const inputColor = "rgba(255,255,255,0.091)";
 
 function OrdersScreen() {
+  const [active, setActive] = useState("Georgia");
   const [locationData, setLocationData] = useState([]);
   const [openFiler, setOpenFiler] = useState(false);
   const [data, setData] = useState({
@@ -123,6 +126,24 @@ function OrdersScreen() {
               ))}
           </MapView>
         </View>
+
+        <ScrollView
+          horizontal={true}
+          style={{ marginHorizontal: 16, paddingBottom: 15, marginBottom: 15 }}
+        >
+          <Box style={{ flexDirection: "row", gap: 12 }}>
+            {regions.map((item) => (
+              <Pressable key={item.title} onPress={() => setActive(item.title)}>
+                <Image
+                  source={active === item.title ? item.activeImg : item.img}
+                  alt="test"
+                  resizeMode="cover"
+                  style={{ height: 113, width: 122 }}
+                />
+              </Pressable>
+            ))}
+          </Box>
+        </ScrollView>
       </ScrollView>
 
       {openFiler && (

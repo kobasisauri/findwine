@@ -12,6 +12,7 @@ import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
 import SignInModal from "../components/parts/SignInModal";
 import SignUpModal from "../components/parts/SignUpModal";
 import useStore from "../stores/store";
+import BuyModal from "../components/parts/BuyModal";
 
 function PackageDetails({ route }) {
   const { token } = useStore((state) => state);
@@ -19,6 +20,16 @@ function PackageDetails({ route }) {
   const [openModal, setOpenModal] = useState(false);
   const [signInModal, setSignInModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
+
+  const [buyModal, setBuyModal] = useState(false);
+  const [buyData, setBuyData] = useState();
+
+  const buy = (data) => {
+    setBuyModal(true);
+    setBuyData(data);
+
+    console.log(data);
+  };
 
   useEffect(() => {
     if (route.params?.id) {
@@ -115,7 +126,7 @@ function PackageDetails({ route }) {
           <Pressable
             style={styles.button}
             onPress={() => {
-              token ? console.log("buy", data) : setOpenModal(true);
+              token ? buy(data) : setOpenModal(true);
             }}
           >
             <Text
@@ -159,6 +170,11 @@ function PackageDetails({ route }) {
           setSignUpModal(false);
           setSignInModal(true);
         }}
+      />
+      <BuyModal
+        modalVisible={buyModal}
+        onClose={() => setBuyModal(false)}
+        data={buyData}
       />
     </Container>
   );

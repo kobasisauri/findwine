@@ -13,6 +13,7 @@ import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
 import SignInModal from "../components/parts/SignInModal";
 import SignUpModal from "../components/parts/SignUpModal";
 import useStore from "../stores/store";
+import BuyModal from "../components/parts/BuyModal";
 
 function WinePassport({ navigation }) {
   const { token } = useStore((state) => state);
@@ -20,6 +21,16 @@ function WinePassport({ navigation }) {
   const [openModal, setOpenModal] = useState(false);
   const [signInModal, setSignInModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
+
+  const [buyModal, setBuyModal] = useState(false);
+  const [buyData, setBuyData] = useState();
+
+  const buy = (data) => {
+    setBuyModal(true);
+    setBuyData(data);
+
+    console.log(data);
+  };
 
   useEffect(() => {
     getWinePassports().then((res) => {
@@ -125,7 +136,7 @@ function WinePassport({ navigation }) {
                 <Pressable
                   style={styles.button}
                   onPress={() => {
-                    token ? console.log("buy", item) : setOpenModal(true);
+                    token ? buy(item) : setOpenModal(true);
                   }}
                 >
                   <Text
@@ -171,6 +182,11 @@ function WinePassport({ navigation }) {
           setSignUpModal(false);
           setSignInModal(true);
         }}
+      />
+      <BuyModal
+        modalVisible={buyModal}
+        onClose={() => setBuyModal(false)}
+        data={buyData}
       />
     </Container>
   );

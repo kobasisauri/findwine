@@ -33,3 +33,7 @@ export { default as ExpiredAlert } from "./ExpiredAlert";
 export { default as QrCode } from "./qrCode";
 export { default as DropdownArrow } from "./DropdownArrow";
 export { default as FilterIcon } from "./Filter";
+export { default as Visa } from "./Visa";
+export { default as Mastercard } from "./MasterCard";
+export { default as Amex } from "./Amex";
+export { default as Paypal } from "./Paypal";

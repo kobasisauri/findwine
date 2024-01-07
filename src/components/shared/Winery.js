@@ -11,7 +11,7 @@ function Winery({ item, setScroll }) {
 
   return (
     <View style={styles.item}>
-      {item.img_path && (
+      {!!item.img_path && (
         <Image
           source={{
             uri: "https://findwines.ge" + item.img_path,
@@ -37,7 +37,7 @@ function Winery({ item, setScroll }) {
           </View>
 
           <View style={styles.flexRow}>
-            <Text marginRight={10}>{item.raiting}/5</Text>
+            <Text marginRight={10}>{item.raiting?.toString()}/5</Text>
             <FilledStar filled />
           </View>
         </View>

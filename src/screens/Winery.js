@@ -16,13 +16,10 @@ function Winery({ route }) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [ranking, setRanking] = useState(0);
-  const [otherRegionData, setOtherRegionData] = useState();
+  const [otherRegionData, setOtherRegionData] = useState([]);
+  const [standardizedData, setStandardizedData] = useState([]);
   const scrollRef = useRef();
   const [scroll, setScroll] = useState(0);
-
-  const standardizedData = otherRegionData?.filter(
-    (item) => item.region_name === data?.region
-  );
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -52,6 +49,14 @@ function Winery({ route }) {
     }
   }, [route?.params?.id]);
 
+  useEffect(() => {
+    if (otherRegionData.length && data) {
+      setStandardizedData(
+        otherRegionData?.filter((item) => item.region_name === data?.region)[0]
+      );
+    }
+  }, [data, otherRegionData?.length]);
+
   return (
     <Container>
       <NavigationHeader title={data ? data.company : t("wineries")} />
@@ -80,7 +85,7 @@ function Winery({ route }) {
                 />
                 <Text marginLeft={15}>({ranking || 0} out 5)</Text>
               </View>
-              {data?.description && (
+              {!!data?.description && (
                 <>
                   <Text style={styles.title}>{t("introduction")}</Text>
                   <Text marginBottom={30}>{data?.description || ""}</Text>
@@ -139,7 +144,7 @@ function Winery({ route }) {
                 </>
               )}
 
-              {data && data?.location && (
+              {!!data && !!data?.location && (
                 <>
                   <Text style={[styles.title, { marginTop: 70 }]}>
                     {t("location")}
@@ -177,19 +182,21 @@ function Winery({ route }) {
                 </>
               )}
 
-              {otherRegionData?.length && (
+              {/* {!!standardizedData && (
                 <>
                   <Text style={[styles.title, { marginTop: 70 }]}>
                     {t("otherWineriesIn")} {data?.region}
                   </Text>
 
                   <FlatList
-                    data={
-                      !!standardizedData &&
-                      standardizedData[0].winners.filter(
-                        (item) => item.id !== data.id
-                      )
-                    }
+                    // data={
+                    //   (!!standardizedData &&
+                    //     standardizedData[0]?.winners.filter(
+                    //       (item) => item?.id !== data?.id
+                    //     )) ||
+                    //   []
+                    // }
+                    data={standardizedData?.winners || []}
                     keyExtractor={(item) => item.id}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
@@ -197,7 +204,7 @@ function Winery({ route }) {
                     )}
                   />
                 </>
-              )}
+              )} */}
             </View>
           </ScrollView>
         </>

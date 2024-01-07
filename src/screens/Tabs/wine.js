@@ -361,7 +361,7 @@ function SearchScreen() {
                 </View>
               </ScrollView>
             )}
-            {console.log(winePassports)}
+
             {active === 2 && (
               <ScrollView
                 style={{ paddingHorizontal: 16, gap: 18 }}

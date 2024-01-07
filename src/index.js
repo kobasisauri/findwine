@@ -3,11 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider, View } from "native-base";
 import { useFonts } from "expo-font";
 import { Root } from "react-native-alert-notification";
-import { useSelector } from "react-redux";
 import Main from "./navigation/Main";
 
 export default function App() {
-  const { isSignedIn } = useSelector((state) => state.authReducer);
   const [loaded] = useFonts({
     main: require("./assets/fonts/Lato/Lato-Regular.ttf"),
     "main-bold": require("./assets/fonts/Lato/Lato-Bold.ttf"),
@@ -39,7 +37,7 @@ export default function App() {
               paddingBottom: 0,
             }}
           >
-            <Main isSignedIn={isSignedIn} />
+            <Main />
           </View>
         </Root>
       </NavigationContainer>

@@ -12,8 +12,10 @@ import { Tick } from "../components/Icons";
 import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
 import SignInModal from "../components/parts/SignInModal";
 import SignUpModal from "../components/parts/SignUpModal";
+import useStore from "../stores/store";
 
 function WinePassport({ navigation }) {
+  const { token } = useStore((state) => state);
   const [packages, setPackages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [signInModal, setSignInModal] = useState(false);
@@ -122,7 +124,9 @@ function WinePassport({ navigation }) {
 
                 <Pressable
                   style={styles.button}
-                  onPress={() => setOpenModal(true)}
+                  onPress={() => {
+                    token ? console.log("buy", item) : setOpenModal(true);
+                  }}
                 >
                   <Text
                     fontSize={18}

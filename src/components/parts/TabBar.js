@@ -8,11 +8,7 @@ import SignUpModal from "../../components/parts/SignUpModal";
 import Text from "../../components/shared/Text";
 import { getEvents } from "../../services/events";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch } from "react-redux";
-import {
-  checkedSignedInAction,
-  setUserDataAction,
-} from "../../store/ducks/authDucks";
+import useStore from "../../stores/store";
 
 const BottomIcon = ({ routeKey, color }) => {
   const [eventNumber, setEventNumver] = useState([]);
@@ -58,43 +54,33 @@ const BottomIcon = ({ routeKey, color }) => {
 };
 
 const TabBar = ({ state, descriptors, navigation }) => {
-  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [signInModal, setSignInModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
-  const [auth, setAuth] = useState(false);
+  const { setToken, setUserData, token } = useStore((state) => state);
 
   useEffect(() => {
     async function fetchData() {
-      const token = await AsyncStorage.getItem("token");
-      const role = await AsyncStorage.getItem("role");
+      const storageToken = await AsyncStorage.getItem("token");
       const userData = JSON.parse(await AsyncStorage.getItem("userData"));
 
-      if (token) {
-        setAuth(true);
-        dispatch(checkedSignedInAction(true));
-        dispatch(setUserDataAction(userData));
+      if (storageToken) {
+        setToken(storageToken);
+        setUserData(userData);
 
-        if (role !== "client") {
+        if (userData.role !== "client") {
           navigation.navigate("profile");
         }
       }
     }
 
     fetchData();
-  }, []);
+  }, [token]);
 
   return (
     <View style={styles.tabBar}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
-
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -123,7 +109,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
             onPress={
-              route.name === "TabsProfile" && !auth
+              route.name === "TabsProfile" && !token
                 ? () => setOpenModal(true)
                 : onPress
             }

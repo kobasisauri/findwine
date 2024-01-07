@@ -1,17 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { View, StyleSheet, Pressable, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
 import { t } from "../../translation";
 import colors from "../../constants/colors";
 import Text from "../shared/Text";
 import { Close } from "../Icons";
-import {
-  checkedSignedInAction,
-  logoutAction,
-  setUserDataAction,
-} from "../../store/ducks/authDucks";
+import useStore from "../../stores/store";
 
 const navs = [
   { url: "profile", title: "winePassport" },
@@ -20,32 +15,24 @@ const navs = [
   { url: "contact", title: "contact" },
 ];
 
-const hideMenu = () => ({
-  type: "HIDE_MENU",
-});
-
 function Menu() {
-  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [auth, setAuth] = useState(false);
-
-  const { isVisible } = useSelector((state) => state.menu);
+  const { isMenuOpen, setMenu, setToken, setUserData, logOut, token } =
+    useStore((state) => state);
 
   useEffect(() => {
     async function fetchData() {
-      const token = await AsyncStorage.getItem("token");
+      const storageToken = await AsyncStorage.getItem("token");
       const userData = JSON.parse(await AsyncStorage.getItem("userData"));
 
-      if (token) {
-        setAuth(true);
-
-        dispatch(checkedSignedInAction(true));
-        dispatch(setUserDataAction(userData));
+      if (storageToken) {
+        setToken(storageToken);
+        setUserData(userData);
       }
     }
 
     fetchData();
-  }, []);
+  }, [token]);
 
   return (
     <SafeAreaView
@@ -61,13 +48,13 @@ function Menu() {
           height: "100%",
         },
         {
-          display: isVisible ? "flex" : "none",
+          display: isMenuOpen ? "flex" : "none",
         },
       ]}
     >
       <View style={{ justifyContent: "flex-end", flexDirection: "row" }}>
         <Pressable
-          onPress={() => dispatch(hideMenu())}
+          onPress={() => setMenu(false)}
           style={{
             padding: 8,
             marginRight: 12,
@@ -80,14 +67,11 @@ function Menu() {
       <View style={styles.container}>
         {navs.map((nav, i) => (
           <Pressable
-            style={[
-              styles.item,
-              // i === navs.length - 1 ? styles.withoutBorder : {},
-            ]}
+            style={[styles.item]}
             key={nav.url}
             onPress={() => {
               navigation.navigate(nav.url);
-              dispatch(hideMenu());
+              setMenu(false);
             }}
           >
             <Text style={styles.itemText} uppercase>
@@ -99,17 +83,18 @@ function Menu() {
         <Pressable
           style={[styles.item, styles.withoutBorder]}
           onPress={() => {
-            dispatch(hideMenu());
+            setMenu(false);
 
-            if (auth) {
-              dispatch(logoutAction());
+            if (token) {
+              logOut();
+              AsyncStorage.multiRemove(["token", "role", "userData"]);
             } else {
               console.log(1);
             }
           }}
         >
           <Text style={styles.itemText} uppercase>
-            {auth ? t("signOut") : t("signIn")}
+            {token ? t("signOut") : t("signIn")}
           </Text>
         </Pressable>
       </View>

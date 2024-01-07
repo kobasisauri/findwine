@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useSelector } from "react-redux";
 import HomeScreen from "./Tabs/home";
 import WineScreen from "./Tabs/wine";
 import MapScreen from "./Tabs/map";
@@ -99,13 +97,6 @@ const EventsNavigation = () => {
 };
 
 function TabsScreen() {
-  const [landData, setLangData] = useState("");
-  const { lang } = useSelector((state) => state.authReducer);
-
-  useEffect(() => {
-    setLangData(lang);
-  }, [lang]);
-
   return (
     <Tab.Navigator
       screenOptions={{
@@ -116,25 +107,25 @@ function TabsScreen() {
     >
       <Tab.Screen
         name="TabsMain"
-        options={{ landData, title: "" }}
+        options={{ title: "" }}
         component={HomeNavigation}
       />
 
       <Tab.Screen
         name="TabsMaps"
-        options={{ landData, title: "" }}
+        options={{ title: "" }}
         component={MapNavigation}
       />
 
       <Tab.Screen
         name="TabsProfile"
-        options={{ landData, title: "" }}
+        options={{ title: "" }}
         component={WineNavigation}
       />
 
       <Tab.Screen
         name="TabsEvents"
-        options={{ landData, title: "" }}
+        options={{ title: "" }}
         component={EventsNavigation}
       />
     </Tab.Navigator>

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Pressable } from "react-native";
-import { useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Modal } from "native-base";
 import { Close } from "../Icons";
@@ -11,13 +10,10 @@ import Input from "../shared/Input";
 import CheckboxField from "../shared/CheckBox";
 import { signIn, resetPassword } from "../../services/signUp";
 import { useNavigation } from "@react-navigation/native";
-import {
-  checkedSignedInAction,
-  signInActionSG,
-} from "../../store/ducks/authDucks";
+import useStore from "../../stores/store";
 
 function SignInModal({ modalVisible, onClose, onSignUp }) {
-  const dispatch = useDispatch();
+  const { setUserData, setToken } = useStore((state) => state);
   const navigation = useNavigation();
   const [remember, setRememmber] = useState(false);
   const [reset, setReset] = useState(false);
@@ -32,18 +28,18 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
         console.log(res);
       });
     } else {
-      dispatch(
-        signInActionSG(
-          { email: values.email, password: values.password },
-          () => {
-            console.log("res", res);
-            setTimeout(() => {
-              dispatch(checkedSignedInAction(true));
-              onClose();
-            }, 1000);
-          }
-        )
-      );
+      signIn({ email: values.email, password: values.password }).then((res) => {
+        if (res && res?.token) {
+          setToken(res.token);
+          setUserData(res.user);
+          AsyncStorage.setItem("token", res?.token);
+          AsyncStorage.setItem("userData", JSON.stringify(res?.user));
+          AsyncStorage.setItem("role", res?.user?.role);
+          onClose();
+        } else {
+          console.log("error");
+        }
+      });
     }
   };
 

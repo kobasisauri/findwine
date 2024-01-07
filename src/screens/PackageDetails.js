@@ -11,8 +11,10 @@ import Loader from "../components/shared/Loader";
 import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
 import SignInModal from "../components/parts/SignInModal";
 import SignUpModal from "../components/parts/SignUpModal";
+import useStore from "../stores/store";
 
 function PackageDetails({ route }) {
+  const { token } = useStore((state) => state);
   const [data, setData] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [signInModal, setSignInModal] = useState(false);
@@ -110,7 +112,12 @@ function PackageDetails({ route }) {
                 </View>
               ))}
           </View>
-          <Pressable style={styles.button} onPress={() => setOpenModal(true)}>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              token ? console.log("buy", data) : setOpenModal(true);
+            }}
+          >
             <Text
               fontSize={18}
               color="#fff"

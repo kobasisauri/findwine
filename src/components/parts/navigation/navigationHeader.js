@@ -1,16 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import { Box, Text } from "native-base";
 import { StyleSheet, Platform, Pressable, View } from "react-native";
-import { useDispatch } from "react-redux";
 import colors from "../../../constants/colors";
+import useStore from "../../../stores/store";
 import { ArrowLeft, Burger } from "../../Icons";
 
-const showMenu = () => ({
-  type: "SHOW_MENU",
-});
-
 function NavigationHeader({ title, textStyle, headerStyle, tab }) {
-  const dispatch = useDispatch();
+  const { isMenuOpen, setMenu } = useStore((state) => state);
   const navigation = useNavigation();
   const text = [styles.headerText];
 
@@ -37,7 +33,7 @@ function NavigationHeader({ title, textStyle, headerStyle, tab }) {
 
         <Text style={text}>{title}</Text>
 
-        <Pressable style={styles.back} onPress={() => dispatch(showMenu())}>
+        <Pressable style={styles.back} onPress={() => setMenu(true)}>
           <Burger />
         </Pressable>
       </Box>

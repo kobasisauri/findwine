@@ -1,13 +1,13 @@
 import React from "react";
 import { Box, Pressable, ScrollView } from "native-base";
 import { StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
 import Navigationitem from "../components/parts/navigation/navigationItem";
 import menuItems from "../constants/menu";
 import NavigationHeder from "../components/parts/navigation/navigationHeader";
 import Container from "../components/shared/Container";
 import TextComp from "../components/shared/Text";
 import colors from "../constants/colors";
+import useStore from "../stores/store";
 
 const styles = StyleSheet.create({
   flex: {
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 });
 
 function NavigatorScreen({ navigation }) {
-  const { userData } = useSelector((state) => state.authReducer);
+  const { userData } = useStore((state) => state);
 
   return (
     <Container>

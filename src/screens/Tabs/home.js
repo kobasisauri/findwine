@@ -7,20 +7,16 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import { t } from "../../translation";
 import Container from "../../components/shared/Container";
 import colors from "../../constants/colors";
 import { Burger, Facebook, Instagram } from "../../components/Icons";
 import OutlinedButton from "../../components/shared/OutlinedButton";
 import Title from "../../components/shared/Title";
-
-const showMenu = () => ({
-  type: "SHOW_MENU",
-});
+import useStore from "../../stores/store";
 
 function HomeScreen({ navigation }) {
-  const dispatch = useDispatch();
+  const { setMenu } = useStore((state) => state);
 
   return (
     <Container>
@@ -37,7 +33,7 @@ function HomeScreen({ navigation }) {
           />
         </View>
 
-        <Pressable style={styles.back} onPress={() => dispatch(showMenu())}>
+        <Pressable style={styles.back} onPress={() => setMenu(true)}>
           <Burger />
         </Pressable>
       </View>

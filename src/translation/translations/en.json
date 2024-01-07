@@ -96,5 +96,11 @@
   "error": "error",
   "incorectUser": "Incorect user",
   "passportType": "Passport Type",
-  "expires": "Expires"
+  "expires": "Expires",
+  "pay": "pay",
+  "quantity": "Quantity",
+  "priorityWinePassport": "Priority wine passport",
+  "totalSummery": "Total Summary",
+  "paymentMethod": "Payment method",
+  "termsAndConditions": "I accept Terms and Conditions"
 }

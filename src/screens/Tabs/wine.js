@@ -389,9 +389,9 @@ function SearchScreen() {
                         paddingVertical: 24,
                       }}
                     >
-                      {userData.full_name}
+                      {userData?.full_name}
                     </Text>
-                    <QRCode size={200} value={winePassports[0].hash} />
+                    <QRCode size={200} value={winePassports[0]?.hash} />
                   </View>
                 </View>
 
@@ -412,7 +412,7 @@ function SearchScreen() {
                     <View style={styles.infoItem}>
                       <Text>{t("fullName")}</Text>
                       <Text style={{ fontFamily: "monseratBold" }}>
-                        {userData.full_name}
+                        {userData?.full_name}
                       </Text>
                     </View>
                     <View style={styles.infoItem}>
@@ -430,7 +430,7 @@ function SearchScreen() {
                     <View style={styles.infoItem}>
                       <Text>{t("expires")}</Text>
                       <Text style={{ fontFamily: "monseratBold" }}>
-                        {winePassports[0].expire_date.slice(0, 10)}
+                        {winePassports[0]?.expire_date.slice(0, 10)}
                       </Text>
                     </View>
                   </View>

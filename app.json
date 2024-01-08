@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -22,7 +20,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.find_wines.findwine"
+      "package": "com.find_wines.findwine",
+      "googleMapsApiKey": "AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"
     },
     "web": {
       "favicon": "./assets/favicon.png"

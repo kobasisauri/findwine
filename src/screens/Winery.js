@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { View, StyleSheet, FlatList, ScrollView } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Image } from "native-base";
 import { t } from "../translation";
 import NavigationHeader from "../components/parts/navigation/navigationHeader";
@@ -158,6 +158,7 @@ function Winery({ route }) {
                     }}
                   >
                     <MapView
+                      provider={PROVIDER_GOOGLE}
                       style={{
                         width: "100%",
                         height: "100%",

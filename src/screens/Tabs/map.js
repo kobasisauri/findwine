@@ -1,7 +1,7 @@
 import { Box, Modal } from "native-base";
 import { useEffect, useState } from "react";
 import { StyleSheet, Pressable, ScrollView, Image, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Close, FilterIcon, MapMarker, Search } from "../../components/Icons";
 import NavigationHeader from "../../components/parts/navigation/navigationHeader";
 import Button from "../../components/shared/Button";
@@ -99,6 +99,7 @@ function OrdersScreen() {
           </Pressable>
 
           <MapView
+            provider={PROVIDER_GOOGLE}
             style={{
               width: "100%",
               height: 500,

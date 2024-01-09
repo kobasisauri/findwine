@@ -158,7 +158,7 @@ function Winery({ route }) {
                     }}
                   >
                     <MapView
-                      provider={"AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"}
+                      // provider={"AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"}
                       style={{
                         width: "100%",
                         height: "100%",

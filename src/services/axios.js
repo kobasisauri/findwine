@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import notificationService from "./notify";
 
 const axiosInstance = axios.create({
-  baseURL: "https://findwines.ge/api",
+  baseURL: "https://staging.findwines.ge/api",
   headers: {
     "Content-Type": "application/json",
   },

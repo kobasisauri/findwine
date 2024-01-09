@@ -15,7 +15,6 @@ import { getRegionWiners } from "../../services/wineries";
 import { t } from "../../translation";
 import { getCities, getRegions, getWineTypes } from "../../services/dropdowns";
 import { regions } from "../../constants/regions";
-import georgiaLight from "../../assets/img/Regions/Abk_dark.png";
 
 const inputColor = "rgba(255,255,255,0.091)";
 
@@ -29,14 +28,40 @@ function OrdersScreen() {
     wineTypes: [],
   });
   const [values, setValues] = useState({
-    cities: "",
+    search: "",
+    organic: false,
     regions: "",
     wineTypes: "",
+    origin: "",
   });
+  const [mapData, setMapData] = useState([]);
+
+  const handleFilter = () => {
+    let filteredData = locationData;
+
+    if (values.regions) {
+      filteredData = filteredData.filter(
+        (item) => item.region_id === values.regions
+      );
+    }
+
+    if (values.wineTypes) {
+      filteredData = filteredData.filter((item) =>
+        item.wine_type.includes(values.wineTypes)
+      );
+    }
+
+    // if (values.origin) {
+    // }
+
+    setMapData(filteredData);
+    setOpenFiler(false);
+  };
 
   useEffect(() => {
     getRegionWiners().then((res) => {
       let winners = [];
+      console.log(res[0]);
       res.forEach((item) => {
         if (item.winners.length) {
           item.winners.forEach((i) => {
@@ -44,7 +69,12 @@ function OrdersScreen() {
           });
         }
       });
+      console.log(
+        "winners",
+        winners.map((item) => item.wine_type)
+      );
       setLocationData(winners);
+      setMapData(winners);
     });
   }, []);
 
@@ -52,12 +82,12 @@ function OrdersScreen() {
     getWineTypes()
       .then((res) => {
         const transform = res.map((item) => ({
-          value: item.id,
+          value: item.name,
           label: item.name,
         }));
         setData((prevData) => ({
           ...prevData,
-          wineTypes: transform,
+          wineTypes: [{ label: "All Regions", value: null }, ...transform],
         }));
         return getRegions();
       })
@@ -68,7 +98,7 @@ function OrdersScreen() {
         }));
         setData((prevData) => ({
           ...prevData,
-          regions: transform,
+          regions: [{ label: "All Types", value: null }, ...transform],
         }));
         return getCities();
       })
@@ -79,7 +109,7 @@ function OrdersScreen() {
         }));
         setData((prevData) => ({
           ...prevData,
-          cities: transform,
+          cities: [{ label: "All Origins", value: null }, ...transform],
         }));
       });
   }, []);
@@ -100,7 +130,7 @@ function OrdersScreen() {
 
           <MapView
             // to do PROVIDER_GOOGLE
-            provider={"AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"}
+            // provider={"AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"}
             style={{
               width: "100%",
               height: 500,
@@ -112,8 +142,8 @@ function OrdersScreen() {
               longitudeDelta: 7,
             }}
           >
-            {!!locationData?.length &&
-              locationData.map((data, index) => (
+            {!!mapData?.length &&
+              mapData.map((data, index) => (
                 <Marker
                   key={index}
                   coordinate={{
@@ -163,6 +193,10 @@ function OrdersScreen() {
               </Text>
 
               <TextInput
+                value={values.search}
+                onChange={(val) => {
+                  setValues((prev) => ({ ...prev, search: val }));
+                }}
                 placeholder={t("search")}
                 suf={<Search color="#fff" />}
                 containerStyle={{ backgroundColor: inputColor }}
@@ -170,14 +204,14 @@ function OrdersScreen() {
               />
 
               <CheckboxField
-                checked={true}
+                checked={false}
                 label={t("organicProducer")}
                 containerStyles={{ marginBottom: 30 }}
                 dark
               />
 
               <Text style={styles.desc} color="#fff">
-                {t("byRegions")}
+                {t("regions")}
               </Text>
               <Dropdown
                 containerStyle={{ flex: 1 }}
@@ -191,7 +225,7 @@ function OrdersScreen() {
               />
 
               <Text style={styles.desc} color="#fff">
-                {t("byWineType")}
+                {t("wineType")}
               </Text>
               <Dropdown
                 containerStyle={{ flex: 1 }}
@@ -205,20 +239,20 @@ function OrdersScreen() {
               />
 
               <Text style={styles.desc} color="#fff">
-                {t("byOerroirs")}
+                {t("origin")}
               </Text>
               <Dropdown
                 containerStyle={{ flex: 1 }}
                 placeholderText="All Origins"
                 dark={true}
                 data={!!data.cities && data.cities}
-                value={values.cities}
+                value={values.origin}
                 onChange={(item) => {
-                  setValues((prev) => ({ ...prev, cities: item.value }));
+                  setValues((prev) => ({ ...prev, origin: item.value }));
                 }}
               />
               <View style={{ width: "50%" }}>
-                <Button>{t("search")}</Button>
+                <Button onPress={handleFilter}>{t("search")}</Button>
               </View>
             </Modal.Body>
           </Modal.Content>

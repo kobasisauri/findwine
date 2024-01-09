@@ -99,7 +99,8 @@ function OrdersScreen() {
           </Pressable>
 
           <MapView
-            provider={PROVIDER_GOOGLE}
+            // to do PROVIDER_GOOGLE
+            provider={"AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"}
             style={{
               width: "100%",
               height: 500,

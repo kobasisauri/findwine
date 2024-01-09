@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Find Wines",
-    "slug": "find-wines",
+    "slug": "find-wine",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,8 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.find_wines.findwine",
-      "googleMapsApiKey": "AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"
+      "package": "com.find_wines.findwine"
     },
     "web": {
       "favicon": "./assets/favicon.png"

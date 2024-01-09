@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Image, StyleSheet, ScrollView, Pressable } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { t } from "../translation";
 import NavigationHeader from "../components/parts/navigation/navigationHeader";
 import Container from "../components/shared/Container";
@@ -188,7 +188,7 @@ function EventDetails({ route }) {
                 }}
               >
                 <MapView
-                  provider={PROVIDER_GOOGLE}
+                  provider={"AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"}
                   style={{
                     width: "100%",
                     height: "100%",

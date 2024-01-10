@@ -9,18 +9,12 @@ import DescriptionCards from "../components/shared/DescriptionCards";
 import { getWinePassports } from "../services/winePassports";
 import Text from "../components/shared/Text";
 import { Tick } from "../components/Icons";
-import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
-import SignInModal from "../components/parts/SignInModal";
-import SignUpModal from "../components/parts/SignUpModal";
 import useStore from "../stores/store";
 import BuyModal from "../components/parts/BuyModal";
 
 function WinePassport({ navigation }) {
-  const { token } = useStore((state) => state);
+  const { token, setRegisterRequiredModal } = useStore((state) => state);
   const [packages, setPackages] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
-  const [signInModal, setSignInModal] = useState(false);
-  const [signUpModal, setSignUpModal] = useState(false);
 
   const [buyModal, setBuyModal] = useState(false);
   const [buyData, setBuyData] = useState();
@@ -134,7 +128,7 @@ function WinePassport({ navigation }) {
                 <Pressable
                   style={styles.button}
                   onPress={() => {
-                    token ? buy(item) : setOpenModal(true);
+                    token ? buy(item) : setRegisterRequiredModal(true);
                   }}
                 >
                   <Text
@@ -151,36 +145,6 @@ function WinePassport({ navigation }) {
         )}
       </ScrollView>
 
-      <RegisterRequiredModal
-        modalVisible={openModal}
-        onClose={() => setOpenModal(false)}
-        onSignIn={() => {
-          setOpenModal(false);
-          setSignInModal(true);
-        }}
-        onSignUp={() => {
-          setOpenModal(false);
-          setSignUpModal(true);
-        }}
-      />
-
-      <SignInModal
-        modalVisible={signInModal}
-        onClose={() => setSignInModal(false)}
-        onSignUp={() => {
-          setSignInModal(false);
-          setSignUpModal(true);
-        }}
-      />
-
-      <SignUpModal
-        modalVisible={signUpModal}
-        onClose={() => setSignUpModal(false)}
-        onSignIn={() => {
-          setSignUpModal(false);
-          setSignInModal(true);
-        }}
-      />
       <BuyModal
         modalVisible={buyModal}
         onClose={() => setBuyModal(false)}

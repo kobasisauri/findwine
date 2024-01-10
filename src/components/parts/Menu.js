@@ -17,8 +17,15 @@ const navs = [
 
 function Menu() {
   const navigation = useNavigation();
-  const { isMenuOpen, setMenu, setToken, setUserData, logOut, token } =
-    useStore((state) => state);
+  const {
+    isMenuOpen,
+    setMenu,
+    setToken,
+    setUserData,
+    logOut,
+    token,
+    setSignInModal,
+  } = useStore((state) => state);
 
   useEffect(() => {
     async function fetchData() {
@@ -89,7 +96,7 @@ function Menu() {
               logOut();
               AsyncStorage.multiRemove(["token", "role", "userData"]);
             } else {
-              console.log(1);
+              setSignInModal(true);
             }
           }}
         >

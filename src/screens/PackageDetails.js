@@ -8,18 +8,12 @@ import { Grape, Location, Offer, Phone } from "../components/Icons";
 import { getWinePassport } from "../services/winePassports";
 import Text from "../components/shared/Text";
 import Loader from "../components/shared/Loader";
-import RegisterRequiredModal from "../components/shared/RegisterRequiredModal";
-import SignInModal from "../components/parts/SignInModal";
-import SignUpModal from "../components/parts/SignUpModal";
 import useStore from "../stores/store";
 import BuyModal from "../components/parts/BuyModal";
 
 function PackageDetails({ route }) {
-  const { token } = useStore((state) => state);
+  const { token, setRegisterRequiredModal } = useStore((state) => state);
   const [data, setData] = useState();
-  const [openModal, setOpenModal] = useState(false);
-  const [signInModal, setSignInModal] = useState(false);
-  const [signUpModal, setSignUpModal] = useState(false);
 
   const [buyModal, setBuyModal] = useState(false);
   const [buyData, setBuyData] = useState();
@@ -126,7 +120,7 @@ function PackageDetails({ route }) {
           <Pressable
             style={styles.button}
             onPress={() => {
-              token ? buy(data) : setOpenModal(true);
+              token ? buy(data) : setRegisterRequiredModal(true);
             }}
           >
             <Text
@@ -141,36 +135,7 @@ function PackageDetails({ route }) {
       ) : (
         <Loader />
       )}
-      <RegisterRequiredModal
-        modalVisible={openModal}
-        onClose={() => setOpenModal(false)}
-        onSignIn={() => {
-          setOpenModal(false);
-          setSignInModal(true);
-        }}
-        onSignUp={() => {
-          setOpenModal(false);
-          setSignUpModal(true);
-        }}
-      />
 
-      <SignInModal
-        modalVisible={signInModal}
-        onClose={() => setSignInModal(false)}
-        onSignUp={() => {
-          setSignInModal(false);
-          setSignUpModal(true);
-        }}
-      />
-
-      <SignUpModal
-        modalVisible={signUpModal}
-        onClose={() => setSignUpModal(false)}
-        onSignIn={() => {
-          setSignUpModal(false);
-          setSignInModal(true);
-        }}
-      />
       <BuyModal
         modalVisible={buyModal}
         onClose={() => setBuyModal(false)}

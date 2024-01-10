@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { Box } from "native-base";
 import { HomeTab, MapTab, PitcherTab, Calendar } from "../Icons";
-import RegisterRequiredModal from "../../components/shared/RegisterRequiredModal";
-import SignInModal from "../../components/parts/SignInModal";
-import SignUpModal from "../../components/parts/SignUpModal";
 import Text from "../../components/shared/Text";
 import { getEvents } from "../../services/events";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -54,10 +51,9 @@ const BottomIcon = ({ routeKey, color }) => {
 };
 
 const TabBar = ({ state, descriptors, navigation }) => {
-  const [openModal, setOpenModal] = useState(false);
-  const [signInModal, setSignInModal] = useState(false);
-  const [signUpModal, setSignUpModal] = useState(false);
-  const { setToken, setUserData, token } = useStore((state) => state);
+  const { setToken, setUserData, token, setRegisterRequiredModal } = useStore(
+    (state) => state
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -110,7 +106,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
             testID={options.tabBarTestID}
             onPress={
               route.name === "TabsProfile" && !token
-                ? () => setOpenModal(true)
+                ? () => setRegisterRequiredModal(true)
                 : onPress
             }
             onLongPress={onLongPress}
@@ -128,36 +124,6 @@ const TabBar = ({ state, descriptors, navigation }) => {
           </TouchableOpacity>
         );
       })}
-      <RegisterRequiredModal
-        modalVisible={openModal}
-        onClose={() => setOpenModal(false)}
-        onSignIn={() => {
-          setOpenModal(false);
-          setSignInModal(true);
-        }}
-        onSignUp={() => {
-          setOpenModal(false);
-          setSignUpModal(true);
-        }}
-      />
-
-      <SignInModal
-        modalVisible={signInModal}
-        onClose={() => setSignInModal(false)}
-        onSignUp={() => {
-          setSignInModal(false);
-          setSignUpModal(true);
-        }}
-      />
-
-      <SignUpModal
-        modalVisible={signUpModal}
-        onClose={() => setSignUpModal(false)}
-        onSignIn={() => {
-          setSignUpModal(false);
-          setSignInModal(true);
-        }}
-      />
     </View>
   );
 };

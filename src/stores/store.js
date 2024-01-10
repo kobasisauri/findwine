@@ -44,6 +44,24 @@ const useStore = create((set) => ({
       notification: notification,
     }));
   },
+  registerRequredModal: false,
+  setRegisterRequiredModal: (open) => {
+    set(() => ({
+      registerRequredModal: open,
+    }));
+  },
+  isSignInModalOpen: false,
+  isSignUpModalOpen: false,
+  setSignInModal: (open) => {
+    set(() => ({
+      isSignInModalOpen: open,
+    }));
+  },
+  setSignUpModal: (open) => {
+    set(() => ({
+      isSignUpModalOpen: open,
+    }));
+  },
 }));
 
 export default useStore;

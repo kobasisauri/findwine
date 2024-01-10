@@ -32,10 +32,11 @@ import {
   getUserData,
   editUserData,
 } from "../../services/signUp";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import notificationService from "../../services/notify";
+import useStore from "../../stores/store";
 
 function SearchScreen() {
+  const { userData: user, token } = useStore((state) => state);
   const [active, setActive] = useState(1);
   const [render, setRender] = useState(0);
   const [values, setValues] = useState({
@@ -52,25 +53,25 @@ function SearchScreen() {
     country: "",
   });
   const [winePassports, setWinePassports] = useState([]);
-
-  const [auth, setAuth] = useState(1);
   const [userData, setUserData] = useState();
 
   const visitors = [1, 2, 3];
 
   useEffect(() => {
-    getUserData().then((res) => {
-      setWinePassports(res.passport);
-      setUserData({
-        ...res.user,
-        country: countries?.length
-          ? countries.filter((i) => +i.value === +res.user.country)[0]?.label ||
-            ""
-          : "",
+    if (token && user.role === "client") {
+      getUserData().then((res) => {
+        setWinePassports(res.passport);
+        setUserData({
+          ...res.user,
+          country: countries?.length
+            ? countries.filter((i) => +i.value === +res.user.country)[0]
+                ?.label || ""
+            : "",
+        });
+        setEditValues(res.user);
       });
-      setEditValues(res.user);
-    });
-  }, [render, countries]);
+    }
+  }, [render, countries, user]);
 
   useEffect(() => {
     getCountries().then((res) => {
@@ -124,7 +125,7 @@ function SearchScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-        {auth === 1 ? (
+        {user.role === "client" ? (
           <>
             <View style={styles.titlecontaner}>
               <View style={{ flexDirection: "row" }}>
@@ -524,7 +525,7 @@ function SearchScreen() {
                   <View style={{ marginTop: 25 }}>
                     <View style={styles.bonusItem}>
                       <Text>You have</Text>
-                      <Text style={styles.bonusNumber}>20</Text>
+                      <Text style={styles.bonusNumber}>0</Text>
                       <Text
                         style={{
                           textTransform: "lowercase",

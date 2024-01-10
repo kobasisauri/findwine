@@ -65,7 +65,7 @@ function Menu() {
       </View>
 
       <View style={styles.container}>
-        {navs.map((nav, i) => (
+        {navs.map((nav) => (
           <Pressable
             style={[styles.item]}
             key={nav.url}

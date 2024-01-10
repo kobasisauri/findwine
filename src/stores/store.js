@@ -9,6 +9,12 @@ const initialUserData = {
   role: "",
 };
 
+const notification = {
+  isVisible: false,
+  type: "", // warning, error, success
+  message: "",
+};
+
 const useStore = create((set) => ({
   toke: "",
   userData: initialUserData,
@@ -23,6 +29,21 @@ const useStore = create((set) => ({
       token: "",
       userData: initialUserData,
     })),
+  notification: notification,
+  showNotification: (type, message) => {
+    set(() => ({
+      notification: {
+        isVisible: true,
+        type,
+        message,
+      },
+    }));
+  },
+  hideNotification: () => {
+    set(() => ({
+      notification: notification,
+    }));
+  },
 }));
 
 export default useStore;

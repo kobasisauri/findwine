@@ -4,6 +4,7 @@ import { NativeBaseProvider, View } from "native-base";
 import { useFonts } from "expo-font";
 import { Root } from "react-native-alert-notification";
 import Main from "./navigation/Main";
+import Notification from "./components/shared/Notification";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -20,27 +21,30 @@ export default function App() {
   }
 
   return (
-    <NativeBaseProvider>
-      <StatusBar
-        animated
-        backgroundColor="transparent"
-        barStyle="dark-content"
-        showHideTransition="fade"
-        hidden={false}
-      />
-      <NavigationContainer>
-        <Root>
-          <View
-            style={{
-              backgroundColor: "#fff",
-              flex: 1,
-              paddingBottom: 0,
-            }}
-          >
-            <Main />
-          </View>
-        </Root>
-      </NavigationContainer>
-    </NativeBaseProvider>
+    <>
+      <NativeBaseProvider>
+        <StatusBar
+          animated
+          backgroundColor="transparent"
+          barStyle="dark-content"
+          showHideTransition="fade"
+          hidden={false}
+        />
+        <NavigationContainer>
+          <Root>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                flex: 1,
+                paddingBottom: 0,
+              }}
+            >
+              <Main />
+            </View>
+          </Root>
+        </NavigationContainer>
+      </NativeBaseProvider>
+      <Notification />
+    </>
   );
 }

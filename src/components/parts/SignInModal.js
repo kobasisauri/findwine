@@ -36,8 +36,6 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
           AsyncStorage.setItem("userData", JSON.stringify(res?.user));
           AsyncStorage.setItem("role", res?.user?.role);
           onClose();
-        } else {
-          console.log("error");
         }
       });
     }

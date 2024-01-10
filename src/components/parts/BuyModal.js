@@ -30,7 +30,6 @@ function BuyModal({ modalVisible, onClose, data }) {
 
   const submit = () => {
     if (acceptTearms && payment) {
-      console.log("submit");
       buy({
         qty: quantity,
         passport_id: data.id,

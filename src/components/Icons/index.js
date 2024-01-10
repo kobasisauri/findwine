@@ -37,3 +37,6 @@ export { default as Visa } from "./Visa";
 export { default as Mastercard } from "./MasterCard";
 export { default as Amex } from "./Amex";
 export { default as Paypal } from "./Paypal";
+export { default as SuccessIcon } from "./SuccessIcon";
+export { default as WarningIcon } from "./WarningIcon";
+export { default as ErrorIcon } from "./ErrorIcon";

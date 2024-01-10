@@ -61,7 +61,7 @@ function OrdersScreen() {
   useEffect(() => {
     getRegionWiners().then((res) => {
       let winners = [];
-      console.log(res[0]);
+
       res.forEach((item) => {
         if (item.winners.length) {
           item.winners.forEach((i) => {
@@ -69,10 +69,7 @@ function OrdersScreen() {
           });
         }
       });
-      console.log(
-        "winners",
-        winners.map((item) => item.wine_type)
-      );
+
       setLocationData(winners);
       setMapData(winners);
     });

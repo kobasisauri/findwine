@@ -33,7 +33,6 @@ function SignUpModal({ modalVisible, onClose, onSignIn }) {
   }, []);
   const handleSubmit = () => {
     signUp({ ...values }).then((res) => {
-      console.log(res);
       if (res.status === "OK") {
         setValues({
           fullName: "",

@@ -32,7 +32,7 @@ const NewSelect = ({
           !(multiple && !!value?.length) ? { marginBottom: 12 } : {},
         ]}
       >
-        {!multiple && value && (
+        {/* {!multiple && value && (
           <Box
             style={[
               styles.placeholder,
@@ -45,7 +45,7 @@ const NewSelect = ({
               {placeholderText}
             </Text>
           </Box>
-        )}
+        )} */}
 
         <SelectDropdown
           search={search}

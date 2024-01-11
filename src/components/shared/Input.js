@@ -60,6 +60,7 @@ export default function TextInput({
           onChangeText={onChangeText}
           variant="unstyled"
           aria-label={placeholder}
+          placeholder={placeholder}
         />
       </Box>
 

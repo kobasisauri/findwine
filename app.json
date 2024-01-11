@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.find_wines.findwine",
+      "package": "com.find_wines.georgia",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"

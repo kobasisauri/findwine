@@ -126,7 +126,6 @@ function OrdersScreen() {
           </Pressable>
 
           <MapView
-            // to do PROVIDER_GOOGLE
             provider={PROVIDER_GOOGLE}
             style={{
               width: "100%",

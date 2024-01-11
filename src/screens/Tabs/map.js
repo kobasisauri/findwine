@@ -127,7 +127,7 @@ function OrdersScreen() {
 
           <MapView
             // to do PROVIDER_GOOGLE
-            // provider={"AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"}
+            provider={PROVIDER_GOOGLE}
             style={{
               width: "100%",
               height: 500,

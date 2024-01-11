@@ -203,7 +203,7 @@ function OrdersScreen() {
               <CheckboxField
                 checked={false}
                 label={t("organicProducer")}
-                containerStyles={{ marginBottom: 30 }}
+                containerStyles={{ marginBottom: 18.5 }}
                 dark
               />
 

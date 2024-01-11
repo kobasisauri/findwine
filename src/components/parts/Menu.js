@@ -63,8 +63,8 @@ function Menu() {
         <Pressable
           onPress={() => setMenu(false)}
           style={{
-            padding: 8,
-            marginRight: 12,
+            padding: 12,
+            marginRight: 8,
           }}
         >
           <Close color="#fff" />

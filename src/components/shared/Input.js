@@ -37,6 +37,7 @@ export default function TextInput({
   suf,
   style,
   containerStyle,
+  placeholder,
   ...rest
 }) {
   return (
@@ -58,6 +59,7 @@ export default function TextInput({
           onPress={onPress}
           onChangeText={onChangeText}
           variant="unstyled"
+          aria-label={placeholder}
         />
       </Box>
 

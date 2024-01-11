@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Box, ScrollView } from "native-base";
 import QRCode from "react-native-qrcode-svg";
-
+import { BarCodeScanner } from "expo-barcode-scanner";
 import NavigationHeader from "../../components/parts/navigation/navigationHeader";
 import Container from "../../components/shared/Container";
 import Text from "../../components/shared/Text";
@@ -57,6 +57,9 @@ function SearchScreen() {
 
   const visitors = [1, 2, 3];
 
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
+
   useEffect(() => {
     if (token && user.role === "client") {
       getUserData().then((res) => {
@@ -72,6 +75,17 @@ function SearchScreen() {
       });
     }
   }, [render, countries, user]);
+
+  useEffect(() => {
+    if (token && user.role !== "client") {
+      const getBarCodeScannerPermissions = async () => {
+        const { status } = await BarCodeScanner.requestPermissionsAsync();
+        setHasPermission(status === "granted");
+      };
+
+      getBarCodeScannerPermissions();
+    }
+  }, [token]);
 
   useEffect(() => {
     getCountries().then((res) => {
@@ -115,6 +129,13 @@ function SearchScreen() {
       setEdit(false);
       setRender((state) => state + 1);
     });
+  };
+
+  const openScan = () => {};
+
+  const handleBarCodeScanned = ({ type, data }) => {
+    setScanned(true);
+    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   return (
@@ -498,6 +519,7 @@ function SearchScreen() {
                     </View>
                     <Button
                       style={{ width: "55%", marginBottom: 30, marginTop: 10 }}
+                      onPress={openScan}
                     >
                       {t("scan")}
                     </Button>
@@ -596,6 +618,11 @@ function SearchScreen() {
           </>
         )}
       </KeyboardAvoidingView>
+
+      {/* <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={StyleSheet.absoluteFillObject}
+      /> */}
     </Container>
   );
 }

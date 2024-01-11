@@ -8,13 +8,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
+    alignItems: "center",
+  },
+  wrapper: {
+    height: 48,
+    width: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   checkbox: {
     height: 25,
     width: 25,
     borderWidth: 1,
     borderColor: "#D9D9D9",
-    marginRight: 17,
   },
   icon: { top: -6 },
   label: {
@@ -40,13 +47,21 @@ export default function CheckboxField({
 }) {
   return (
     <View style={[styles.container, containerStyles || {}]}>
-      <Pressable
-        style={[styles.checkbox, dark ? styles.darkContainer : {}]}
-        onPress={onPress}
-      >
-        {checked && <Check style={styles.icon} color={dark ? "#fff" : ""} />}
+      <Pressable onPress={onPress} style={styles.wrapper}>
+        <View style={[styles.checkbox, dark ? styles.darkContainer : {}]}>
+          {checked && (
+            <Check
+              style={styles.icon}
+              color={dark ? "#fff" : ""}
+              label={label}
+            />
+          )}
+        </View>
       </Pressable>
-      <Pressable onPress={onPress}>
+      <Pressable
+        onPress={onPress}
+        style={{ flexDirection: "row", alignItems: "center" }}
+      >
         <Text style={[styles.label, dark ? styles.lightText : {}]}>
           {label}
         </Text>

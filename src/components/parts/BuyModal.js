@@ -198,7 +198,7 @@ function BuyModal({ modalVisible, onClose, data }) {
               <Paypal />
             </View>
 
-            <View style={{ marginTop: 12 }}>
+            <View>
               <CheckboxField
                 checked={acceptTearms}
                 onPress={() => setAcceptTearms((state) => !state)}
@@ -224,11 +224,13 @@ export default BuyModal;
 const styles = StyleSheet.create({
   payment: {
     flexDirection: "row",
+    alignItems: "center",
     borderRadius: 4,
     borderWidth: 1,
     borderColor: "#D9D9D9",
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    paddingRight: 20,
+    paddingLeft: 9.5,
+    paddingVertical: 4.5,
     marginBottom: 12,
   },
   close: {

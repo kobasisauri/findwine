@@ -86,7 +86,7 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
           )}
           {!reset ? (
             <>
-              <View style={{ marginTop: 16 }}>
+              <View>
                 <CheckboxField
                   checked={remember}
                   onPress={() => setRememmber((state) => !state)}

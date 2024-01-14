@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import useStore from "../stores/store";
 
 const axiosInstance = axios.create({
-  baseURL: "https://findwines.ge/api",
+  baseURL: "https://staging.findwines.ge/api",
   headers: {
     "Content-Type": "application/json",
   },

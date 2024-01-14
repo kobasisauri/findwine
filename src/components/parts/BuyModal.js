@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
-import { View, StyleSheet, Pressable, Image, Linking } from "react-native";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  Image,
+  Linking,
+  Dimensions,
+} from "react-native";
+// import WebView from "react-native-webview";
 import { Modal } from "native-base";
 import { Close } from "../Icons";
 import Text from "../shared/Text";
 import { t } from "../../translation";
 import Button from "../shared/Button";
-import Input from "../shared/Input";
 import CheckboxField from "../shared/CheckBox";
 import { useNavigation } from "@react-navigation/native";
 import { Visa, Mastercard, Paypal, Amex } from "../Icons";
@@ -15,11 +20,10 @@ import { buy } from "../../services/payment";
 
 function BuyModal({ modalVisible, onClose, data }) {
   const navigation = useNavigation();
-
   const [quantity, setQuantity] = useState(1);
   const [payment, setPayment] = useState();
-
   const [acceptTearms, setAcceptTearms] = useState();
+  const [pay, setPay] = useState(null);
 
   const handleClose = () => {
     onClose();
@@ -37,185 +41,205 @@ function BuyModal({ modalVisible, onClose, data }) {
       }).then((res) => {
         if (res && res.message === "success") {
           Linking.openURL(res.paymentUrl);
+          // setPay(res.paymentUrl);
           handleClose();
         }
       });
-    } else {
-      console.log("err");
     }
   };
 
+  // const onMessage = (e) => {
+  //   const data = e.nativeEvent.data;
+  //   alert(data);
+  //   if (data && data.indexOf("staging.findwines.ge") > -1) {
+  //     setPay(null);
+  //   }
+  // };
+
   return (
-    <Modal isOpen={modalVisible} onClose={handleClose} size="xl">
-      <Modal.Content style={{ borderRadius: 4 }}>
-        <Modal.Body>
-          <View style={styles.close}>
-            <Close onPress={handleClose} />
-          </View>
-
-          <View style={{ flexDirection: "row", gap: 16 }}>
-            <Image
-              source={require("../../assets/img/winePassport.png")}
-              style={{ height: 101, width: 74 }}
-            />
-            <View style={{ justifyContent: "space-around" }}>
-              <Text fontSize={16} style={{ fontFamily: "monseratBold" }}>
-                {data?.name}
-              </Text>
-              <Text>01/01/2024 - 01/01/2025</Text>
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("package-details", { id: data.id });
-                  handleClose();
-                }}
-              >
-                <Text style={{ textDecorationLine: "underline" }}>
-                  {t("moreDetails")}
-                </Text>
-              </Pressable>
+    <>
+      {/* {pay ? (
+        <>
+          <Box style={styles.web}>
+            <WebView source={{ uri: pay }} onMessage={(e) => onMessage(e)} />
+          </Box>
+        </>
+      ) : ( */}
+      <Modal isOpen={modalVisible} onClose={handleClose} size="xl">
+        <Modal.Content style={{ borderRadius: 4 }}>
+          <Modal.Body>
+            <View style={styles.close}>
+              <Close onPress={handleClose} />
             </View>
-          </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: 50,
-              marginBottom: 39,
-            }}
-          >
-            <Text fontSize={18} style={{ fontFamily: "monseratBold" }}>
-              {t("quantity")}
-            </Text>
-
-            <View style={styles.quantity}>
-              <Pressable
-                onPress={() =>
-                  setQuantity((prev) => {
-                    return prev === 1 ? 1 : prev - 1;
-                  })
-                }
-                style={{
-                  paddingHorizontal: 18,
-                  paddingVertical: 20,
-                }}
-              >
-                <Text fontSize={18}>-</Text>
-              </Pressable>
-              <Text fontSize={18} style={{ paddingVertical: 20 }}>
-                {quantity}
-              </Text>
-
-              <Pressable
-                onPress={() => setQuantity((prev) => prev + 1)}
-                style={{
-                  paddingHorizontal: 18,
-                  paddingVertical: 20,
-                }}
-              >
-                <Text fontSize={18}>+</Text>
-              </Pressable>
-            </View>
-          </View>
-
-          <View style={styles.line} />
-
-          <View
-            style={{
-              marginBottom: 39,
-              gap: 30,
-            }}
-          >
-            <Text fontSize={18} style={{ fontFamily: "monseratBold" }}>
-              {t("price")}
-            </Text>
-
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text fontSize={16}>
-                {t("priorityWinePassport")} x{" "}
-                <Text fontSize={16} color="#B44D2D">
-                  {quantity}
+            <View style={{ flexDirection: "row", gap: 16 }}>
+              <Image
+                source={require("../../assets/img/winePassport.png")}
+                style={{ height: 101, width: 74 }}
+              />
+              <View style={{ justifyContent: "space-around" }}>
+                <Text fontSize={16} style={{ fontFamily: "monseratBold" }}>
+                  {data?.name}
                 </Text>
-              </Text>
-              <Text fontSize={16}>{data?.price} GEL</Text>
+                <Text>01/01/2024 - 01/01/2025</Text>
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate("package-details", { id: data.id });
+                    handleClose();
+                  }}
+                >
+                  <Text style={{ textDecorationLine: "underline" }}>
+                    {t("moreDetails")}
+                  </Text>
+                </Pressable>
+              </View>
             </View>
 
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                marginBottom: 10,
+                alignItems: "center",
+                marginTop: 50,
+                marginBottom: 39,
               }}
             >
               <Text fontSize={18} style={{ fontFamily: "monseratBold" }}>
-                {t("totalSummery")}
+                {t("quantity")}
               </Text>
-              <Text style={{ fontFamily: "monseratBold" }} fontSize={18}>
-                {data?.price * quantity} GEL
-              </Text>
-            </View>
-          </View>
 
-          <View style={styles.line} />
+              <View style={styles.quantity}>
+                <Pressable
+                  onPress={() =>
+                    setQuantity((prev) => {
+                      return prev === 1 ? 1 : prev - 1;
+                    })
+                  }
+                  style={{
+                    paddingHorizontal: 18,
+                    paddingVertical: 20,
+                  }}
+                >
+                  <Text fontSize={18}>-</Text>
+                </Pressable>
+                <Text fontSize={18} style={{ paddingVertical: 20 }}>
+                  {quantity}
+                </Text>
 
-          <View style={{ marginBottom: 40 }}>
-            <Text
-              fontSize={20}
-              style={{ fontFamily: "monseratBold", marginBottom: 30 }}
-            >
-              {t("paymentMethod")}
-            </Text>
-            <View style={styles.payment}>
-              <CheckboxField
-                checked={payment === 1}
-                onPress={() => setPayment(1)}
-                label={"Visa/Mastercard"}
-              />
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                <Visa />
-                <Mastercard />
+                <Pressable
+                  onPress={() => setQuantity((prev) => prev + 1)}
+                  style={{
+                    paddingHorizontal: 18,
+                    paddingVertical: 20,
+                  }}
+                >
+                  <Text fontSize={18}>+</Text>
+                </Pressable>
               </View>
             </View>
 
-            <View style={styles.payment}>
-              <CheckboxField
-                checked={payment === 2}
-                onPress={() => setPayment(2)}
-                label={"AMEX"}
-              />
-              <Amex />
+            <View style={styles.line} />
+
+            <View
+              style={{
+                marginBottom: 39,
+                gap: 30,
+              }}
+            >
+              <Text fontSize={18} style={{ fontFamily: "monseratBold" }}>
+                {t("price")}
+              </Text>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text fontSize={16}>
+                  {t("priorityWinePassport")} x{" "}
+                  <Text fontSize={16} color="#B44D2D">
+                    {quantity}
+                  </Text>
+                </Text>
+                <Text fontSize={16}>{data?.price} GEL</Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginBottom: 10,
+                }}
+              >
+                <Text fontSize={18} style={{ fontFamily: "monseratBold" }}>
+                  {t("totalSummery")}
+                </Text>
+                <Text style={{ fontFamily: "monseratBold" }} fontSize={18}>
+                  {data?.price * quantity} GEL
+                </Text>
+              </View>
             </View>
 
-            <View style={styles.payment}>
-              <CheckboxField
-                // checked={payment}
-                // onPress={() => setPayment((state) => !state)}
-                label={"Paypal"}
-              />
-              <Paypal />
+            <View style={styles.line} />
+
+            <View style={{ marginBottom: 40 }}>
+              <Text
+                fontSize={20}
+                style={{ fontFamily: "monseratBold", marginBottom: 30 }}
+              >
+                {t("paymentMethod")}
+              </Text>
+              <View style={styles.payment}>
+                <CheckboxField
+                  checked={payment === 1}
+                  onPress={() => setPayment(1)}
+                  label={"Visa/Mastercard"}
+                />
+                <View style={{ flexDirection: "row", gap: 8 }}>
+                  <Visa />
+                  <Mastercard />
+                </View>
+              </View>
+
+              <View style={styles.payment}>
+                <CheckboxField
+                  checked={payment === 2}
+                  onPress={() => setPayment(2)}
+                  label={"AMEX"}
+                />
+                <Amex />
+              </View>
+
+              <View style={styles.payment}>
+                <CheckboxField
+                  // checked={payment}
+                  // onPress={() => setPayment((state) => !state)}
+                  label={"Paypal"}
+                />
+                <Paypal />
+              </View>
+
+              <View>
+                <CheckboxField
+                  checked={acceptTearms}
+                  onPress={() => setAcceptTearms((state) => !state)}
+                  label={t("termsAndConditions")}
+                />
+              </View>
             </View>
 
-            <View>
-              <CheckboxField
-                checked={acceptTearms}
-                onPress={() => setAcceptTearms((state) => !state)}
-                label={t("termsAndConditions")}
-              />
-            </View>
-          </View>
-
-          <Button
-            buttonTextStyle={{ textTransform: "uppercase" }}
-            onPress={() => submit()}
-          >
-            {t("pay")}
-          </Button>
-        </Modal.Body>
-      </Modal.Content>
-    </Modal>
+            <Button
+              buttonTextStyle={{ textTransform: "uppercase" }}
+              onPress={() => submit()}
+            >
+              {t("pay")}
+            </Button>
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
+      {/* )} */}
+    </>
   );
 }
 
@@ -267,5 +291,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  web: {
+    height: Dimensions.get("window").height - 100,
   },
 });

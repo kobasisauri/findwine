@@ -6,6 +6,7 @@ import {
   Platform,
   ScrollView,
   Pressable,
+  Linking,
 } from "react-native";
 import { t } from "../../translation";
 import Container from "../../components/shared/Container";
@@ -93,7 +94,11 @@ function HomeScreen({ navigation }) {
               </Text>
             </View>
             <View style={{ flexDirection: "row", gap: 16 }}>
-              <Facebook color="#fff" style={styles.rotate} />
+              <Facebook
+                color="#fff"
+                style={styles.rotate}
+                onPress={() => Linking("https://www.facebook.com/findwinesge/")}
+              />
               <Instagram color="#fff" style={styles.rotate} />
             </View>
           </View>

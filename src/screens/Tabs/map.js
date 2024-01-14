@@ -51,8 +51,17 @@ function OrdersScreen() {
       );
     }
 
-    // if (values.origin) {
-    // }
+    if (values.origin) {
+      filteredData = filteredData.filter(
+        (item) => item.city_id === values.origin
+      );
+    }
+
+    if (values.search) {
+      filteredData = filteredData.filter((item) =>
+        item.name.includes(values.search)
+      );
+    }
 
     setMapData(filteredData);
     setOpenFiler(false);
@@ -190,7 +199,7 @@ function OrdersScreen() {
 
               <TextInput
                 value={values.search}
-                onChange={(val) => {
+                onChangeText={(val) => {
                   setValues((prev) => ({ ...prev, search: val }));
                 }}
                 placeholder={t("search")}
@@ -212,12 +221,13 @@ function OrdersScreen() {
               <Dropdown
                 containerStyle={{ flex: 1 }}
                 placeholderText="All regions"
-                dark={true}
+                // dark={true}
                 data={!!data.regions && data.regions}
                 value={values.regions}
                 onChange={(item) => {
                   setValues((prev) => ({ ...prev, regions: item.value }));
                 }}
+                // withoutInput
               />
 
               <Text style={styles.desc} color="#fff">

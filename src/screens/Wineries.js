@@ -14,10 +14,19 @@ function Wineries() {
   const [filteredData, setFileredData] = useState();
   const [loading, setLoading] = useState(false);
 
+  const [values, setValues] = useState({
+    search: "",
+    organic: false,
+    regions: "",
+    wineTypes: "",
+    origin: "",
+  });
+
   useEffect(() => {
     setLoading(true);
     getWineries().then((res) => {
       setData(res);
+      setFileredData(res);
       setLoading(false);
     });
   }, []);
@@ -33,7 +42,21 @@ function Wineries() {
           marginTop: 30,
         }}
       >
-        <Input placeholder={t("search")} suf={<Search />} />
+        <Input
+          value={values.search}
+          onChangeText={(val) => {
+            setValues((prev) => ({ ...prev, search: val }));
+          }}
+          placeholder={t("search")}
+          returnKeyType="search"
+          onSubmitEditing={() => {
+            setFileredData(
+              data.filter((item) => item.company.includes(values.search))
+            );
+            console.log(1);
+          }}
+          suf={<Search />}
+        />
       </View>
 
       {loading ? (
@@ -47,7 +70,7 @@ function Wineries() {
           }}
         >
           <FlatList
-            data={data}
+            data={filteredData}
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => <Winery item={item} />}

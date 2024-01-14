@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, FlatList } from "react-native";
+import { Pressable, StyleSheet, FlatList, Dimensions } from "react-native";
 import { Box, ScrollView } from "native-base";
 import SelectDropdown from "react-native-select-dropdown";
 import Text from "./Text";
@@ -21,6 +21,7 @@ const NewSelect = ({
   additionalComponents,
   dark,
   search,
+  withoutInput,
   ...rest
 }) => {
   return (
@@ -46,116 +47,143 @@ const NewSelect = ({
             </Text>
           </Box>
         )} */}
-
-        <SelectDropdown
-          search={search}
-          data={data}
-          onSelect={(selectedItem) => {
-            onChange(selectedItem);
-          }}
-          buttonTextAfterSelection={(selectedItem) => {
-            return selectedItem.value;
-          }}
-          rowTextForSelection={(item) => {
-            return item.label;
-          }}
-          buttonStyle={[
-            styles.buttonStyle,
-            error ? styles.error : {},
-            dark && {
-              backgroundColor: "rgba(255,255,255,0.091)",
-              borderColor: "#292C31",
-            },
-          ]}
-          renderCustomizedButtonChild={(selectedItem) => (
-            <Box style={styles.inner}>
-              {multiple ? (
-                <Text color={dark ? "#fff" : "#3A3D43"}>
-                  {/* {value.length
+        <Box style={{ position: "relative", width: "100%", height: "100%" }}>
+          <SelectDropdown
+            search={search}
+            data={data}
+            onSelect={(selectedItem) => {
+              onChange(selectedItem);
+            }}
+            buttonTextAfterSelection={(selectedItem) => {
+              return selectedItem.value;
+            }}
+            rowTextForSelection={(item) => {
+              return item.label;
+            }}
+            buttonStyle={[
+              withoutInput
+                ? { backgroundColor: "transparent" }
+                : styles.buttonStyle,
+              error ? styles.error : {},
+              dark && {
+                backgroundColor: "rgba(255,255,255,0.091)",
+                borderColor: "#292C31",
+              },
+            ]}
+            renderCustomizedButtonChild={(selectedItem) => {
+              if (withoutInput) {
+                return <Text>{placeholderText}</Text>;
+              } else {
+                return (
+                  <Box style={styles.inner}>
+                    {multiple ? (
+                      <Text color={dark ? "#fff" : "#3A3D43"}>
+                        {/* {value.length
                     ? `არჩეულია ${value.length} ${placeholderText}`
                     : placeholderText} */}
-                  {placeholderText}
-                </Text>
-              ) : (
-                <Text
-                  color={[
-                    value && !dark
-                      ? "#3A3D43"
-                      : selectedItem?.label
-                      ? "#fff"
-                      : dark && !selectedItem?.label
-                      ? "#fff"
-                      : !value
-                      ? "#3A3D43"
-                      : "#fff",
-                  ]}
-                >
-                  {(value && selectedItem?.label) ||
-                    data.filter((item) => item.value === value)[0]?.label ||
-                    placeholderText}
-                </Text>
-              )}
+                        {placeholderText}
+                      </Text>
+                    ) : (
+                      <Text
+                        color={[
+                          value && !dark
+                            ? "#3A3D43"
+                            : selectedItem?.label
+                            ? "#fff"
+                            : dark && !selectedItem?.label
+                            ? "#fff"
+                            : !value
+                            ? "#3A3D43"
+                            : "#fff",
+                        ]}
+                      >
+                        {(value && selectedItem?.label) ||
+                          data.filter((item) => item.value === value)[0]
+                            ?.label ||
+                          placeholderText}
+                      </Text>
+                    )}
 
-              <Box
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginRight: 15,
-                }}
-              >
-                {additionalComponents && additionalComponents}
+                    <Box
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginRight: 15,
+                      }}
+                    >
+                      {additionalComponents && additionalComponents}
 
-                {onClearAll &&
-                ((multiple && value.length) || (!multiple && value)) ? (
-                  <Pressable
-                    onPress={onClearAll}
-                    paddingLeft={5}
+                      {onClearAll &&
+                      ((multiple && value.length) || (!multiple && value)) ? (
+                        <Pressable
+                          onPress={onClearAll}
+                          paddingLeft={5}
+                          style={{
+                            height: 56,
+                            justifyContent: "center",
+                            paddingHorizontal: 5,
+                          }}
+                        >
+                          <DropdownArrow color={dark && "#fff"} />
+                        </Pressable>
+                      ) : (
+                        <DropdownArrow color={dark && "#fff"} />
+                      )}
+                    </Box>
+                  </Box>
+                );
+              }
+            }}
+            rowStyle={{
+              borderBottomWidth: 0,
+              height: undefined,
+            }}
+            renderCustomizedRowChild={(item) => (
+              <>
+                {!multiple ? (
+                  <Box
                     style={{
-                      height: 56,
-                      justifyContent: "center",
-                      paddingHorizontal: 5,
+                      flex: 1,
+                      paddingVertical: 5,
+                      paddingRight: 7,
                     }}
                   >
-                    <DropdownArrow color={dark && "#fff"} />
-                  </Pressable>
+                    <Text>{item.label}</Text>
+                  </Box>
                 ) : (
-                  <DropdownArrow color={dark && "#fff"} />
+                  <Box style={styles.multipleSelctRow}>
+                    <Checkbox
+                      value={value?.some((i) => i.value === item.value)}
+                      style={styles.checkbox}
+                      onValueChange={() => {
+                        onChange(item);
+                      }}
+                      color="#D9D9D9"
+                    />
+
+                    <Text style={{ marginLeft: 12 }}>{item.label}</Text>
+                  </Box>
                 )}
-              </Box>
+              </>
+            )}
+            dropdownStyle={[styles.dropdownStyle]}
+            disabled={disabled}
+            {...rest}
+          />
+          {withoutInput && (
+            <Box
+              style={{
+                backgroundColor: "#3A3D43",
+                position: "absolute",
+                bottom: 0,
+              }}
+            >
+              <Text fonstSize={18} color="#fff">
+                apply
+              </Text>
             </Box>
           )}
-          rowStyle={{
-            borderBottomWidth: 0,
-            height: undefined,
-          }}
-          renderCustomizedRowChild={(item) => {
-            if (!multiple) {
-              return (
-                <Box style={{ flex: 1, paddingVertical: 5, paddingRight: 7 }}>
-                  <Text>{item.label}</Text>
-                </Box>
-              );
-            } else {
-              return (
-                <Box style={styles.multipleSelctRow}>
-                  <Checkbox
-                    value={value?.some((i) => i.value === item.value)}
-                    style={styles.checkbox}
-                    onValueChange={() => {
-                      onChange(item);
-                    }}
-                    color="#D9D9D9"
-                  />
-
-                  <Text style={{ marginLeft: 12 }}>{item.label}</Text>
-                </Box>
-              );
-            }
-          }}
-          dropdownStyle={styles.dropdownStyle}
-          disabled={disabled}
-          {...rest}
-        />
+        </Box>
       </Box>
 
       {multiple && !!value?.length && (

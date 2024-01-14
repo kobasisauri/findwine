@@ -6,8 +6,9 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  Dimensions,
 } from "react-native";
-import { Box, ScrollView } from "native-base";
+import { Box, CloseIcon, ScrollView } from "native-base";
 import QRCode from "react-native-qrcode-svg";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import NavigationHeader from "../../components/parts/navigation/navigationHeader";
@@ -35,6 +36,9 @@ import {
 import notificationService from "../../services/notify";
 import useStore from "../../stores/store";
 
+const Width = Dimensions.get("window").width;
+// Dimensions.get("window").height;
+
 function SearchScreen() {
   const { userData: user, token } = useStore((state) => state);
   const [active, setActive] = useState(1);
@@ -60,6 +64,8 @@ function SearchScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
+  const [scannerOpen, setScannerOpen] = useState(false);
+
   useEffect(() => {
     if (token && user.role === "client") {
       getUserData().then((res) => {
@@ -76,16 +82,16 @@ function SearchScreen() {
     }
   }, [render, countries, user]);
 
-  useEffect(() => {
-    if (token && user.role !== "client") {
-      const getBarCodeScannerPermissions = async () => {
-        const { status } = await BarCodeScanner.requestPermissionsAsync();
-        setHasPermission(status === "granted");
-      };
+  // useEffect(() => {
+  //   if (token && user.role !== "client") {
+  //     const getBarCodeScannerPermissions = async () => {
+  //       const { status } = await BarCodeScanner.requestPermissionsAsync();
+  //       setHasPermission(status === "granted");
+  //     };
 
-      getBarCodeScannerPermissions();
-    }
-  }, [token]);
+  //     getBarCodeScannerPermissions();
+  //   }
+  // }, [token]);
 
   useEffect(() => {
     getCountries().then((res) => {
@@ -95,6 +101,7 @@ function SearchScreen() {
       }));
       setCountries(transform);
     });
+    setScannerOpen(false);
   }, []);
 
   const onPassChange = () => {
@@ -131,7 +138,20 @@ function SearchScreen() {
     });
   };
 
-  const openScan = () => {};
+  const openScan = () => {
+    if (token && user.role !== "client") {
+      const getBarCodeScannerPermissions = async () => {
+        const { status } = await BarCodeScanner.requestPermissionsAsync();
+        setHasPermission(status === "granted");
+
+        if (status === "granted") {
+          setScannerOpen(true);
+        }
+      };
+
+      getBarCodeScannerPermissions();
+    }
+  };
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
@@ -619,10 +639,34 @@ function SearchScreen() {
         )}
       </KeyboardAvoidingView>
 
-      {/* <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      /> */}
+      {!!scannerOpen && (
+        <View
+          style={{
+            height: "100%",
+            width: Width,
+            aspectRatio: 1,
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <Pressable
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              padding: 40,
+              zIndex: 999,
+            }}
+            onPress={() => setScannerOpen(false)}
+          >
+            <CloseIcon color="#fff" />
+          </Pressable>
+          <BarCodeScanner
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={{ flex: 1, height: "100%", width: Width }}
+          />
+        </View>
+      )}
     </Container>
   );
 }

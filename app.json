@@ -21,6 +21,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.find_wines.georgia",
+      "versioncode": 2,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"

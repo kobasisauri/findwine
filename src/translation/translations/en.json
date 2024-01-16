@@ -102,5 +102,8 @@
   "priorityWinePassport": "Priority wine passport",
   "totalSummery": "Total Summary",
   "paymentMethod": "Payment method",
-  "termsAndConditions": "I accept Terms and Conditions"
+  "termsAndConditions": "I accept Terms and Conditions",
+  "QRCodeText": "Place visitor’s QR Code inside to scan and get the details",
+  "scanning": "Scanning...",
+  "cancel": "Cancel"
 }

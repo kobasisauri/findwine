@@ -8,7 +8,7 @@ import {
   Platform,
   Dimensions,
 } from "react-native";
-import { Box, CloseIcon, ScrollView } from "native-base";
+import { Box, ScrollView } from "native-base";
 import QRCode from "react-native-qrcode-svg";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import NavigationHeader from "../../components/parts/navigation/navigationHeader";
@@ -26,6 +26,7 @@ import {
 import Input from "../../components/shared/Input";
 import Button from "../../components/shared/Button";
 import Dropdown from "../../components/shared/Dropdown";
+import { Close } from "../../components/Icons";
 
 import { getCountries } from "../../services/dropdowns";
 import {
@@ -639,7 +640,7 @@ function SearchScreen() {
         )}
       </KeyboardAvoidingView>
 
-      {!!scannerOpen && (
+      {/* {!!scannerOpen && (
         <View
           style={{
             height: "100%",
@@ -664,7 +665,96 @@ function SearchScreen() {
           <BarCodeScanner
             onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
             style={{ flex: 1, height: "100%", width: Width }}
+
           />
+        </View>
+      )} */}
+
+      {!!scannerOpen && (
+        <View
+          style={{
+            height: "100%",
+            width: Width,
+            // aspectRatio: 1,
+            overflow: "hidden",
+            backgroundColor: "#2F3238",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            color="#fff"
+            fontSize={24}
+            style={{
+              fontFamily: "monseratBold",
+              textAlign: "center",
+              marginBottom: 24,
+            }}
+          >
+            {t("scanQrCode")}
+          </Text>
+
+          <View
+            style={{
+              backgroundColor: "#fff",
+              position: "relative",
+              alignItems: "center",
+              width: Width,
+              paddingBottom: 30,
+            }}
+          >
+            <Pressable
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                padding: 14,
+                marginRight: 4,
+                zIndex: 999,
+              }}
+              onPress={() => setScannerOpen(false)}
+            >
+              <Close color="#2F3238" />
+            </Pressable>
+
+            <Text
+              color="#000"
+              style={{
+                fontFamily: "main",
+                textAlign: "center",
+                width: 217,
+                marginTop: 61,
+                marginBottom: 30,
+              }}
+            >
+              {t("QRCodeText")}
+            </Text>
+
+            <View
+              style={{
+                width: 300,
+                aspectRatio: 1,
+                height: 280,
+                // overflow: "hidden",
+                backgroundColor: "#2F3238",
+              }}
+            >
+              <BarCodeScanner
+                onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+                style={{ flex: 1, height: "100%", width: "100%" }}
+              />
+            </View>
+          </View>
+
+          <Text color="#fff" style={{ opacity: 0.7, top: 0, marginTop: 30 }}>
+            {t("scanning")}
+          </Text>
+
+          <Button
+            style={{ width: "50%", marginTop: 30 }}
+            onPress={() => setScannerOpen(false)}
+          >
+            {t("cancel")}
+          </Button>
         </View>
       )}
     </Container>

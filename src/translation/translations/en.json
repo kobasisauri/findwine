@@ -105,5 +105,6 @@
   "termsAndConditions": "I accept Terms and Conditions",
   "QRCodeText": "Place visitor’s QR Code inside to scan and get the details",
   "scanning": "Scanning...",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "tersmOfUse": "Tersm of use"
 }

@@ -13,6 +13,7 @@ const navs = [
   { url: "wineries", title: "wineries" },
   { url: "events", title: "events" },
   { url: "contact", title: "contact" },
+  { url: "terms", title: "tersmOfUse" },
 ];
 
 function Menu() {

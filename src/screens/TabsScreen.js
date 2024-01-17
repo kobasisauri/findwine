@@ -12,6 +12,7 @@ import WineriesScreen from "./Wineries";
 import WinerySreen from "./Winery";
 import Contact from "./Contact";
 import EventDetails from "./EventDetails";
+import TermsOfUse from "./TermsOfUse";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,7 @@ const HomeNavigation = () => {
       <Stack.Screen name="winery" component={WinerySreen} />
       <Stack.Screen name="contact" component={Contact} />
       <Stack.Screen name="profile" component={WineScreen} />
+      <Stack.Screen name="terms" component={TermsOfUse} />
     </Stack.Navigator>
   );
 };
@@ -54,6 +56,7 @@ const MapNavigation = () => {
       <Stack.Screen name="winery" component={WinerySreen} />
       <Stack.Screen name="contact" component={Contact} />
       <Stack.Screen name="profile" component={WineScreen} />
+      <Stack.Screen name="terms" component={TermsOfUse} />
     </Stack.Navigator>
   );
 };
@@ -73,6 +76,7 @@ const WineNavigation = () => {
       <Stack.Screen name="wineries" component={WineriesScreen} />
       <Stack.Screen name="winery" component={WinerySreen} />
       <Stack.Screen name="contact" component={Contact} />
+      <Stack.Screen name="terms" component={TermsOfUse} />
     </Stack.Navigator>
   );
 };
@@ -92,6 +96,7 @@ const EventsNavigation = () => {
       <Stack.Screen name="winery" component={WinerySreen} />
       <Stack.Screen name="contact" component={Contact} />
       <Stack.Screen name="profile" component={WineScreen} />
+      <Stack.Screen name="terms" component={TermsOfUse} />
     </Stack.Navigator>
   );
 };

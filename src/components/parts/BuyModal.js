@@ -222,8 +222,19 @@ function BuyModal({ modalVisible, onClose, data }) {
 
               <CheckboxField
                 checked={acceptTearms}
-                onPress={() => setAcceptTearms((state) => !state)}
-                label={t("termsAndConditions")}
+                onPress={() => {
+                  setAcceptTearms((state) => !state);
+                }}
+                label={
+                  <Pressable
+                    onPress={() => {
+                      navigation.navigate("terms");
+                      onClose();
+                    }}
+                  >
+                    <Text>{t("termsAndConditions")}</Text>
+                  </Pressable>
+                }
               />
             </View>
 

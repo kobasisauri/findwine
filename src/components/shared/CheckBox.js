@@ -62,9 +62,13 @@ export default function CheckboxField({
         onPress={onPress}
         style={{ flexDirection: "row", alignItems: "center" }}
       >
-        <Text style={[styles.label, dark ? styles.lightText : {}]}>
-          {label}
-        </Text>
+        {!!label && typeof label === "string" ? (
+          <Text style={[styles.label, dark ? styles.lightText : {}]}>
+            {label}
+          </Text>
+        ) : (
+          label
+        )}
       </Pressable>
     </View>
   );

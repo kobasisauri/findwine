@@ -220,13 +220,11 @@ function BuyModal({ modalVisible, onClose, data }) {
                 <Paypal />
               </View>
 
-              <View>
-                <CheckboxField
-                  checked={acceptTearms}
-                  onPress={() => setAcceptTearms((state) => !state)}
-                  label={t("termsAndConditions")}
-                />
-              </View>
+              <CheckboxField
+                checked={acceptTearms}
+                onPress={() => setAcceptTearms((state) => !state)}
+                label={t("termsAndConditions")}
+              />
             </View>
 
             <Button

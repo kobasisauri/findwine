@@ -9,12 +9,10 @@ import Button from "../shared/Button";
 import Input from "../shared/Input";
 import CheckboxField from "../shared/CheckBox";
 import { signIn, resetPassword } from "../../services/signUp";
-import { useNavigation } from "@react-navigation/native";
 import useStore from "../../stores/store";
 
 function SignInModal({ modalVisible, onClose, onSignUp }) {
   const { setUserData, setToken } = useStore((state) => state);
-  const navigation = useNavigation();
   const [remember, setRememmber] = useState(false);
   const [reset, setReset] = useState(false);
   const [values, setValues] = useState({

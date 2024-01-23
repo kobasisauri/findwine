@@ -21,8 +21,6 @@ function PackageDetails({ route }) {
   const buy = (data) => {
     setBuyModal(true);
     setBuyData(data);
-
-    console.log(data);
   };
 
   useEffect(() => {

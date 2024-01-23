@@ -8,7 +8,7 @@ function TermsOfUse() {
   return (
     <Container style={{ backgroundColor: "#F2F2F2" }}>
       <NavigationHeader title={t("termsOfUse")} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>{t("termsOfUse")}</Text>
         </View>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingVertical: 15,
-    marginBottom: 39,
+    paddingBottom: 39,
     backgroundColor: "white",
   },
 });

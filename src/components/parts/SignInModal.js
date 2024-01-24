@@ -22,9 +22,10 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
 
   handleSubmit = () => {
     if (reset) {
-      resetPassword({ email: values.email }).then((res) => {
-        console.log(res);
-      });
+      resetPassword({ email: values.email });
+      // .then((res) => {
+      //   console.log(res);
+      // });
     } else {
       signIn({ email: values.email, password: values.password }).then((res) => {
         if (res && res?.token) {

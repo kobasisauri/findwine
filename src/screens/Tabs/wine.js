@@ -613,25 +613,29 @@ function SearchScreen() {
                         <View style={styles.infoItem}>
                           <Text>{t("fullName")}</Text>
                           <Text style={{ fontFamily: "monseratBold" }}>
-                            {item?.client_user?.full_name}
+                            {item?.wine_passport_order?.client_user?.full_name}
                           </Text>
                         </View>
                         <View style={styles.infoItem}>
                           <Text>{t("email")}</Text>
                           <Text style={{ fontFamily: "monseratBold" }}>
-                            {item?.client_user?.email}
+                            {item?.wine_passport_order?.client_user?.email}
                           </Text>
                         </View>
                         <View style={styles.infoItem}>
                           <Text>{t("phone")}</Text>
                           <Text style={{ fontFamily: "monseratBold" }}>
-                            {item?.client_user?.phone}
+                            {item?.wine_passport_order?.client_user?.phone}
                           </Text>
                         </View>
+
                         <View style={styles.infoItem}>
                           <Text>{t("country")}</Text>
                           <Text style={{ fontFamily: "monseratBold" }}>
-                            {item?.client_user?.country_name?.name}
+                            {
+                              item?.wine_passport_order?.client_user
+                                ?.country_name?.name
+                            }
                           </Text>
                         </View>
                       </View>
@@ -643,36 +647,6 @@ function SearchScreen() {
           </>
         )}
       </KeyboardAvoidingView>
-
-      {/* {!!scannerOpen && (
-        <View
-          style={{
-            height: "100%",
-            width: Width,
-            aspectRatio: 1,
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          <Pressable
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              padding: 40,
-              zIndex: 999,
-            }}
-            onPress={() => setScannerOpen(false)}
-          >
-            <CloseIcon color="#fff" />
-          </Pressable>
-          <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-            style={{ flex: 1, height: "100%", width: Width }}
-
-          />
-        </View>
-      )} */}
 
       {!!scannerOpen && (
         <View

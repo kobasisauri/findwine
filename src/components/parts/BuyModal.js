@@ -78,7 +78,10 @@ function BuyModal({ modalVisible, onClose, data }) {
                 style={{ height: 101, width: 74 }}
               />
               <View style={{ justifyContent: "space-around" }}>
-                <Text fontSize={16} style={{ fontFamily: "monseratBold" }}>
+                <Text
+                  fontSize={16}
+                  // style={{ fontFamily: "monseratBold" }}
+                >
                   {data?.name}
                 </Text>
                 <Text>01/01/2024 - 01/01/2025</Text>
@@ -104,9 +107,7 @@ function BuyModal({ modalVisible, onClose, data }) {
                 marginBottom: 39,
               }}
             >
-              <Text fontSize={18} style={{ fontFamily: "monseratBold" }}>
-                {t("quantity")}
-              </Text>
+              <Text fontSize={18}>{t("quantity")}</Text>
 
               <View style={styles.quantity}>
                 <Pressable
@@ -146,9 +147,7 @@ function BuyModal({ modalVisible, onClose, data }) {
                 gap: 30,
               }}
             >
-              <Text fontSize={18} style={{ fontFamily: "monseratBold" }}>
-                {t("price")}
-              </Text>
+              <Text fontSize={18}>{t("price")}</Text>
 
               <View
                 style={{
@@ -172,22 +171,15 @@ function BuyModal({ modalVisible, onClose, data }) {
                   marginBottom: 10,
                 }}
               >
-                <Text fontSize={18} style={{ fontFamily: "monseratBold" }}>
-                  {t("totalSummery")}
-                </Text>
-                <Text style={{ fontFamily: "monseratBold" }} fontSize={18}>
-                  {data?.price * quantity} GEL
-                </Text>
+                <Text fontSize={18}>{t("totalSummery")}</Text>
+                <Text fontSize={18}>{data?.price * quantity} GEL</Text>
               </View>
             </View>
 
             <View style={styles.line} />
 
             <View style={{ marginBottom: 40 }}>
-              <Text
-                fontSize={20}
-                style={{ fontFamily: "monseratBold", marginBottom: 30 }}
-              >
+              <Text fontSize={20} style={{ marginBottom: 30 }}>
                 {t("paymentMethod")}
               </Text>
               <View style={styles.payment}>

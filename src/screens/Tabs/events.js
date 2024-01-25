@@ -104,14 +104,14 @@ function Events() {
                       <Text
                         fontSize={24}
                         color="#393B40"
-                        style={{ fontFamily: "monseratBold" }}
+                        // style={{ fontFamily: "monseratBold" }}
                       >
                         {item.event_name}
                       </Text>
                       <Text
                         fontSize={20}
                         color="#B44D2D"
-                        style={{ fontFamily: "monseratBold" }}
+                        // style={{ fontFamily: "monseratBold" }}
                       >
                         {item.company}
                       </Text>
@@ -119,7 +119,7 @@ function Events() {
                       <Text
                         fontSize={16}
                         color="#515459"
-                        style={{ fontFamily: "main" }}
+                        // style={{ fontFamily: "main" }}
                       >
                         {item.description} ...
                       </Text>
@@ -143,7 +143,7 @@ function Events() {
                         style={{ width: "50%" }}
                         buttonTextStyle={{
                           color: "#3A3D43",
-                          fontFamily: "monsterat",
+                          // fontFamily: "monsterat",
                         }}
                         onPress={() =>
                           navigation.navigate("event-details", { id: item.id })

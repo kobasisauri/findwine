@@ -53,7 +53,6 @@ function Wineries() {
             setFileredData(
               data.filter((item) => item.company.includes(values.search))
             );
-            console.log(1);
           }}
           suf={<Search />}
         />

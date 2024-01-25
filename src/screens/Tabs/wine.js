@@ -34,14 +34,17 @@ import {
   getUserData,
   editUserData,
 } from "../../services/signUp";
-import notificationService from "../../services/notify";
 import useStore from "../../stores/store";
+import { getCheckPassportCode, getTransactionLog } from "../../services/scan";
 
 const Width = Dimensions.get("window").width;
-// Dimensions.get("window").height;
 
 function SearchScreen() {
-  const { userData: user, token } = useStore((state) => state);
+  const {
+    userData: user,
+    token,
+    showNotification,
+  } = useStore((state) => state);
   const [active, setActive] = useState(1);
   const [render, setRender] = useState(0);
   const [values, setValues] = useState({
@@ -59,12 +62,9 @@ function SearchScreen() {
   });
   const [winePassports, setWinePassports] = useState([]);
   const [userData, setUserData] = useState();
-
-  const visitors = [1, 2, 3];
-
+  const [visitors, setVisitors] = useState([]);
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-
   const [scannerOpen, setScannerOpen] = useState(false);
 
   useEffect(() => {
@@ -83,16 +83,13 @@ function SearchScreen() {
     }
   }, [render, countries, user]);
 
-  // useEffect(() => {
-  //   if (token && user.role !== "client") {
-  //     const getBarCodeScannerPermissions = async () => {
-  //       const { status } = await BarCodeScanner.requestPermissionsAsync();
-  //       setHasPermission(status === "granted");
-  //     };
-
-  //     getBarCodeScannerPermissions();
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (token && user.role !== "client" && active === 2) {
+      getTransactionLog().then((res) => {
+        setVisitors(res);
+      });
+    }
+  }, [token, active]);
 
   useEffect(() => {
     getCountries().then((res) => {
@@ -112,11 +109,7 @@ function SearchScreen() {
     })
       .then((res) => {
         if (res.status === "OK") {
-          notificationService.notify(
-            "success",
-            "Note",
-            "Password changed sucessfully"
-          );
+          showNotification("success", "Password changed sucessfully");
           setValues({
             currentPassword: "",
             newPassword: "",
@@ -124,11 +117,7 @@ function SearchScreen() {
         }
       })
       .catch(() => {
-        notificationService.notify(
-          "error",
-          "Note",
-          "Current password is incorrect"
-        );
+        showNotification("error", "Current password is incorrect");
       });
   };
 
@@ -156,7 +145,19 @@ function SearchScreen() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+
+    getCheckPassportCode(data)
+      .then((res) => {
+        if (res.status) {
+          showNotification("success", res.message);
+        } else {
+          showNotification("error", res.message);
+        }
+        setScanned(false);
+      })
+      .catch(() => {
+        setScanned(false);
+      });
   };
 
   return (
@@ -217,7 +218,9 @@ function SearchScreen() {
                     <View style={styles.infoHeading}>
                       <View style={[{ gap: 8, flexDirection: "row" }]}>
                         <Info />
-                        <Text style={{ fontFamily: "monseratBold" }}>
+                        <Text
+                        // style={{ fontFamily: "monseratBold" }}
+                        >
                           {t("personalInfo")}
                         </Text>
                       </View>
@@ -235,25 +238,33 @@ function SearchScreen() {
                         <>
                           <View style={styles.infoItem}>
                             <Text>{t("fullName")}</Text>
-                            <Text style={{ fontFamily: "monseratBold" }}>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
                               {userData?.full_name}
                             </Text>
                           </View>
                           <View style={styles.infoItem}>
                             <Text>{t("email")}</Text>
-                            <Text style={{ fontFamily: "monseratBold" }}>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
                               {userData?.email}
                             </Text>
                           </View>
                           <View style={styles.infoItem}>
                             <Text>{t("phone")}</Text>
-                            <Text style={{ fontFamily: "monseratBold" }}>
+                            <Text
+                            //  style={{ fontFamily: "monseratBold" }}
+                            >
                               {userData?.phone}
                             </Text>
                           </View>
                           <View style={styles.infoItem}>
                             <Text>{t("country")}</Text>
-                            <Text style={{ fontFamily: "monseratBold" }}>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
                               {userData?.country}
                             </Text>
                           </View>
@@ -326,7 +337,9 @@ function SearchScreen() {
                     <View style={styles.infoHeading}>
                       <View style={[{ gap: 8, flexDirection: "row" }]}>
                         <Bonus />
-                        <Text style={{ fontFamily: "monseratBold" }}>
+                        <Text
+                        // style={{ fontFamily: "monseratBold" }}
+                        >
                           {t("bonusPoints")}
                         </Text>
                       </View>
@@ -337,7 +350,7 @@ function SearchScreen() {
                         <Text style={styles.bonusNumber}>200</Text>
                         <Text
                           style={{
-                            fontFamily: "monseratBold",
+                            // fontFamily: "monseratBold",
                             textTransform: "lowercase",
                           }}
                         >
@@ -368,7 +381,9 @@ function SearchScreen() {
                   <View style={styles.infoHeading}>
                     <View style={[{ gap: 8, flexDirection: "row" }]}>
                       <Key />
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {t("changePassword")}
                       </Text>
                     </View>
@@ -428,7 +443,7 @@ function SearchScreen() {
                   >
                     <Text
                       style={{
-                        fontFamily: "monseratBold",
+                        // fontFamily: "monseratBold",
                         paddingVertical: 24,
                       }}
                     >
@@ -446,7 +461,9 @@ function SearchScreen() {
                       ]}
                     >
                       <ExpiredAlert />
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {t("expiredPassports")}
                       </Text>
                     </View>
@@ -454,25 +471,33 @@ function SearchScreen() {
                   <View style={{ marginTop: 20, gap: 16 }}>
                     <View style={styles.infoItem}>
                       <Text>{t("fullName")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {userData?.full_name}
                       </Text>
                     </View>
                     <View style={styles.infoItem}>
                       <Text>{t("passportType")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {winePassports[0]?.passport?.name}
                       </Text>
                     </View>
                     <View style={styles.infoItem}>
                       <Text>{t("wineries")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      //  style={{ fontFamily: "monseratBold" }}
+                      >
                         {winePassports[0]?.passport?.company_count}
                       </Text>
                     </View>
                     <View style={styles.infoItem}>
                       <Text>{t("expires")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {winePassports[0]?.expire_date.slice(0, 10)}
                       </Text>
                     </View>
@@ -529,7 +554,9 @@ function SearchScreen() {
                   <View style={styles.infoHeading}>
                     <View style={[{ gap: 8, flexDirection: "row" }]}>
                       <QrCode />
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {t("scanQrCode")}
                       </Text>
                     </View>
@@ -538,6 +565,7 @@ function SearchScreen() {
                     <View style={styles.infoItem}>
                       <Text>{t("visitorsHasuniqueQrCode")}</Text>
                     </View>
+
                     <Button
                       style={{ width: "55%", marginBottom: 30, marginTop: 10 }}
                       onPress={openScan}
@@ -560,7 +588,9 @@ function SearchScreen() {
                   <View style={styles.infoHeading}>
                     <View style={[{ gap: 8, flexDirection: "row" }]}>
                       <Bonus />
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {t("visitors")}
                       </Text>
                     </View>
@@ -589,93 +619,76 @@ function SearchScreen() {
                 style={{ paddingHorizontal: 16, gap: 18 }}
                 showsVerticalScrollIndicator={false}
               >
-                <View style={styles.infoContainer}>
-                  {visitors.map((item, i) => (
-                    <View
-                      key={i}
-                      style={[
-                        {
-                          marginTop: 20,
-                          marginBottom: 20,
-                          gap: 16,
-                          borderBottomWidth: 1,
-                          paddingBottom: 35,
-                          borderBottomColor: "rgba(41, 44, 49, 0.20)",
-                        },
-                        i === visitors.length - 1 && {
-                          borderBottomWidth: 0,
-                        },
-                      ]}
-                    >
-                      <View style={styles.infoItem}>
-                        <Text>{t("fullName")}</Text>
-                        <Text style={{ fontFamily: "monseratBold" }}>
-                          Wesley Mun
-                        </Text>
+                {!!visitors.length && (
+                  <View style={styles.infoContainer}>
+                    {visitors.map((item, i) => (
+                      <View
+                        key={item.id}
+                        style={[
+                          {
+                            marginTop: 20,
+                            marginBottom: 20,
+                            gap: 16,
+                            borderBottomWidth: 1,
+                            paddingBottom: 35,
+                            borderBottomColor: "rgba(41, 44, 49, 0.20)",
+                          },
+                          i === visitors.length - 1 && {
+                            borderBottomWidth: 0,
+                          },
+                        ]}
+                      >
+                        <View style={styles.infoItem}>
+                          <Text>{t("fullName")}</Text>
+                          <Text
+                          // style={{ fontFamily: "monseratBold" }}
+                          >
+                            {item?.wine_passport_order?.client_user?.full_name}
+                          </Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                          <Text>{t("email")}</Text>
+                          <Text
+                          // style={{ fontFamily: "monseratBold" }}
+                          >
+                            {item?.wine_passport_order?.client_user?.email}
+                          </Text>
+                        </View>
+                        <View style={styles.infoItem}>
+                          <Text>{t("phone")}</Text>
+                          <Text
+                          // style={{ fontFamily: "monseratBold" }}
+                          >
+                            {item?.wine_passport_order?.client_user?.phone}
+                          </Text>
+                        </View>
+
+                        <View style={styles.infoItem}>
+                          <Text>{t("country")}</Text>
+                          <Text
+                          // style={{ fontFamily: "monseratBold" }}
+                          >
+                            {
+                              item?.wine_passport_order?.client_user
+                                ?.country_name?.name
+                            }
+                          </Text>
+                        </View>
                       </View>
-                      <View style={styles.infoItem}>
-                        <Text>{t("email")}</Text>
-                        <Text style={{ fontFamily: "monseratBold" }}>
-                          Wesleymun@gmail.com
-                        </Text>
-                      </View>
-                      <View style={styles.infoItem}>
-                        <Text>{t("phone")}</Text>
-                        <Text style={{ fontFamily: "monseratBold" }}>
-                          +995599777777
-                        </Text>
-                      </View>
-                      <View style={styles.infoItem}>
-                        <Text>{t("country")}</Text>
-                        <Text style={{ fontFamily: "monseratBold" }}>
-                          France
-                        </Text>
-                      </View>
-                    </View>
-                  ))}
-                </View>
+                    ))}
+                  </View>
+                )}
               </ScrollView>
             )}
           </>
         )}
       </KeyboardAvoidingView>
 
-      {/* {!!scannerOpen && (
-        <View
-          style={{
-            height: "100%",
-            width: Width,
-            aspectRatio: 1,
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          <Pressable
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              padding: 40,
-              zIndex: 999,
-            }}
-            onPress={() => setScannerOpen(false)}
-          >
-            <CloseIcon color="#fff" />
-          </Pressable>
-          <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-            style={{ flex: 1, height: "100%", width: Width }}
-
-          />
-        </View>
-      )} */}
-
       {!!scannerOpen && (
         <View
           style={{
             height: "100%",
             width: Width,
-            // aspectRatio: 1,
             overflow: "hidden",
             backgroundColor: "#2F3238",
             alignItems: "center",
@@ -685,7 +698,7 @@ function SearchScreen() {
             color="#fff"
             fontSize={24}
             style={{
-              fontFamily: "monseratBold",
+              // fontFamily: "monseratBold",
               textAlign: "center",
               marginBottom: 24,
             }}
@@ -719,7 +732,7 @@ function SearchScreen() {
             <Text
               color="#000"
               style={{
-                fontFamily: "main",
+                // fontFamily: "main",
                 textAlign: "center",
                 width: 217,
                 marginTop: 61,
@@ -777,7 +790,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     paddingHorizontal: 30,
     textAlign: "center",
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 16,
     textTransform: "uppercase",
     opacity: 0.4,
@@ -833,7 +846,7 @@ const styles = StyleSheet.create({
   bonusNumber: {
     color: "#B44D2D",
     fontSize: 40,
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 10,
   },
   bonusImage: {

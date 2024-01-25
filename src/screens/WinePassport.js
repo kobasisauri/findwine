@@ -77,7 +77,10 @@ function WinePassport({ navigation }) {
                   <Text
                     fontSize={16}
                     color="#393B40"
-                    style={{ marginBottom: 21, fontFamily: "monseratBold" }}
+                    style={{
+                      marginBottom: 21,
+                      // fontFamily: "monseratBold"
+                    }}
                   >
                     {item.name}
                   </Text>
@@ -97,14 +100,14 @@ function WinePassport({ navigation }) {
                       fontSize={18}
                       color={"#393B40"}
                       fontWeight={700}
-                      style={{ fontFamily: "main-bold" }}
+                      // style={{ fontFamily: "main-bold" }}
                     >
                       {t("price")}
                     </Text>
                     <Text
                       fontSize={32}
                       color={"#393B40"}
-                      style={{ fontFamily: "main-bold" }}
+                      // style={{ fontFamily: "main-bold" }}
                     >
                       {item.price} GEL
                     </Text>
@@ -134,7 +137,7 @@ function WinePassport({ navigation }) {
                   <Text
                     fontSize={18}
                     color="#393B40"
-                    style={{ fontFamily: "main-bold" }}
+                    // style={{ fontFamily: "main-bold" }}
                   >
                     {t("buyNow")}
                   </Text>
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
     color: "#3A3D43",
     textDecorationLine: "underline",
     letterSpacing: 0.7,
-    fontFamily: "monseratMedium",
+    // fontFamily: "monseratMedium",
   },
   button: {
     backgroundColor: "rgba(35, 46, 102, 0.05)",

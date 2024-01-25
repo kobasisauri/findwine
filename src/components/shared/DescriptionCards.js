@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     color: "#2F3238",
     marginBottom: 10,
   },
   text: {
     fontSize: 16,
     lineHeight: 22,
-    fontFamily: "main",
+    // fontFamily: "main",
     textAlign: "center",
     color: "#393B40",
   },

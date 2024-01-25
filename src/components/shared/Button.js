@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     alignSelf: "center",
-    fontFamily: "monsterat",
+    // fontFamily: "monsterat",
     fontSize: 16,
     lineHeight: 17,
   },

@@ -134,7 +134,12 @@ function SignUpModal({ modalVisible, onClose, onSignIn }) {
             <Text>{t("haveAccount")}</Text>
             <Text> </Text>
             <Pressable onPress={onSignIn}>
-              <Text style={{ fontFamily: "monseratBold", fontSize: 16 }}>
+              <Text
+                style={{
+                  // fontFamily: "monseratBold",
+                  fontSize: 16,
+                }}
+              >
                 {t("signIn")}
               </Text>
             </Pressable>
@@ -153,7 +158,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 22,
     color: "#24262D",
   },

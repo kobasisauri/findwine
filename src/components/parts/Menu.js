@@ -130,6 +130,6 @@ const styles = StyleSheet.create({
   },
   itemText: {
     color: "#fff",
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
   },
 });

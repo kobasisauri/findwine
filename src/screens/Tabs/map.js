@@ -221,13 +221,12 @@ function OrdersScreen() {
               <Dropdown
                 containerStyle={{ flex: 1 }}
                 placeholderText="All regions"
-                // dark={true}
+                dark={true}
                 data={!!data.regions && data.regions}
                 value={values.regions}
                 onChange={(item) => {
                   setValues((prev) => ({ ...prev, regions: item.value }));
                 }}
-                // withoutInput
               />
 
               <Text style={styles.desc} color="#fff">

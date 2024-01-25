@@ -52,6 +52,7 @@ export default TextComp = styled.Text`
       ? `${Distances[props.marginBottom]}px`
       : 0};
   text-decoration: ${(props) => (props.underline ? "underline" : "none")};
-  font-family: ${(props) => (props.font ? "main" : "monsterat")};
   text-align: ${(props) => (props.textCenter ? "center" : "left")};
 `;
+
+// font-family: ${(props) => (props.font ? "main" : "monsterat")};

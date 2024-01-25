@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#3A3D43",
     alignSelf: "center",
-    fontFamily: "main",
+    // fontFamily: "main",
     fontSize: 14,
     lineHeight: 17,
   },

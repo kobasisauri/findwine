@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 22,
     color: "#24262D",
   },

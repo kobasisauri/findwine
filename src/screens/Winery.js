@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 8,
   },
   wineContainer: {
@@ -247,6 +247,6 @@ const styles = StyleSheet.create({
   winePrice: {
     fontSize: 18,
     color: "#27242C",
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
   },
 });

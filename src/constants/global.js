@@ -5,5 +5,5 @@ export const headline = {
   fontSize: 30,
   lineHeight: 35,
   marginBottom: 19,
-  fontFamily: "main",
+  // fontFamily: "main",
 };

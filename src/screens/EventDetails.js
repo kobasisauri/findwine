@@ -38,7 +38,7 @@ function EventDetails({ route }) {
           <Text
             color="#2F3238"
             fontSize={28}
-            style={{ fontFamily: "monseratBold" }}
+            // style={{ fontFamily: "monseratBold" }}
           >
             {eventDetails.event_name}
           </Text>
@@ -76,7 +76,7 @@ function EventDetails({ route }) {
             fontSize={24}
             marginTop={48}
             color="#3A3D43"
-            style={{ fontFamily: "monseratBold" }}
+            // style={{ fontFamily: "monseratBold" }}
           >
             {t("aboutFestival")}
           </Text>
@@ -88,7 +88,7 @@ function EventDetails({ route }) {
             fontSize={20}
             marginTop={48}
             color="#3A3D43"
-            style={{ fontFamily: "monseratBold" }}
+            // style={{ fontFamily: "monseratBold" }}
           >
             {t("festivalSupports")}
           </Text>
@@ -101,7 +101,7 @@ function EventDetails({ route }) {
             fontSize={20}
             marginTop={48}
             color="#3A3D43"
-            style={{ fontFamily: "monseratBold" }}
+            // style={{ fontFamily: "monseratBold" }}
           >
             {t("festivalOrganizers")}
           </Text>
@@ -116,7 +116,7 @@ function EventDetails({ route }) {
                 fontSize={20}
                 marginTop={48}
                 color="#3A3D43"
-                style={{ fontFamily: "monseratBold" }}
+                // style={{ fontFamily: "monseratBold" }}
                 marginBottom={25}
               >
                 {t("participantWineries")}
@@ -157,7 +157,7 @@ function EventDetails({ route }) {
                   <Text
                     fontSize={16}
                     style={{
-                      fontFamily: "main-bold",
+                      // fontFamily: "main-bold",
                       textDecorationLine: "underline",
                     }}
                     marginTop={45}
@@ -175,7 +175,7 @@ function EventDetails({ route }) {
                 fontSize={20}
                 marginTop={48}
                 color="#3A3D43"
-                style={{ fontFamily: "monseratBold" }}
+                // style={{ fontFamily: "monseratBold" }}
               >
                 {t("locationOnMap")}
               </Text>

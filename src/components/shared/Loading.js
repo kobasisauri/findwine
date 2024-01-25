@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     marginBottom: 16,
     fontSize: 16,
-    fontFamily: "monsterat",
+    // fontFamily: "monsterat",
     fontWeight: 600,
   },
 });

@@ -218,7 +218,9 @@ function SearchScreen() {
                     <View style={styles.infoHeading}>
                       <View style={[{ gap: 8, flexDirection: "row" }]}>
                         <Info />
-                        <Text style={{ fontFamily: "monseratBold" }}>
+                        <Text
+                        // style={{ fontFamily: "monseratBold" }}
+                        >
                           {t("personalInfo")}
                         </Text>
                       </View>
@@ -236,25 +238,33 @@ function SearchScreen() {
                         <>
                           <View style={styles.infoItem}>
                             <Text>{t("fullName")}</Text>
-                            <Text style={{ fontFamily: "monseratBold" }}>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
                               {userData?.full_name}
                             </Text>
                           </View>
                           <View style={styles.infoItem}>
                             <Text>{t("email")}</Text>
-                            <Text style={{ fontFamily: "monseratBold" }}>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
                               {userData?.email}
                             </Text>
                           </View>
                           <View style={styles.infoItem}>
                             <Text>{t("phone")}</Text>
-                            <Text style={{ fontFamily: "monseratBold" }}>
+                            <Text
+                            //  style={{ fontFamily: "monseratBold" }}
+                            >
                               {userData?.phone}
                             </Text>
                           </View>
                           <View style={styles.infoItem}>
                             <Text>{t("country")}</Text>
-                            <Text style={{ fontFamily: "monseratBold" }}>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
                               {userData?.country}
                             </Text>
                           </View>
@@ -327,7 +337,9 @@ function SearchScreen() {
                     <View style={styles.infoHeading}>
                       <View style={[{ gap: 8, flexDirection: "row" }]}>
                         <Bonus />
-                        <Text style={{ fontFamily: "monseratBold" }}>
+                        <Text
+                        // style={{ fontFamily: "monseratBold" }}
+                        >
                           {t("bonusPoints")}
                         </Text>
                       </View>
@@ -338,7 +350,7 @@ function SearchScreen() {
                         <Text style={styles.bonusNumber}>200</Text>
                         <Text
                           style={{
-                            fontFamily: "monseratBold",
+                            // fontFamily: "monseratBold",
                             textTransform: "lowercase",
                           }}
                         >
@@ -369,7 +381,9 @@ function SearchScreen() {
                   <View style={styles.infoHeading}>
                     <View style={[{ gap: 8, flexDirection: "row" }]}>
                       <Key />
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {t("changePassword")}
                       </Text>
                     </View>
@@ -429,7 +443,7 @@ function SearchScreen() {
                   >
                     <Text
                       style={{
-                        fontFamily: "monseratBold",
+                        // fontFamily: "monseratBold",
                         paddingVertical: 24,
                       }}
                     >
@@ -447,7 +461,9 @@ function SearchScreen() {
                       ]}
                     >
                       <ExpiredAlert />
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {t("expiredPassports")}
                       </Text>
                     </View>
@@ -455,25 +471,33 @@ function SearchScreen() {
                   <View style={{ marginTop: 20, gap: 16 }}>
                     <View style={styles.infoItem}>
                       <Text>{t("fullName")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {userData?.full_name}
                       </Text>
                     </View>
                     <View style={styles.infoItem}>
                       <Text>{t("passportType")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {winePassports[0]?.passport?.name}
                       </Text>
                     </View>
                     <View style={styles.infoItem}>
                       <Text>{t("wineries")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      //  style={{ fontFamily: "monseratBold" }}
+                      >
                         {winePassports[0]?.passport?.company_count}
                       </Text>
                     </View>
                     <View style={styles.infoItem}>
                       <Text>{t("expires")}</Text>
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {winePassports[0]?.expire_date.slice(0, 10)}
                       </Text>
                     </View>
@@ -530,7 +554,9 @@ function SearchScreen() {
                   <View style={styles.infoHeading}>
                     <View style={[{ gap: 8, flexDirection: "row" }]}>
                       <QrCode />
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {t("scanQrCode")}
                       </Text>
                     </View>
@@ -562,7 +588,9 @@ function SearchScreen() {
                   <View style={styles.infoHeading}>
                     <View style={[{ gap: 8, flexDirection: "row" }]}>
                       <Bonus />
-                      <Text style={{ fontFamily: "monseratBold" }}>
+                      <Text
+                      // style={{ fontFamily: "monseratBold" }}
+                      >
                         {t("visitors")}
                       </Text>
                     </View>
@@ -612,26 +640,34 @@ function SearchScreen() {
                       >
                         <View style={styles.infoItem}>
                           <Text>{t("fullName")}</Text>
-                          <Text style={{ fontFamily: "monseratBold" }}>
+                          <Text
+                          // style={{ fontFamily: "monseratBold" }}
+                          >
                             {item?.wine_passport_order?.client_user?.full_name}
                           </Text>
                         </View>
                         <View style={styles.infoItem}>
                           <Text>{t("email")}</Text>
-                          <Text style={{ fontFamily: "monseratBold" }}>
+                          <Text
+                          // style={{ fontFamily: "monseratBold" }}
+                          >
                             {item?.wine_passport_order?.client_user?.email}
                           </Text>
                         </View>
                         <View style={styles.infoItem}>
                           <Text>{t("phone")}</Text>
-                          <Text style={{ fontFamily: "monseratBold" }}>
+                          <Text
+                          // style={{ fontFamily: "monseratBold" }}
+                          >
                             {item?.wine_passport_order?.client_user?.phone}
                           </Text>
                         </View>
 
                         <View style={styles.infoItem}>
                           <Text>{t("country")}</Text>
-                          <Text style={{ fontFamily: "monseratBold" }}>
+                          <Text
+                          // style={{ fontFamily: "monseratBold" }}
+                          >
                             {
                               item?.wine_passport_order?.client_user
                                 ?.country_name?.name
@@ -662,7 +698,7 @@ function SearchScreen() {
             color="#fff"
             fontSize={24}
             style={{
-              fontFamily: "monseratBold",
+              // fontFamily: "monseratBold",
               textAlign: "center",
               marginBottom: 24,
             }}
@@ -696,7 +732,7 @@ function SearchScreen() {
             <Text
               color="#000"
               style={{
-                fontFamily: "main",
+                // fontFamily: "main",
                 textAlign: "center",
                 width: 217,
                 marginTop: 61,
@@ -754,7 +790,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     paddingHorizontal: 30,
     textAlign: "center",
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 16,
     textTransform: "uppercase",
     opacity: 0.4,
@@ -810,7 +846,7 @@ const styles = StyleSheet.create({
   bonusNumber: {
     color: "#B44D2D",
     fontSize: 40,
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 10,
   },
   bonusImage: {

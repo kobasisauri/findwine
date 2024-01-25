@@ -11,13 +11,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.find-wines.georgia",
-      "buildNumber": "3",
-      "config": {
-        "googleMapsApiKey": "AIzaSyD4KoRBN2YPOyvE8i1eOj78WdkGOY0fxI4"
+      "buildNumber": "4",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
       }
     },
     "android": {
@@ -27,11 +30,9 @@
       },
       "package": "com.find_wines.georgia",
       "versionCode": 2,
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"
-        }
-      }
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -48,6 +49,12 @@
           "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
         }
       ]
-    ]
+    ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ba3c2ca0-4d1b-4941-9a7c-2bf3d19dff2e"
+    }
   }
 }

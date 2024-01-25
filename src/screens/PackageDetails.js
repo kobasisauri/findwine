@@ -50,7 +50,7 @@ function PackageDetails({ route }) {
                     <Text
                       fontSize={18}
                       uppercase
-                      style={{ fontFamily: "monseratBold" }}
+                      // style={{ fontFamily: "monseratBold" }}
                     >
                       {item.companies.name}
                     </Text>
@@ -124,7 +124,7 @@ function PackageDetails({ route }) {
             <Text
               fontSize={18}
               color="#fff"
-              style={{ fontFamily: "main-bold" }}
+              // style={{ fontFamily: "main-bold" }}
             >
               {t("buyNow")}
             </Text>
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   title: {
     color: "#B54D2E",
     textTransform: "uppercase",
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 17,
     marginTop: 30,
   },

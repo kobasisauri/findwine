@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily: "monseratBold",
+    // fontFamily: "monseratBold",
     marginBottom: 8,
     color: "#393B40",
   },
   desc: {
     marginBottom: 10,
     color: "#515459",
-    fontFamily: "main",
+    // fontFamily: "main",
   },
   additional: {
     flexDirection: "row",

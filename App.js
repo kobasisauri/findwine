@@ -1,7 +1,7 @@
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider, View } from "native-base";
-import { useFonts } from "expo-font";
+// import { useFonts } from "expo-font";
 import { Root } from "react-native-alert-notification";
 import Main from "./src/navigation/Main";
 import Notification from "./src/components/shared/Notification";
@@ -20,18 +20,17 @@ export default function App() {
     setSignUpModal,
   } = useStore((state) => state);
 
-  const [loaded] = useFonts({
-    main: require("./src/assets/fonts/Lato/Lato-Regular.ttf"),
-    "main-bold": require("./src/assets/fonts/Lato/Lato-Bold.ttf"),
+  // const [loaded] = useFonts({
+  //   main: require("./src/assets/fonts/Lato/Lato-Regular.ttf"),
+  //   "main-bold": require("./src/assets/fonts/Lato/Lato-Bold.ttf"),
+  //   monsterat: require("./src/assets/fonts/Montserrat/Montserrat-Regular.ttf"),
+  //   monseratBold: require("./src/assets/fonts/Montserrat/Montserrat-Bold.ttf"),
+  //   monseratMedium: require("./src/assets/fonts/Montserrat/Montserrat-Medium.ttf"),
+  // });
 
-    monsterat: require("./src/assets/fonts/Montserrat/Montserrat-Regular.ttf"),
-    monseratBold: require("./src/assets/fonts/Montserrat/Montserrat-Bold.ttf"),
-    monseratMedium: require("./src/assets/fonts/Montserrat/Montserrat-Medium.ttf"),
-  });
-
-  if (!loaded) {
-    return null;
-  }
+  // if (!loaded) {
+  //   return null;
+  // }
 
   return (
     <>

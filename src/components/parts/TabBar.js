@@ -38,7 +38,7 @@ const BottomIcon = ({ routeKey, color }) => {
           <Text
             color="#fff"
             fontSize={12}
-            style={{ fontFamily: "monseratBold" }}
+            // style={{ fontFamily: "monseratBold" }}
           >
             {eventNumber.length}
           </Text>

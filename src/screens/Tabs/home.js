@@ -46,7 +46,7 @@ function HomeScreen({ navigation }) {
             style={{
               color: "#fff",
               fontSize: 32,
-              fontFamily: "monsterat",
+              // fontFamily: "monsterat",
               fontWeight: "700",
             }}
           >
@@ -56,7 +56,7 @@ function HomeScreen({ navigation }) {
             style={{
               color: "#B44D2D",
               fontSize: 32,
-              fontFamily: "monsterat",
+              // fontFamily: "monsterat",
               fontWeight: "700",
             }}
           >
@@ -113,7 +113,7 @@ function HomeScreen({ navigation }) {
           <Text
             style={{
               fontSize: 16,
-              fontFamily: "monsterat",
+              // fontFamily: "monsterat",
               marginTop: 16,
               color: "#24262B",
               textTransform: "uppercase",
@@ -136,7 +136,10 @@ function HomeScreen({ navigation }) {
 
           <OutlinedButton
             style={{ width: "50%" }}
-            buttonTextStyle={{ color: "#3A3D43", fontFamily: "monsterat" }}
+            buttonTextStyle={{
+              color: "#3A3D43",
+              // fontFamily: "monsterat"
+            }}
             onPress={() => navigation.navigate("wine-passport")}
           >
             {t("learnMore")}

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     height: 60,
     color: colors.gray,
-    fontFamily: "monsterat",
+    // fontFamily: "monsterat",
     paddingLeft: 15,
     paddingRight: 15,
   },

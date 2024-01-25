@@ -106,5 +106,10 @@
   "QRCodeText": "Place visitor’s QR Code inside to scan and get the details",
   "scanning": "Scanning...",
   "cancel": "Cancel",
-  "termsOfUse": "Terms of use"
+  "termsOfUse": "Terms of use",
+  "passportValidity": "Passport Validity",
+  "scanSuccessfull": "Scan Successfull",
+  "scanFailed": "Scan Failed",
+  "nextScan": "Next Scan",
+  "retry": "Retry"
 }

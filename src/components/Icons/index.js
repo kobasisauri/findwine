@@ -40,3 +40,5 @@ export { default as Paypal } from "./Paypal";
 export { default as SuccessIcon } from "./SuccessIcon";
 export { default as WarningIcon } from "./WarningIcon";
 export { default as ErrorIcon } from "./ErrorIcon";
+export { default as CheckCircle } from "./CheckCircle";
+export { default as WarningCircle } from "./WarningCircle";

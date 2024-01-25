@@ -953,7 +953,10 @@ function SearchScreen() {
                     },
               ]}
               buttonTextStyle={{ textTransform: "uppercase" }}
-              onPress={() => setScannerData()}
+              onPress={() => {
+                setScannerData();
+                openScan();
+              }}
             >
               {scannerData.status === true ? t("nextScan") : t("retry")}
             </Button>

@@ -15,7 +15,10 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.find-wines.georgia",
-      "buildNumber": "1"
+      "buildNumber": "3",
+      "config": {
+        "googleMapsApiKey": "AIzaSyD4KoRBN2YPOyvE8i1eOj78WdkGOY0fxI4"
+      }
     },
     "android": {
       "adaptiveIcon": {

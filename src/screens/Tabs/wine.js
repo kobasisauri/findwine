@@ -22,6 +22,8 @@ import {
   Key,
   ExpiredAlert,
   QrCode,
+  CheckCircle,
+  WarningCircle,
 } from "../../components/Icons";
 import Input from "../../components/shared/Input";
 import Button from "../../components/shared/Button";
@@ -66,6 +68,7 @@ function SearchScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
+  const [scannerData, setScannerData] = useState();
 
   useEffect(() => {
     if (token && user.role === "client") {
@@ -148,6 +151,9 @@ function SearchScreen() {
 
     getCheckPassportCode(data)
       .then((res) => {
+        setScannerData(res);
+        setScannerOpen(false);
+
         if (res.status) {
           showNotification("success", res.message);
         } else {
@@ -768,6 +774,190 @@ function SearchScreen() {
           >
             {t("cancel")}
           </Button>
+        </View>
+      )}
+
+      {!!scannerData && (
+        <View
+          style={{
+            height: "100%",
+            width: Width,
+            overflow: "hidden",
+            backgroundColor: "#F2F2F2",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            color="#2F3238"
+            fontSize={24}
+            style={{
+              // fontFamily: "monseratBold",
+              textAlign: "center",
+              marginBottom: 24,
+              marginTop: 20,
+            }}
+          >
+            {scannerData?.order?.client_user?.full_name}
+          </Text>
+          <Pressable
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 10,
+              padding: 14,
+              marginRight: 4,
+              zIndex: 999,
+            }}
+            onPress={() => setScannerData()}
+          >
+            <Close color="#2F3238" />
+          </Pressable>
+
+          <View
+            style={{
+              backgroundColor: "#fff",
+              width: Width,
+              paddingBottom: 30,
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                paddingBottom: 30,
+              }}
+            >
+              <View>
+                <Text
+                  color="#000"
+                  style={{
+                    // fontFamily: "main",
+                    marginTop: 61,
+                    marginBottom: 17,
+                  }}
+                >
+                  {t("phone")}
+                </Text>
+                <Text
+                  color="#000"
+                  style={{
+                    // fontFamily: "main",
+                    marginBottom: 17,
+                  }}
+                >
+                  {t("email")}
+                </Text>
+                <Text
+                  color="#000"
+                  style={{
+                    // fontFamily: "main",
+                    marginBottom: 17,
+                  }}
+                >
+                  {t("country")}
+                </Text>
+                <Text
+                  color="#000"
+                  style={{
+                    // fontFamily: "main",
+                    marginBottom: 17,
+                  }}
+                >
+                  {t("passportValidity")}
+                </Text>
+              </View>
+
+              <View>
+                <Text
+                  color="#000"
+                  style={{
+                    // fontFamily: "main",
+                    marginTop: 61,
+                    marginBottom: 17,
+                    textAlign: "right",
+                  }}
+                >
+                  +995 {scannerData?.order?.client_user?.phone}
+                </Text>
+                <Text
+                  color="#000"
+                  style={{
+                    // fontFamily: "main",
+                    marginBottom: 17,
+                    textAlign: "right",
+                  }}
+                >
+                  {scannerData?.order?.client_user?.email}
+                </Text>
+                <Text
+                  color="#000"
+                  style={{
+                    // fontFamily: "main",
+                    marginBottom: 17,
+                    textAlign: "right",
+                  }}
+                >
+                  {scannerData?.order?.client_user?.country_name}
+                </Text>
+                <Text
+                  color="#000"
+                  style={{
+                    // fontFamily: "main",
+                    marginBottom: 17,
+                    textAlign: "right",
+                  }}
+                >
+                  Until {scannerData?.order?.expire_date?.slice(0, 10)}
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                borderColor: "rgba(41, 44, 49, 0.20)",
+                borderBottomWidth: 1,
+                marginBottom: 36,
+                width: 260,
+                height: 1,
+              }}
+            />
+            {scannerData.status === true ? <CheckCircle /> : <WarningCircle />}
+            <Text
+              style={{ marginTop: 18 }}
+              fontSize={20}
+              color={scannerData.status === true ? "#1E923E" : "#B44D2D"}
+            >
+              {scannerData.status === true
+                ? t("scanSuccessfull")
+                : t("scanFailed")}
+            </Text>
+            {scannerData.status === false && (
+              <Text marginTop={12}>{scannerData.message}</Text>
+            )}
+            <Button
+              style={[
+                scannerData.status === true
+                  ? {
+                      width: "50%",
+                      marginTop: 30,
+                      backgroundColor: "#1E923E",
+                      borderColor: "#1E923E",
+                      marginBottom: "100%",
+                    }
+                  : {
+                      width: "50%",
+                      marginTop: 30,
+                      backgroundColor: "#B44D2D",
+                      borderColor: "#B44D2D",
+                      marginBottom: "100%",
+                    },
+              ]}
+              buttonTextStyle={{ textTransform: "uppercase" }}
+              onPress={() => setScannerData()}
+            >
+              {scannerData.status === true ? t("nextScan") : t("retry")}
+            </Button>
+          </View>
         </View>
       )}
     </Container>

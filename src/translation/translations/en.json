@@ -111,5 +111,17 @@
   "scanSuccessfull": "Scan Successfull",
   "scanFailed": "Scan Failed",
   "nextScan": "Next Scan",
-  "retry": "Retry"
+  "retry": "Retry",
+  "contactText": "Welcome to Wineshop LLC, your destination for exquisite wines and exceptional service. We value your inquiries, feedback, and are here to assist you. Please feel free to reach out to us using the contact information below.",
+  "officeAddress": "Office address",
+  "AddressTbilisi": "Address here, Tbilisi, Georgi",
+  "requestCallBack": "Request a call back",
+  "emailUs": "Email us",
+  "contactForm": "Contact FORM",
+  "name": "Name",
+  "yourName": "Your name",
+  "yourEmail": "Your email",
+  "yourMessage": "Your message",
+  "message": "Message",
+  "send": "SEND"
 }

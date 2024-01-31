@@ -38,6 +38,8 @@ import {
 } from "../../services/signUp";
 import useStore from "../../stores/store";
 import { getCheckPassportCode, getTransactionLog } from "../../services/scan";
+import colors from "../../constants/colors";
+import DeleteUserModal from "../../components/parts/DeleteUserModal";
 
 const Width = Dimensions.get("window").width;
 
@@ -53,9 +55,7 @@ function SearchScreen() {
     currentPassword: "",
     newPassword: "",
   });
-
   const [countries, setCountries] = useState([]);
-
   const [edit, setEdit] = useState(false);
   const [editValues, setEditValues] = useState({
     full_name: "",
@@ -69,6 +69,7 @@ function SearchScreen() {
   const [scanned, setScanned] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
   const [scannerData, setScannerData] = useState();
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     if (token && user.role === "client") {
@@ -423,6 +424,23 @@ function SearchScreen() {
                     </Button>
                   </View>
                 </View>
+
+                <View marginBottom={30}>
+                  <Text color="#3A3D43" fontWeight="semi" marginBottom={10}>
+                    {t("deleteAccount")}
+                  </Text>
+
+                  <Text color="#292C31CC">
+                    {t("deleteText")}{" "}
+                    <Text
+                      style={styles.delete}
+                      onPress={() => setDeleteModalOpen(true)}
+                    >
+                      {t("delete")}
+                    </Text>{" "}
+                    {t("yourAccount")}
+                  </Text>
+                </View>
               </ScrollView>
             )}
 
@@ -618,6 +636,23 @@ function SearchScreen() {
                     </View>
                   </View>
                 </View>
+
+                <View marginBottom={30}>
+                  <Text color="#3A3D43" fontWeight="semi" marginBottom={10}>
+                    {t("deleteAccount")}
+                  </Text>
+
+                  <Text color="#292C31CC">
+                    {t("deleteText")}{" "}
+                    <Text
+                      style={styles.delete}
+                      onPress={() => setDeleteModalOpen(true)}
+                    >
+                      {t("delete")}
+                    </Text>{" "}
+                    {t("yourAccount")}
+                  </Text>
+                </View>
               </ScrollView>
             )}
             {active === 2 && (
@@ -625,9 +660,9 @@ function SearchScreen() {
                 style={{ paddingHorizontal: 16, gap: 18 }}
                 showsVerticalScrollIndicator={false}
               >
-                {!!visitors.length && (
+                {!!visitors?.length && (
                   <View style={styles.infoContainer}>
-                    {visitors.map((item, i) => (
+                    {visitors?.map((item, i) => (
                       <View
                         key={item.id}
                         style={[
@@ -963,6 +998,11 @@ function SearchScreen() {
           </View>
         </View>
       )}
+
+      <DeleteUserModal
+        modalVisible={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+      />
     </Container>
   );
 }
@@ -1058,5 +1098,10 @@ const styles = StyleSheet.create({
     transform: [{ skewY: "55deg" }],
     zIndex: 1,
     overflow: "hidden",
+  },
+  delete: {
+    color: colors.primary,
+    textDecorationLine: "underline",
+    textDecorationColor: colors.primary,
   },
 });

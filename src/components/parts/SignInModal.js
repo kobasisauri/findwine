@@ -23,6 +23,7 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
   handleSubmit = () => {
     if (reset) {
       resetPassword({ email: values.email });
+      // to do
       // .then((res) => {
       //   console.log(res);
       // });

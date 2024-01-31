@@ -111,5 +111,11 @@
   "scanSuccessfull": "Scan Successfull",
   "scanFailed": "Scan Failed",
   "nextScan": "Next Scan",
-  "retry": "Retry"
+  "retry": "Retry",
+  "deleteAccount": "Delete Account",
+  "deleteText": "If you no longer wish to use Findwine application, you can permanently",
+  "delete": "delete",
+  "yourAccount": "your account.",
+  "areYouSure?": "Are you sure?",
+  "deleteUserInfo": "By clicking delete all your information will be permanently deleted and you will no longer have access to your account."
 }

@@ -14,3 +14,5 @@ export const editUserData = (data) =>
 
 export const changePassword = (data) =>
   axiosInstance.post("/user/set-password", data);
+
+export const deleteUser = () => axiosInstance.delete("/user/delete-user");

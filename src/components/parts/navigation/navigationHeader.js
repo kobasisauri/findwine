@@ -6,7 +6,7 @@ import useStore from "../../../stores/store";
 import { ArrowLeft, Burger } from "../../Icons";
 
 function NavigationHeader({ title, textStyle, headerStyle, tab }) {
-  const { isMenuOpen, setMenu } = useStore((state) => state);
+  const { setMenu } = useStore((state) => state);
   const navigation = useNavigation();
   const text = [styles.headerText];
 

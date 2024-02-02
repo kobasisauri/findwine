@@ -42,3 +42,6 @@ export { default as WarningIcon } from "./WarningIcon";
 export { default as ErrorIcon } from "./ErrorIcon";
 export { default as CheckCircle } from "./CheckCircle";
 export { default as WarningCircle } from "./WarningCircle";
+export { default as ContactMap } from "./contactMap";
+export { default as ContactPhone } from "./contactPhone";
+export { default as ContactMessage } from "./contactMessage";

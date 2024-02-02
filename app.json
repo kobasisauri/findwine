@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.find-wines.georgia",
@@ -33,9 +31,7 @@
       },
       "package": "com.find_wines.georgia",
       "versionCode": 4,
-      "permissions": [
-        "android.permission.CAMERA"
-      ],
+      "permissions": ["android.permission.CAMERA"],
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyAVCjKVR7eod5to2Swq7WiumQRWq3gYgYc"

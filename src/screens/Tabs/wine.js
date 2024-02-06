@@ -88,7 +88,7 @@ function SearchScreen() {
   }, [render, countries, user]);
 
   useEffect(() => {
-    if (token && user.role !== "client" && active === 2) {
+    if (token && user.role !== "client") {
       getTransactionLog().then((res) => {
         setVisitors(res);
       });
@@ -622,7 +622,7 @@ function SearchScreen() {
                   <View style={{ marginTop: 25 }}>
                     <View style={styles.bonusItem}>
                       <Text>You have</Text>
-                      <Text style={styles.bonusNumber}>0</Text>
+                      <Text style={styles.bonusNumber}>{visitors?.length}</Text>
                       <Text
                         style={{
                           textTransform: "lowercase",

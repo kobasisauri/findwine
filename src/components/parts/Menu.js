@@ -96,6 +96,7 @@ function Menu() {
             if (token) {
               logOut();
               AsyncStorage.multiRemove(["token", "role", "userData"]);
+              navigation.navigate("home");
             } else {
               setSignInModal(true);
             }

@@ -11,6 +11,7 @@ import {
 import { Box, ScrollView } from "native-base";
 import QRCode from "react-native-qrcode-svg";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import Swiper from "react-native-swiper";
 import NavigationHeader from "../../components/parts/navigation/navigationHeader";
 import Container from "../../components/shared/Container";
 import Text from "../../components/shared/Text";
@@ -70,6 +71,7 @@ function SearchScreen() {
   const [scannerOpen, setScannerOpen] = useState(false);
   const [scannerData, setScannerData] = useState();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     if (token && user.role === "client") {
@@ -449,84 +451,111 @@ function SearchScreen() {
                 style={{ paddingHorizontal: 16, gap: 18 }}
                 showsVerticalScrollIndicator={false}
               >
-                <View
-                  style={{
-                    backgroundColor: "#fff",
-                    padding: 28,
-                    marginBottom: 50,
-                    borderRadius: 8,
-                  }}
-                >
-                  <View
-                    style={{
-                      borderRadius: 8,
-                      alignItems: "center",
-                      backgroundColor: "#F2F2F2",
-                      paddingBottom: 72,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        // fontFamily: "monseratBold",
-                        paddingVertical: 24,
-                      }}
+                {!!winePassports.length && (
+                  <>
+                    <Swiper
+                      style={styles.wrapper}
+                      showsButtons={false}
+                      index={activeSlide}
+                      onIndexChanged={(index) => setActiveSlide(index)}
                     >
-                      {userData?.full_name}
-                    </Text>
-                    <QRCode size={200} value={winePassports[0]?.hash} />
-                  </View>
-                </View>
+                      {winePassports.map((item) => (
+                        <View
+                          style={{
+                            backgroundColor: "#fff",
+                            padding: 28,
+                            marginBottom: 50,
+                            borderRadius: 8,
+                          }}
+                          key={item.hash}
+                        >
+                          <View
+                            style={{
+                              borderRadius: 8,
+                              alignItems: "center",
+                              backgroundColor: "#F2F2F2",
+                              paddingBottom: 72,
+                            }}
+                          >
+                            <Text
+                              style={{
+                                // fontFamily: "monseratBold",
+                                paddingVertical: 24,
+                              }}
+                            >
+                              {userData?.full_name}
+                            </Text>
+                            <QRCode size={200} value={item?.hash} />
+                          </View>
+                        </View>
+                      ))}
+                    </Swiper>
 
-                <View style={styles.infoContainer}>
-                  <View style={styles.infoHeading}>
-                    <View
-                      style={[
-                        { gap: 8, flexDirection: "row", alignItems: "center" },
-                      ]}
+                    <Swiper
+                      style={[styles.wrapper, { height: 350 }]}
+                      index={activeSlide}
+                      onIndexChanged={(index) => setActiveSlide(index)}
+                      showsPagination={false}
                     >
-                      <ExpiredAlert />
-                      <Text
-                      // style={{ fontFamily: "monseratBold" }}
-                      >
-                        {t("expiredPassports")}
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={{ marginTop: 20, gap: 16 }}>
-                    <View style={styles.infoItem}>
-                      <Text>{t("fullName")}</Text>
-                      <Text
-                      // style={{ fontFamily: "monseratBold" }}
-                      >
-                        {userData?.full_name}
-                      </Text>
-                    </View>
-                    <View style={styles.infoItem}>
-                      <Text>{t("passportType")}</Text>
-                      <Text
-                      // style={{ fontFamily: "monseratBold" }}
-                      >
-                        {winePassports[0]?.passport?.name}
-                      </Text>
-                    </View>
-                    <View style={styles.infoItem}>
-                      <Text>{t("wineries")}</Text>
-                      <Text
-                      //  style={{ fontFamily: "monseratBold" }}
-                      >
-                        {winePassports[0]?.passport?.company_count}
-                      </Text>
-                    </View>
-                    <View style={styles.infoItem}>
-                      <Text>{t("expires")}</Text>
-                      <Text
-                      // style={{ fontFamily: "monseratBold" }}
-                      >
-                        {winePassports[0]?.expire_date.slice(0, 10)}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
+                      {winePassports.map((item) => (
+                        <View style={styles.infoContainer} key={item.hash}>
+                          <View style={styles.infoHeading}>
+                            <View
+                              style={[
+                                {
+                                  gap: 8,
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                },
+                              ]}
+                            >
+                              <ExpiredAlert />
+                              <Text
+                              // style={{ fontFamily: "monseratBold" }}
+                              >
+                                {t("expiredPassports")}
+                              </Text>
+                            </View>
+                          </View>
+                          <View style={{ marginTop: 20, gap: 16 }}>
+                            <View style={styles.infoItem}>
+                              <Text>{t("fullName")}</Text>
+                              <Text
+                              // style={{ fontFamily: "monseratBold" }}
+                              >
+                                {userData?.full_name}
+                              </Text>
+                            </View>
+                            <View style={styles.infoItem}>
+                              <Text>{t("passportType")}</Text>
+                              <Text
+                              // style={{ fontFamily: "monseratBold" }}
+                              >
+                                {item?.passport?.name}
+                              </Text>
+                            </View>
+                            <View style={styles.infoItem}>
+                              <Text>{t("wineries")}</Text>
+                              <Text
+                              //  style={{ fontFamily: "monseratBold" }}
+                              >
+                                {item?.passport?.company_count}
+                              </Text>
+                            </View>
+                            <View style={styles.infoItem}>
+                              <Text>{t("expires")}</Text>
+                              <Text
+                              // style={{ fontFamily: "monseratBold" }}
+                              >
+                                {item?.expire_date.slice(0, 10)}
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                      ))}
+                    </Swiper>
+                  </>
+                )}
               </ScrollView>
             )}
           </>
@@ -1103,5 +1132,8 @@ const styles = StyleSheet.create({
     color: colors.primary,
     textDecorationLine: "underline",
     textDecorationColor: colors.primary,
+  },
+  wrapper: {
+    height: 450,
   },
 });

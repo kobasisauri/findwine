@@ -10,11 +10,13 @@ import Input from "../shared/Input";
 import CheckboxField from "../shared/CheckBox";
 import { signIn, resetPassword } from "../../services/signUp";
 import useStore from "../../stores/store";
+import Loader from "../shared/Loader";
 
 function SignInModal({ modalVisible, onClose, onSignUp }) {
   const { setUserData, setToken } = useStore((state) => state);
   const [remember, setRememmber] = useState(false);
   const [reset, setReset] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -28,6 +30,7 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
       //   console.log(res);
       // });
     } else {
+      setLoading(true);
       signIn({ email: values.email, password: values.password }).then((res) => {
         if (res && res?.token) {
           setToken(res.token);
@@ -36,87 +39,101 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
           AsyncStorage.setItem("userData", JSON.stringify(res?.user));
           AsyncStorage.setItem("role", res?.user?.role);
           onClose();
+          setLoading(false);
         }
       });
     }
   };
 
   return (
-    <Modal
-      isOpen={modalVisible}
-      onClose={() => {
-        onClose();
-        setReset(false);
-      }}
-      size="xl"
-    >
-      <Modal.Content style={{ borderRadius: 4 }}>
-        <Modal.Body>
-          <View style={styles.close}>
-            <Close
-              onPress={() => {
-                onClose();
-                setReset(false);
-              }}
-            />
-          </View>
-
-          <Text textCenter style={styles.title}>
-            {!reset ? t("signIn") : t("resetPassword")}
-          </Text>
-
-          <Input
-            placeholder={t("email")}
-            value={values.email}
-            onChangeText={(val) =>
-              setValues((state) => ({ ...state, email: val }))
-            }
-          />
-          {!reset ? (
-            <Input
-              placeholder={t("password")}
-              secureTextEntry
-              value={values.password}
-              onChangeText={(val) =>
-                setValues((state) => ({ ...state, password: val }))
-              }
-            />
-          ) : (
-            <></>
-          )}
-          {!reset ? (
-            <>
-              <View>
-                <CheckboxField
-                  checked={remember}
-                  onPress={() => setRememmber((state) => !state)}
-                  label={t("rememberMe")}
-                />
+    <>
+      <Modal
+        isOpen={modalVisible}
+        onClose={() => {
+          onClose();
+          setReset(false);
+        }}
+        size="xl"
+      >
+        <Modal.Content style={{ borderRadius: 4 }}>
+          <Modal.Body>
+            {loading ? (
+              <View style={{ height: 450 }}>
+                <Loader />
               </View>
+            ) : (
+              <>
+                <View style={styles.close}>
+                  <Close
+                    onPress={() => {
+                      onClose();
+                      setReset(false);
+                    }}
+                  />
+                </View>
 
-              <Pressable style={styles.reset} onPress={() => setReset(true)}>
-                <Text color="#20302D">{t("lostYourPass?")}</Text>
-              </Pressable>
-            </>
-          ) : (
-            <></>
-          )}
+                <Text textCenter style={styles.title}>
+                  {!reset ? t("signIn") : t("resetPassword")}
+                </Text>
 
-          <Button
-            buttonTextStyle={{ textTransform: "uppercase" }}
-            onPress={() => handleSubmit()}
-          >
-            {!reset ? t("signIn") : t("resetPassword")}
-          </Button>
+                <Input
+                  placeholder={t("email")}
+                  value={values.email}
+                  onChangeText={(val) =>
+                    setValues((state) => ({ ...state, email: val }))
+                  }
+                />
+                {!reset ? (
+                  <Input
+                    placeholder={t("password")}
+                    secureTextEntry
+                    value={values.password}
+                    onChangeText={(val) =>
+                      setValues((state) => ({ ...state, password: val }))
+                    }
+                  />
+                ) : (
+                  <></>
+                )}
+                {!reset ? (
+                  <>
+                    <View>
+                      <CheckboxField
+                        checked={remember}
+                        onPress={() => setRememmber((state) => !state)}
+                        label={t("rememberMe")}
+                      />
+                    </View>
 
-          <Pressable style={styles.register} onPress={onSignUp}>
-            <Text fontSize={18} color="#24262D">
-              {t("registerNow")}
-            </Text>
-          </Pressable>
-        </Modal.Body>
-      </Modal.Content>
-    </Modal>
+                    <Pressable
+                      style={styles.reset}
+                      onPress={() => setReset(true)}
+                    >
+                      <Text color="#20302D">{t("lostYourPass?")}</Text>
+                    </Pressable>
+                  </>
+                ) : (
+                  <></>
+                )}
+
+                <Button
+                  buttonTextStyle={{ textTransform: "uppercase" }}
+                  onPress={() => handleSubmit()}
+                >
+                  {!reset ? t("signIn") : t("resetPassword")}
+                </Button>
+
+                <Pressable style={styles.register} onPress={onSignUp}>
+                  <Text fontSize={18} color="#24262D">
+                    {t("registerNow")}
+                  </Text>
+                </Pressable>
+              </>
+            )}
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
+    </>
   );
 }
 

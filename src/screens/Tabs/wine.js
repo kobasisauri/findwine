@@ -44,6 +44,14 @@ import DeleteUserModal from "../../components/parts/DeleteUserModal";
 
 const Width = Dimensions.get("window").width;
 
+function daysUntil(futureDate) {
+  const today = new Date();
+  const future = new Date(futureDate);
+  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+  const difference = Math.abs(future - today);
+  return Math.ceil(difference / millisecondsPerDay);
+}
+
 function SearchScreen() {
   const {
     userData: user,
@@ -72,6 +80,7 @@ function SearchScreen() {
   const [scannerData, setScannerData] = useState();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [details, setDetails] = useState();
 
   useEffect(() => {
     if (token && user.role === "client") {
@@ -456,10 +465,13 @@ function SearchScreen() {
                     <Swiper
                       style={styles.wrapper}
                       showsButtons={false}
-                      index={activeSlide}
-                      onIndexChanged={(index) => setActiveSlide(index)}
+                      // index={activeSlide}
+                      onIndexChanged={(index) => {
+                        setActiveSlide(index);
+                      }}
+                      loop={false}
                     >
-                      {winePassports.map((item) => (
+                      {winePassports.map((item, i) => (
                         <View
                           style={{
                             backgroundColor: "#fff",
@@ -491,69 +503,81 @@ function SearchScreen() {
                       ))}
                     </Swiper>
 
-                    <Swiper
-                      style={[styles.wrapper, { height: 350 }]}
-                      index={activeSlide}
-                      onIndexChanged={(index) => setActiveSlide(index)}
-                      showsPagination={false}
-                    >
-                      {winePassports.map((item) => (
-                        <View style={styles.infoContainer} key={item.hash}>
-                          <View style={styles.infoHeading}>
-                            <View
-                              style={[
-                                {
-                                  gap: 8,
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                },
-                              ]}
+                    {!!winePassports?.length && (
+                      <View style={styles.infoContainer}>
+                        <View style={styles.infoHeading}>
+                          <View
+                            style={[
+                              {
+                                gap: 8,
+                                flexDirection: "row",
+                                alignItems: "center",
+                              },
+                            ]}
+                          >
+                            <ExpiredAlert />
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
                             >
-                              <ExpiredAlert />
-                              <Text
-                              // style={{ fontFamily: "monseratBold" }}
-                              >
-                                {t("expiredPassports")}
-                              </Text>
-                            </View>
-                          </View>
-                          <View style={{ marginTop: 20, gap: 16 }}>
-                            <View style={styles.infoItem}>
-                              <Text>{t("fullName")}</Text>
-                              <Text
-                              // style={{ fontFamily: "monseratBold" }}
-                              >
-                                {userData?.full_name}
-                              </Text>
-                            </View>
-                            <View style={styles.infoItem}>
-                              <Text>{t("passportType")}</Text>
-                              <Text
-                              // style={{ fontFamily: "monseratBold" }}
-                              >
-                                {item?.passport?.name}
-                              </Text>
-                            </View>
-                            <View style={styles.infoItem}>
-                              <Text>{t("wineries")}</Text>
-                              <Text
-                              //  style={{ fontFamily: "monseratBold" }}
-                              >
-                                {item?.passport?.company_count}
-                              </Text>
-                            </View>
-                            <View style={styles.infoItem}>
-                              <Text>{t("expires")}</Text>
-                              <Text
-                              // style={{ fontFamily: "monseratBold" }}
-                              >
-                                {item?.expire_date.slice(0, 10)}
-                              </Text>
-                            </View>
+                              {t("expiredPassports")}
+                            </Text>
                           </View>
                         </View>
-                      ))}
-                    </Swiper>
+                        <View style={{ marginTop: 20, gap: 16 }}>
+                          <View style={styles.infoItem}>
+                            <Text>{t("fullName")}</Text>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
+                              {userData?.full_name}
+                            </Text>
+                          </View>
+                          <View style={styles.infoItem}>
+                            <Text>{t("passportType")}</Text>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
+                              {winePassports[+activeSlide]?.passport?.name}
+                            </Text>
+                          </View>
+                          <View style={styles.infoItem}>
+                            <Text>{t("wineries")}</Text>
+                            <Text
+                            //  style={{ fontFamily: "monseratBold" }}
+                            >
+                              {
+                                winePassports[+activeSlide]?.passport
+                                  ?.company_count
+                              }
+                            </Text>
+                          </View>
+                          <View style={styles.infoItem}>
+                            <Text>{t("expires")}</Text>
+                            <Text
+                            // style={{ fontFamily: "monseratBold" }}
+                            >
+                              {winePassports[+activeSlide]?.expire_date.slice(
+                                0,
+                                10
+                              )}
+                            </Text>
+                          </View>
+
+                          <View style={styles.infoItem}>
+                            <Text>
+                              {t("expires")} in{" "}
+                              {daysUntil(
+                                winePassports[+activeSlide]?.expire_date.slice(
+                                  0,
+                                  10
+                                )
+                              )}{" "}
+                              days
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    )}
                   </>
                 )}
               </ScrollView>

@@ -31,17 +31,28 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
       // });
     } else {
       setLoading(true);
-      signIn({ email: values.email, password: values.password }).then((res) => {
-        if (res && res?.token) {
-          setToken(res.token);
-          setUserData(res.user);
-          AsyncStorage.setItem("token", res?.token);
-          AsyncStorage.setItem("userData", JSON.stringify(res?.user));
-          AsyncStorage.setItem("role", res?.user?.role);
-          onClose();
+      signIn({ email: values.email, password: values.password })
+        .then((res) => {
+          if (res && res?.token) {
+            setToken(res.token);
+            setUserData(res.user);
+            AsyncStorage.setItem("token", res?.token);
+            AsyncStorage.setItem("userData", JSON.stringify(res?.user));
+            AsyncStorage.setItem("role", res?.user?.role);
+
+            onClose();
+            setValues({
+              email: "",
+              password: "",
+            });
+            setLoading(false);
+          } else {
+            setLoading(false);
+          }
+        })
+        .catch(() => {
           setLoading(false);
-        }
-      });
+        });
     }
   };
 
@@ -51,6 +62,10 @@ function SignInModal({ modalVisible, onClose, onSignUp }) {
         isOpen={modalVisible}
         onClose={() => {
           onClose();
+          setValues({
+            email: "",
+            password: "",
+          });
           setReset(false);
         }}
         size="xl"
